@@ -10,7 +10,7 @@ export class ChartTypeSelectorComponent implements OnInit {
 
   @Input() chartType: string;
   @Input() chartGroups: any;
-  @Output() selectedChart = new EventEmitter<string>();
+  @Output() selectEvent = new EventEmitter<string>();
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class ChartTypeSelectorComponent implements OnInit {
   }
 
   selectChart(chartSelector: string) {
-    this.selectedChart.emit(chartSelector)
+    this.selectEvent.emit(chartSelector)
     console.log(chartSelector);
   }
 
