@@ -2,6 +2,14 @@
   <div id="sideContent">
       <mat-stepper orientation="vertical">
         <mat-step>
+          <ng-template matStepLabel>Data Type</ng-template>
+          <ng-template matStepContent>
+            <app-data-type-selector>
+            </app-data-type-selector>
+            <button mat-button matStepperNext>Next</button>
+          </ng-template>
+        </mat-step>
+        <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
             <app-chart-type-selector [chartGroups]="chartGroups" [chartType]="chartType" (selectedChart)="selectChart($event)">
