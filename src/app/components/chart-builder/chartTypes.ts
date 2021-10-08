@@ -666,6 +666,7 @@ const chartGroups = [
   },
   {
     name: 'Demos',
+    disabled: true,
     charts: [
       {
         name: 'Combo Chart',

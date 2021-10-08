@@ -8,15 +8,19 @@ import { PetComponent } from "./components/pet-component/pet.component";
 import { ChartBuilderComponent } from './components/chart-builder/chart-builder.component';
 import { RouterModule } from "@angular/router";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FormsModule} from "@angular/forms";
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FormsModule } from "@angular/forms";
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSelectModule} from "@angular/material/select";
+import { ChartTypeSelectorComponent } from './components/chart-builder/chart-type-selector/chart-type-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PetComponent,
-    ChartBuilderComponent
+    ChartBuilderComponent,
+    ChartTypeSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,10 @@ import {FormsModule} from "@angular/forms";
     HttpClientModule,
     NgxChartsModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
