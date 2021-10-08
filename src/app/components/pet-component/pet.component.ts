@@ -4,8 +4,7 @@ import {Apollo, gql} from 'apollo-angular';
 
 @Component({
   selector: 'app-pet-component',
-  styleUrls: ['./pet-component.component.css'],
-  //templateUrl: './pet-component.component.html'
+  styleUrls: ['./pet.component.css'],
   template: `
     <div *ngIf="loading">
       Loading...
@@ -20,7 +19,7 @@ import {Apollo, gql} from 'apollo-angular';
     </div>
   `
 })
-export class PetComponentComponent implements OnInit {
+export class PetComponent implements OnInit {
   // @ts-ignore
   pets: any[];
   loading = true;
