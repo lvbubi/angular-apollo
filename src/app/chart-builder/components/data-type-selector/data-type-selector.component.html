@@ -1,5 +1,5 @@
 <mat-select [ngModel]="inputFormat" (ngModelChange)="selectDataType($event)">
-    <mat-option *ngFor="let dataType of dataTypes" [value]="dataType">
+    <mat-option *ngFor="let dataType of inputFormats" [value]="dataType">
       {{ dataType }}
     </mat-option>
 </mat-select>

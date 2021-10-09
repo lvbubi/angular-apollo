@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartOptions } from "../models/chart-options";
+import { ChartOptions } from "../../models/chart-options";
 import * as shape from "d3-shape";
 
 @Component({

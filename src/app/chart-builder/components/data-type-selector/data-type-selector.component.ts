@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-data-type-selector',
@@ -8,29 +8,33 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class DataTypeSelectorComponent implements OnInit {
 
   @Input() chartGroups: any;
+  @Input() chartType: string;
   @Output() selectEvent = new EventEmitter<string>();
 
-  dataTypes: [];
+  inputFormats: [];
   inputFormat: string;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.dataTypes = this.chartGroups
+    // Fetch enabled inputFormats from chartGroups
+    this.inputFormats = this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
       .map(chart => chart.inputFormat)
       .filter((value, index, self) => self.indexOf(value) === index);
 
-    this.chartGroups
+    // Get currently selected charts inputFormat
+    this.inputFormat = this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .flatMap(chart =>  chart.options)
-      .filter((value, index, self) => self.indexOf(value) === index);
+      .filter(chart => chart.selector === this.chartType)[0].inputFormat;
+
+    // Must be emitted
+    this.selectEvent.emit(this.inputFormat);
   }
 
   selectDataType(selectedInputFormat: string) {
     this.selectEvent.emit(selectedInputFormat);
   }
-
 }

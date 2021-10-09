@@ -4,7 +4,7 @@
         <mat-step>
           <ng-template matStepLabel>Data Type</ng-template>
           <ng-template matStepContent>
-            <app-data-type-selector [chartGroups]="chartGroups" (selectEvent)="updateChartTypes($event)">
+            <app-data-type-selector [chartGroups]="chartGroups" [chartType]="chartType" (selectEvent)="updateChartTypes($event)">
             </app-data-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>

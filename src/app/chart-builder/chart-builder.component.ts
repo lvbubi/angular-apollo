@@ -5,8 +5,8 @@ import {
   BubbleChartMultiSeries, BoxChartMultiSeries, TreeMapData
 } from '@swimlane/ngx-charts';
 import { formatLabel, escapeLabel } from '@swimlane/ngx-charts';
-import chartGroups from './chartTypes';
-import { single, multi, boxData, bubble, treemap, generateData } from './data';
+import chartGroups from './models/chartTypes';
+import { single, multi, boxData, bubble, treemap, generateData } from './models/data';
 import { DataService } from "./data-service/data-service.component";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions } from "./models/chart-options";

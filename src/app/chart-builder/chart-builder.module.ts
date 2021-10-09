@@ -6,11 +6,11 @@ import { FormsModule } from "@angular/forms";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
-import { DataTypeSelectorComponent } from "./data-type-selector/data-type-selector.component";
-import { ChartTypeSelectorComponent } from "./chart-type-selector/chart-type-selector.component";
+import { DataTypeSelectorComponent } from "./components/data-type-selector/data-type-selector.component";
+import { ChartTypeSelectorComponent } from "./components/chart-type-selector/chart-type-selector.component";
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
-import { ChartOptionsComponent } from "./char-options/chart-options.component";
+import { ChartOptionsComponent } from "./components/char-options/chart-options.component";
 
 
 @NgModule({
