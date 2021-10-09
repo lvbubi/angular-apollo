@@ -11,6 +11,7 @@ import { ChartTypeSelectorComponent } from "./components/chart-type-selector/cha
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
 import { ChartOptionsComponent } from "./components/char-options/chart-options.component";
+import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ChartOptionsComponent } from "./components/char-options/chart-options.c
     ChartTypeSelectorComponent,
     DataTypeSelectorComponent,
     ChartBuilderComponent,
-    ChartOptionsComponent
+    ChartOptionsComponent,
+    ChartAdapterComponent
   ],
   imports: [
     RouterModule.forRoot([
