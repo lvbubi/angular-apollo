@@ -376,7 +376,7 @@
       class="chart-container"
       [scheme]="colorScheme"
       [schemeType]="schemeType"
-      [results]="dateDataWithOrWithoutRange"
+      [results]="range ? dateDataWithRange : dateData"
       [animations]="animations"
       [legend]="showLegend"
       [legendTitle]="legendTitle"

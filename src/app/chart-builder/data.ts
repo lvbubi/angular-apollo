@@ -160,61 +160,6 @@ export const multi: MultiSeries = [
   }
 ];
 
-export const fiscalYearReport: MultiSeries = [
-  {
-    name: 'Q1',
-    series: [
-      {
-        name: '1001',
-        value: -10632
-      },
-      {
-        name: '2001',
-        value: -36953
-      }
-    ]
-  },
-  {
-    name: 'Q2',
-    series: [
-      {
-        name: '1001',
-        value: -19737
-      },
-      {
-        name: '2001',
-        value: 45986
-      }
-    ]
-  },
-  {
-    name: 'Q3',
-    series: [
-      {
-        name: '1001',
-        value: -16745
-      },
-      {
-        name: '2001',
-        value: 0
-      }
-    ]
-  },
-  {
-    name: 'Q4',
-    series: [
-      {
-        name: '1001',
-        value: -16240
-      },
-      {
-        name: '2001',
-        value: 32543
-      }
-    ]
-  }
-];
-
 export const bubble: BubbleChartMultiSeries = [
   {
     name: 'Germany',
@@ -399,26 +344,6 @@ export const boxData: BoxChartMultiSeries = [
     ]
   }
 ];
-
-export function generateGraph(nodeCount: number) {
-  const nodes = [];
-  const links = [];
-  for (let i = 0; i < nodeCount; i++) {
-    const country = countries[Math.floor(Math.random() * countries.length)];
-    nodes.push({
-      value: country.name
-    });
-    for (let j = 0; j < nodes.length - 1; j++) {
-      if (Math.random() < 0.03) {
-        links.push({
-          source: country,
-          target: nodes[j].value
-        });
-      }
-    }
-  }
-  return { links, nodes };
-}
 
 export function timelineFilterBarData(): SingleSeries {
   const results: SingleSeries = [];

@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { LegendPosition, ScaleType, colorSets } from '@swimlane/ngx-charts';
+import {
+  LegendPosition,
+  ScaleType,
+  colorSets,
+  SingleSeries,
+  MultiSeries,
+  BubbleChartMultiSeries, BoxChartMultiSeries, TreeMapData
+} from '@swimlane/ngx-charts';
 import * as shape from 'd3-shape';
 import { formatLabel, escapeLabel } from '@swimlane/ngx-charts';
 import chartGroups from './chartTypes';
-import {
-  single,
-  multi,
-  boxData,
-  bubble,
-  generateGraph,
-  treemap,
-  fiscalYearReport, generateData
-} from './data';
+import { single, multi, boxData, bubble, treemap, generateData } from './data';
+import { DataService } from "./data-service/data-service.component";
+import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
+import { Color } from "@swimlane/ngx-charts/lib/utils/color-sets";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
-const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
 
 @Component({
   selector: 'app-chart-builder',
@@ -24,20 +25,22 @@ const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
 export class ChartBuilderComponent implements OnInit {
 
   theme = 'dark';
-  chart: any;
-  chartType: string;
-  chartGroups: any[];
-  realTimeData: boolean = false;
-  countries: any[];
-  single: any[];
-  multi: any[];
-  dateData: any[];
+  chart: BaseChartComponent;
+  chartType: string = 'bar-vertical';
+  chartGroups: any[] = chartGroups;
+
+
+  single: SingleSeries = single;
+  multi: MultiSeries = multi;
+  bubble: BubbleChartMultiSeries = bubble;
+  boxData: BoxChartMultiSeries = boxData;
+  treemap: TreeMapData = treemap;
+
+  dateData: any[] = generateData(5, false);
   calendarData: any[];
-  dateDataWithRange: any[];
+  dateDataWithRange: any[] = generateData(2, true);
   statusData: any[];
-  timelineFilterBarData: any[];
-  graph: { links: any[]; nodes: any[] };
-  bubble: any;
+
   linearScale: boolean = false;
   range: boolean = false;
 
@@ -110,7 +113,7 @@ export class ChartBuilderComponent implements OnInit {
   closedCurve: any = this.curves[this.closedCurveType];
   closedInterpolationTypes = ['Basis Closed', 'Cardinal Closed', 'Catmull Rom Closed', 'Linear Closed'];
 
-  colorSets: any;
+  colorSets: Color[] = colorSets;
   colorScheme: any;
   schemeType = ScaleType.Ordinal;
   selectedColorScheme: string;
@@ -138,9 +141,6 @@ export class ChartBuilderComponent implements OnInit {
   marginRight: number = 40;
   marginLeft: number = 40;
 
-  // box
-  boxData = boxData;
-
   gaugeUnits: string = 'alerts';
   gaugeAngleSpan: number = 240;
   gaugeShowAxis: boolean = true;
@@ -153,7 +153,6 @@ export class ChartBuilderComponent implements OnInit {
 
   showRightYAxisLabel: boolean = true;
 
-  treemap: any[];
   treemapPath: any[] = [];
 
   // Reference lines
@@ -167,39 +166,15 @@ export class ChartBuilderComponent implements OnInit {
     { value: 33000, name: 'Minimum' }
   ];
 
-  // data
-  plotData: any;
-
   // Sidebar Controls:
   colorVisible: boolean = true;
 
-  //demos
-  salePrice = 100;
-  personnelCost = 100;
-
-
-  constructor() {
-    Object.assign(this, {
-      single,
-      multi,
-      chartGroups,
-      graph: generateGraph(50),
-      boxData,
-      bubble,
-      treemap,
-      colorSets,
-      fiscalYearReport
-    });
-
-    this.dateData = generateData(5, false);
-    this.dateDataWithRange = generateData(2, true);
-    this.setColorScheme('cool');
-    this.calendarData = this.getCalendarData();
-    this.statusData = this.getStatusData();
+  constructor(private dataService: DataService) {
+    this.calendarData = this.dataService.getCalendarData();
+    this.statusData = this.dataService.getStatusData();
   }
 
   ngOnInit(): void {
-    this.chartType = 'bar-vertical';
     this.setColorScheme('cool');
   }
 
@@ -264,101 +239,6 @@ export class ChartBuilderComponent implements OnInit {
     `;
   }
 
-  get dateDataWithOrWithoutRange() {
-    if (this.range) {
-      return this.dateDataWithRange;
-    } else {
-      return this.dateData;
-    }
-  }
-
-
-  getCalendarData(): any[] {
-    // today
-    const now = new Date();
-    const todaysDay = now.getDate();
-    const thisDay = new Date(now.getFullYear(), now.getMonth(), todaysDay);
-
-    // Monday
-    const thisMonday = new Date(thisDay.getFullYear(), thisDay.getMonth(), todaysDay - thisDay.getDay() + 1);
-    const thisMondayDay = thisMonday.getDate();
-    const thisMondayYear = thisMonday.getFullYear();
-    const thisMondayMonth = thisMonday.getMonth();
-
-    // 52 weeks before monday
-    const calendarData = [];
-    const getDate = d => new Date(thisMondayYear, thisMondayMonth, d);
-    for (let week = -52; week <= 0; week++) {
-      const mondayDay = thisMondayDay + week * 7;
-      const monday = getDate(mondayDay);
-
-      // one week
-      const series = [];
-      for (let dayOfWeek = 7; dayOfWeek > 0; dayOfWeek--) {
-        const date = getDate(mondayDay - 1 + dayOfWeek);
-
-        // skip future dates
-        if (date > now) {
-          continue;
-        }
-
-        // value
-        const value = dayOfWeek < 6 ? date.getMonth() + 1 : 0;
-
-        series.push({
-          date,
-          name: weekdayName.format(date),
-          value
-        });
-      }
-
-      calendarData.push({
-        name: monday.toString(),
-        series
-      });
-    }
-
-    return calendarData;
-  }
-
-  getStatusData() {
-    const sales = Math.round(1e4 * Math.random());
-    const dur = 36e5 * Math.random();
-    return this.calcStatusData(sales, dur);
-  }
-
-  calcStatusData(sales = this.statusData[0].value, dur = this.statusData[2].value) {
-    const ret = sales * this.salePrice;
-    const cost = ((sales * dur) / 60 / 60 / 1000) * this.personnelCost;
-    const ROI = (ret - cost) / cost;
-    return [
-      {
-        name: 'Sales',
-        value: sales
-      },
-      {
-        name: 'Gross',
-        value: ret,
-        extra: { format: 'currency' }
-      },
-      {
-        name: 'Avg. Time',
-        value: dur,
-        extra: { format: 'time' }
-      },
-      {
-        name: 'Cost',
-        value: cost,
-        extra: { format: 'currency' }
-      },
-      {
-        name: 'ROI',
-        value: ROI,
-        extra: { format: 'percent' }
-      }
-    ];
-  }
-
   selectChart(chartSelector) {
     this.chartType = chartSelector = chartSelector.replace('/', '');
     //this.location.replaceState(this.chartType);
@@ -375,7 +255,7 @@ export class ChartBuilderComponent implements OnInit {
     this.width = 700;
     this.height = 300;
 
-    Object.assign(this, this.chart.defaults);
+    Object.assign(this, this.chart);
 
     if (!this.fitContainer) {
       this.applyDimensions();
