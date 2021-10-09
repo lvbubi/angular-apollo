@@ -2,19 +2,17 @@
   <div id="sideContent">
       <mat-stepper orientation="vertical">
         <mat-step>
-          <ng-template matStepLabel>Data Type</ng-template>
-          <ng-template matStepContent>
-            <app-data-type-selector [chartGroups]="chartGroups" [chartType]="chartType" (selectEvent)="updateChartTypes($event)">
-            </app-data-type-selector>
-            <button mat-button matStepperNext>Next</button>
-          </ng-template>
-        </mat-step>
-        <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
+            <app-data-source-selector (resultEvent)="selectResults($event)"></app-data-source-selector>
+            <app-data-type-selector [chartGroups]="chartGroups"
+                                    [chartType]="chartType"
+                                    (selectEvent)="updateChartTypes($event)">
+            </app-data-type-selector>
             <app-chart-type-selector [chartGroups]="chartGroups" [chartType]="chartType"
                                      (selectEvent)="selectChart($event)">
             </app-chart-type-selector>
+
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
@@ -38,7 +36,7 @@
   <div id="mainContent">
     <app-chart-adapter [chartType]="chartType"
                        [options]="options"
-                       [results]="single"
+                       [results]="results"
                        [view]="view"
                        (deactivate)="deactivate($event)"
                        (select)="select($event)"

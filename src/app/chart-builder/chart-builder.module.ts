@@ -10,8 +10,9 @@ import { DataTypeSelectorComponent } from "./components/data-type-selector/data-
 import { ChartTypeSelectorComponent } from "./components/chart-type-selector/chart-type-selector.component";
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
-import { ChartOptionsComponent } from "./components/char-options/chart-options.component";
+import { ChartOptionsComponent } from "./components/chart-options/chart-options.component";
 import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
+import {DataSourceSelectorComponent} from "./components/data-source-selector/data-source-selector.component";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.
     DataTypeSelectorComponent,
     ChartBuilderComponent,
     ChartOptionsComponent,
-    ChartAdapterComponent
+    ChartAdapterComponent,
+    DataSourceSelectorComponent
   ],
   imports: [
     RouterModule.forRoot([

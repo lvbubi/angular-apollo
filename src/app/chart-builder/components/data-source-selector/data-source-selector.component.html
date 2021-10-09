@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+  <mat-select [ngModel]="resultKey" (ngModelChange)="select($event)">
+        <mat-option *ngFor="let key of resultKeys"
+                    [value]="key">
+          {{ key }}
+        </mat-option>
+  </mat-select>
+</mat-form-field>

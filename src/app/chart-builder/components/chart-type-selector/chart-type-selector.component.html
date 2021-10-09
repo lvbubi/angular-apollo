@@ -1,13 +1,15 @@
-<mat-select [ngModel]="chartType" (ngModelChange)="selectChart($event)">
-    <mat-optgroup *ngFor="let group of chartGroups"
-                  [label]="group.name"
-                  [disabled]="group.disabled">
-      <ng-container *ngFor="let chart of group.charts">
-        <mat-option *ngIf="chart.visible"
-                    [value]="chart.selector">
-          {{ chart.name }}
-        </mat-option>
-      </ng-container>
+<mat-form-field appearance="fill">
+  <mat-select [ngModel]="chartType" (ngModelChange)="selectChart($event)">
+      <mat-optgroup *ngFor="let group of chartGroups"
+                    [label]="group.name"
+                    [disabled]="group.disabled">
+        <ng-container *ngFor="let chart of group.charts">
+          <mat-option *ngIf="chart.visible"
+                      [value]="chart.selector">
+            {{ chart.name }}
+          </mat-option>
+        </ng-container>
 
-    </mat-optgroup>
-</mat-select>
+      </mat-optgroup>
+  </mat-select>
+</mat-form-field>

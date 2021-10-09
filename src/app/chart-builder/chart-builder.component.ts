@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  SingleSeries,
-  MultiSeries,
-  BubbleChartMultiSeries, BoxChartMultiSeries, TreeMapData
-} from '@swimlane/ngx-charts';
 import chartGroups from './models/chartTypes';
-import { single, multi, boxData, bubble, treemap, generateData } from './models/data';
-import { DataService } from "./data-service/data-service.component";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions } from "./models/chart-options";
-
 
 @Component({
   selector: 'app-chart-builder',
@@ -20,34 +12,17 @@ export class ChartBuilderComponent implements OnInit {
 
   options: ChartOptions = new ChartOptions();
 
-
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
-  chartType: string = 'bar-vertical';
+  chartType: string;
   chartGroups: any = chartGroups;
 
-
-  // Data types
-  single: SingleSeries = single;
-  multi: MultiSeries = multi;
-  bubble: BubbleChartMultiSeries = bubble;
-  boxData: BoxChartMultiSeries = boxData;
-  treemap: TreeMapData = treemap;
-
-  dateData: any[] = generateData(5, false);
-  calendarData: any[];
-  dateDataWithRange: any[] = generateData(2, true);
-  statusData: any[];
+  results: any;
 
   linearScale: boolean = false;
   range: boolean = false;
 
-  view: [700, 300];
-
-  constructor(private dataService: DataService) {
-    this.calendarData = this.dataService.getCalendarData();
-    this.statusData = this.dataService.getStatusData();
-  }
+  view: [number, number] = [700, 300];
 
   ngOnInit(): void {
     this.setColorScheme('cool');
@@ -75,6 +50,7 @@ export class ChartBuilderComponent implements OnInit {
   }
 
   selectChart(chartSelector) {
+    console.log('select chart', chartSelector);
     this.chartType = chartSelector = chartSelector.replace('/', '');
 
     for (const group of this.chartGroups) {
@@ -82,19 +58,17 @@ export class ChartBuilderComponent implements OnInit {
       if (this.chart) break;
     }
 
-    this.view = [700, 300];
-
     this.linearScale = false;
   }
 
-  getInterpolationType(curveType) {
-    return this.options.curves[curveType] || this.options.curves['default'];
+  selectResults(result) {
+    this.results = result();
   }
 
   updateChartTypes(selectedInputFormat: string) {
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .forEach(chart => chart.visible = selectedInputFormat == chart.inputFormat)
+      .forEach(chart => chart.visible = selectedInputFormat === chart.inputFormat)
   }
 }
