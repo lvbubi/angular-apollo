@@ -10,13 +10,15 @@ import { DataTypeSelectorComponent } from "./data-type-selector/data-type-select
 import { ChartTypeSelectorComponent } from "./chart-type-selector/chart-type-selector.component";
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
+import { ChartOptionsComponent } from "./char-options/chart-options.component";
 
 
 @NgModule({
   declarations: [
     ChartTypeSelectorComponent,
     DataTypeSelectorComponent,
-    ChartBuilderComponent
+    ChartBuilderComponent,
+    ChartOptionsComponent
   ],
   imports: [
     RouterModule.forRoot([

@@ -2,8 +2,12 @@
     <mat-optgroup *ngFor="let group of chartGroups"
                   [label]="group.name"
                   [disabled]="group.disabled">
-      <mat-option *ngFor="let chart of group.charts" [value]="chart.selector">
-        {{ chart.name }}
-      </mat-option>
+      <ng-container *ngFor="let chart of group.charts">
+        <mat-option *ngIf="chart.visible"
+                    [value]="chart.selector">
+          {{ chart.name }}
+        </mat-option>
+      </ng-container>
+
     </mat-optgroup>
 </mat-select>

@@ -11,7 +11,7 @@ export class DataTypeSelectorComponent implements OnInit {
   @Output() selectEvent = new EventEmitter<string>();
 
   dataTypes: [];
-  dataType: string;
+  inputFormat: string;
 
   constructor() { }
 
@@ -21,10 +21,16 @@ export class DataTypeSelectorComponent implements OnInit {
       .flatMap(group => group.charts)
       .map(chart => chart.inputFormat)
       .filter((value, index, self) => self.indexOf(value) === index);
+
+    this.chartGroups
+      .filter(group => !group.disabled)
+      .flatMap(group => group.charts)
+      .flatMap(chart =>  chart.options)
+      .filter((value, index, self) => self.indexOf(value) === index);
   }
 
-  selectDataType(selectedData: string) {
-    this.selectEvent.emit(selectedData);
+  selectDataType(selectedInputFormat: string) {
+    this.selectEvent.emit(selectedInputFormat);
   }
 
 }
