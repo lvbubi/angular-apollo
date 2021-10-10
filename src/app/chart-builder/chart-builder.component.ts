@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import chartGroups from './models/chartTypes';
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions } from "./models/chart-options";
-import { setScores} from './store/scoreboard-page.actions';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { chartTypeSelector } from "./store/scoreboard.selectors";
 import { State } from "./store/scoreboard.reducer";
+import {ChartActions} from "./store/scoreboard-page.actions";
 
 @Component({
   selector: 'app-chart-builder',
@@ -32,6 +32,8 @@ export class ChartBuilderComponent implements OnInit {
 
   constructor(private store: Store<State>) {
     this.$chartType = this.store.select(chartTypeSelector);
+
+    this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
   }
 
   ngOnInit(): void {
@@ -41,12 +43,6 @@ export class ChartBuilderComponent implements OnInit {
 
 
   select(data) {
-    this.store.dispatch(setScores({
-      game: {
-        home: 100,
-        away: 100,
-      }
-    }));
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 

@@ -1,10 +1,7 @@
 import {
-  Action,
   createFeatureSelector,
-  createReducer,
-  on
 } from '@ngrx/store';
-import * as ScoreboardPageActions from './scoreboard-page.actions'
+import { ChartActions } from "./scoreboard-page.actions";
 
 
 export interface State {
@@ -20,11 +17,15 @@ export const initialState: State = {
   inputFormat: 'singleSeries'
 };
 
-const scoreboardReducer = createReducer(
-  initialState,
-  //on(ScoreboardPageActions.homeScore, state => ({ ...state, home: state.home + 1 }))
-);
-
-export function reducer(state: State | undefined, action: Action) {
-  return scoreboardReducer(state, action);
+export function reducer(state: State = initialState, action: ChartActions.Actions) {
+  switch (action.type) {
+    case ChartActions.ChartAction.SET_TYPE: {
+      return {
+        ...state,
+        chartType: action.chartType,
+      };
+    }
+    default:
+      return state;
+  }
 }

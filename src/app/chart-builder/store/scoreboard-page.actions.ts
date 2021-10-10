@@ -1,7 +1,17 @@
-import { createAction, props } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
-export const homeScore = createAction('[Scoreboard Page] Home Score');
-export const awayScore = createAction('[Scoreboard Page] Away Score');
-export const resetScore = createAction('[Scoreboard Page] Score Reset');
-export const setScores = createAction('[Scoreboard Page] Set Scores',
-  props<{game: { home: number, away: number}}>());
+export namespace ChartActions {
+
+  export enum ChartAction {
+    SET_TYPE= 'SET_TYPE',
+  }
+
+  export class SetChartTypeAction implements Action {
+    readonly type: string = ChartAction.SET_TYPE;
+
+    constructor(public chartType: String | undefined) {
+    }
+  }
+
+  export type Actions = SetChartTypeAction;
+}
