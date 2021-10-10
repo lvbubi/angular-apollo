@@ -5,7 +5,8 @@ import { ChartOptions } from "./models/chart-options";
 import { setScores} from './store/scoreboard-page.actions';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { homeSelector } from "./store/scoreboard.reducer";
+import { chartTypeSelector } from "./store/scoreboard.selectors";
+import { State } from "./store/scoreboard.reducer";
 
 @Component({
   selector: 'app-chart-builder',
@@ -14,12 +15,12 @@ import { homeSelector } from "./store/scoreboard.reducer";
 })
 export class ChartBuilderComponent implements OnInit {
 
-  count$: Observable<any>;
   options: ChartOptions = new ChartOptions();
 
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
   chartType: string = 'bar-vertical';
+  $chartType: Observable<string>;
   chartGroups: any = chartGroups;
 
   results: any;
@@ -29,11 +30,8 @@ export class ChartBuilderComponent implements OnInit {
 
   view: [number, number] = [700, 300];
 
-  constructor(private store: Store) {
-    // @ts-ignore
-    this.count$ = this.store.select(homeSelector);
-    this.count$.forEach(number => console.log(number, 'asd'))
-    console.log('store count', this.count$);
+  constructor(private store: Store<State>) {
+    this.$chartType = this.store.select(chartTypeSelector);
   }
 
   ngOnInit(): void {
