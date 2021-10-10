@@ -33,6 +33,7 @@
         </mat-step>
       </mat-stepper>
   </div>
+  <div>Current Count: {{ count$ | async }}</div>
   <div id="mainContent">
     <app-chart-adapter [chartType]="chartType"
                        [options]="options"

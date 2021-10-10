@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import chartGroups from './models/chartTypes';
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions } from "./models/chart-options";
+import { setScores} from './store/scoreboard-page.actions';
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import { homeSelector } from "./store/scoreboard.reducer";
 
 @Component({
   selector: 'app-chart-builder',
@@ -10,11 +14,12 @@ import { ChartOptions } from "./models/chart-options";
 })
 export class ChartBuilderComponent implements OnInit {
 
+  count$: Observable<any>;
   options: ChartOptions = new ChartOptions();
 
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
-  chartType: string;
+  chartType: string = 'bar-vertical';
   chartGroups: any = chartGroups;
 
   results: any;
@@ -24,6 +29,13 @@ export class ChartBuilderComponent implements OnInit {
 
   view: [number, number] = [700, 300];
 
+  constructor(private store: Store) {
+    // @ts-ignore
+    this.count$ = this.store.select(homeSelector);
+    this.count$.forEach(number => console.log(number, 'asd'))
+    console.log('store count', this.count$);
+  }
+
   ngOnInit(): void {
     this.setColorScheme('cool');
     this.selectChart(this.chartType);
@@ -31,6 +43,12 @@ export class ChartBuilderComponent implements OnInit {
 
 
   select(data) {
+    this.store.dispatch(setScores({
+      game: {
+        home: 100,
+        away: 100,
+      }
+    }));
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 

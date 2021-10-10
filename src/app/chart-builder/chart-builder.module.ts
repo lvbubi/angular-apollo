@@ -12,8 +12,9 @@ import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
 import { ChartOptionsComponent } from "./components/chart-options/chart-options.component";
 import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
-import {DataSourceSelectorComponent} from "./components/data-source-selector/data-source-selector.component";
-
+import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
+import {StoreModule} from "@ngrx/store";
+import * as fromScoreboard from './store/scoreboard.reducer';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {DataSourceSelectorComponent} from "./components/data-source-selector/dat
     RouterModule.forRoot([
       { path: 'builder', component: ChartBuilderComponent }
     ]),
+    StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
     CommonModule,
     NgxChartsModule,
     BrowserAnimationsModule,
