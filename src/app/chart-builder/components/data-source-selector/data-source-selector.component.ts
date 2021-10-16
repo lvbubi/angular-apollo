@@ -29,13 +29,15 @@ export class DataSourceSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('data-source-selector ngoninit', this.resultKeys);
     /** TODO: Fix this bug... Ngrx store would be nice
      *
      */
     //this.resultEvent.emit(() => single);
   }
 
-  select(resultKey: string) {
-    this.resultEvent.emit(this.dataMap.get(resultKey));
+  selectASD(resultKey: any) {
+    console.log('data-source-selector-components', resultKey);
+    //this.resultEvent.emit(this.dataMap.get(resultKey));
   }
 }

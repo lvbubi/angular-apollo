@@ -19,7 +19,6 @@ export class ChartBuilderComponent implements OnInit {
 
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
-  chartType: string = 'bar-vertical';
   $chartType: Observable<string>;
   chartGroups: any = chartGroups;
 
@@ -32,13 +31,13 @@ export class ChartBuilderComponent implements OnInit {
 
   constructor(private store: Store<State>) {
     this.$chartType = this.store.select(chartTypeSelector);
+    this.$chartType.subscribe(chartType => this.selectChartObservable(chartType));
 
     this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
   }
 
   ngOnInit(): void {
     this.setColorScheme('cool');
-    this.selectChart(this.chartType);
   }
 
 
@@ -63,7 +62,6 @@ export class ChartBuilderComponent implements OnInit {
 
   selectChart(chartSelector) {
     console.log('select chart', chartSelector);
-    this.chartType = chartSelector = chartSelector.replace('/', '');
 
     for (const group of this.chartGroups) {
       this.chart = group.charts.find(x => x.selector === chartSelector);
@@ -73,7 +71,20 @@ export class ChartBuilderComponent implements OnInit {
     this.linearScale = false;
   }
 
-  selectResults(result) {
+  selectChartObservable(chartType: string) {
+    console.log('select observable chart', chartType);
+    chartType = chartType.replace('/', '');
+
+    for (const group of this.chartGroups) {
+      this.chart = group.charts.find(x => x.selector === chartType);
+      if (this.chart) break;
+    }
+
+    this.linearScale = false;
+  }
+
+  selectResults(result: any) {
+    console.log('select datasource', result());
     this.results = result();
   }
 

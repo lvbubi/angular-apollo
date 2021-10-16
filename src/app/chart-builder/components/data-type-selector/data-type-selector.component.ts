@@ -35,6 +35,7 @@ export class DataTypeSelectorComponent implements OnInit {
   }
 
   selectDataType(selectedInputFormat: string) {
+    console.log('dataTypeSelectorComponent', selectedInputFormat);
     this.selectEvent.emit(selectedInputFormat);
   }
 }
