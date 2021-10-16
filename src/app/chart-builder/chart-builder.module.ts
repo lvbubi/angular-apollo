@@ -14,7 +14,7 @@ import { ChartOptionsComponent } from "./components/chart-options/chart-options.
 import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
 import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
 import {StoreModule} from "@ngrx/store";
-import * as fromScoreboard from './store/scoreboard.reducer';
+import * as fromScoreboard from './store/chart.reducer';
 
 @NgModule({
   declarations: [

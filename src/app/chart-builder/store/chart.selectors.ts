@@ -2,7 +2,7 @@ import {
   createSelector,
   MemoizedSelector
 } from '@ngrx/store';
-import { getState, State } from "./scoreboard.reducer";
+import { getState, State } from "./chart.reducer";
 
 export const selectInputFormat = (state: State) => state.inputFormat;
 export const selectChartType = (state: State) => state.chartType;

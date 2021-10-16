@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
   <mat-label>DATA-SOURCE-SELECTOR</mat-label>
-  <mat-select [ngModel]="resultKey" (ngModelChange)="selectASD($event)">
+  <mat-select [ngModel]="resultKey" (ngModelChange)="selectDataSource($event)">
         <mat-option *ngFor="let fuckYou of resultKeys" [value]="fuckYou">
           {{ fuckYou }}
         </mat-option>

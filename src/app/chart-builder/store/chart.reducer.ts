@@ -1,7 +1,7 @@
 import {
   createFeatureSelector,
 } from '@ngrx/store';
-import { ChartActions } from "./scoreboard-page.actions";
+import { ChartActions } from "./chart.actions";
 
 
 export interface State {

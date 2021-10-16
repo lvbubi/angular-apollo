@@ -1,13 +1,11 @@
-import {Component} from '@angular/core';
-import { Output, EventEmitter } from '@angular/core';
-import {Store} from "@ngrx/store";
-import {State} from "../../store/scoreboard.reducer";
-import {Observable} from "rxjs";
-import {chartTypeSelector, inputFormatSelector} from "../../store/scoreboard.selectors";
+import { Component } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { State } from "../../store/chart.reducer";
+import { Observable } from "rxjs";
+import { chartTypeSelector, inputFormatSelector } from "../../store/chart.selectors";
 
 import chartGroups from '../../models/chartTypes';
-import {ChartActions} from "../../store/scoreboard-page.actions";
-import SetChartTypeAction = ChartActions.SetChartTypeAction;
+import { ChartActions } from "../../store/chart.actions";
 
 
 @Component({
@@ -20,8 +18,6 @@ export class ChartTypeSelectorComponent {
   $chartType: Observable<string>;
   private $inputFormat: Observable<string>;
 
-  @Output() selectEvent = new EventEmitter<string>();
-
   chartGroups: any = chartGroups;
 
   constructor(private store: Store<State>) {
@@ -29,15 +25,11 @@ export class ChartTypeSelectorComponent {
     this.$inputFormat = store.select(inputFormatSelector);
 
     this.$inputFormat.subscribe(inputFormat => this.updateChartTypes(inputFormat));
-    this.$chartType.forEach(asd => console.log('UFFAAACK', asd, this.chartGroups));
   }
 
   selectChart(chartSelector: string) {
-    this.store.dispatch(new SetChartTypeAction(chartSelector));
-    //this.selectEvent.emit(chartSelector);
-    console.log(chartSelector);
+    this.store.dispatch(new ChartActions.SetChartTypeAction(chartSelector));
   }
-
 
   updateChartTypes(inputFormat: string) {
     this.chartGroups

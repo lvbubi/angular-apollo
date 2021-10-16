@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from "../../data-service/data-service.component";
 import { single, multi, boxData, bubble, treemap, generateData } from '../../models/data';
 @Component({
@@ -6,7 +6,7 @@ import { single, multi, boxData, bubble, treemap, generateData } from '../../mod
   templateUrl: './data-source-selector.component.html',
   styleUrls: ['./data-source-selector.component.css']
 })
-export class DataSourceSelectorComponent implements OnInit {
+export class DataSourceSelectorComponent {
 
   private dataMap: Map<string, any> = new Map<string, any>();
   resultKeys: string[];
@@ -15,6 +15,7 @@ export class DataSourceSelectorComponent implements OnInit {
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dataService: DataService) {
+
     this.dataMap.set("single", () => single);
     this.dataMap.set("multi", () => multi);
     this.dataMap.set("bubble", () => bubble);
@@ -28,16 +29,7 @@ export class DataSourceSelectorComponent implements OnInit {
     this.resultKeys = Array.from(this.dataMap.keys());
   }
 
-  ngOnInit(): void {
-    console.log('data-source-selector ngoninit', this.resultKeys);
-    /** TODO: Fix this bug... Ngrx store would be nice
-     *
-     */
-    //this.resultEvent.emit(() => single);
-  }
-
-  selectASD(resultKey: any) {
-    console.log('data-source-selector-components', resultKey);
+  selectDataSource(resultKey: string) {
     this.resultEvent.emit(this.dataMap.get(resultKey));
   }
 }

@@ -4,9 +4,9 @@ import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.c
 import { ChartOptions } from "./models/chart-options";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { chartTypeSelector } from "./store/scoreboard.selectors";
-import { State } from "./store/scoreboard.reducer";
-import {ChartActions} from "./store/scoreboard-page.actions";
+import { chartTypeSelector } from "./store/chart.selectors";
+import { State } from "./store/chart.reducer";
+import {ChartActions} from "./store/chart.actions";
 
 @Component({
   selector: 'app-chart-builder',

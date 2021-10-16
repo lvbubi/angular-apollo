@@ -1,11 +1,11 @@
 import { Component} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {State} from "../../store/scoreboard.reducer";
+import {State} from "../../store/chart.reducer";
 import {Observable} from "rxjs";
-import {chartTypeSelector, inputFormatSelector} from "../../store/scoreboard.selectors";
+import {chartTypeSelector, inputFormatSelector} from "../../store/chart.selectors";
 
 import chartGroups from '../../models/chartTypes';
-import {ChartActions} from "../../store/scoreboard-page.actions";
+import {ChartActions} from "../../store/chart.actions";
 import SetInputFormatAction = ChartActions.SetInputFormatAction;
 
 @Component({
