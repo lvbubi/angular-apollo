@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import {select, Store} from "@ngrx/store";
+import { Component} from '@angular/core';
+import {Store} from "@ngrx/store";
 import {State} from "../../store/scoreboard.reducer";
 import {Observable} from "rxjs";
-import {chartTypeSelector} from "../../store/scoreboard.selectors";
+import {chartTypeSelector, inputFormatSelector} from "../../store/scoreboard.selectors";
 
 import chartGroups from '../../models/chartTypes';
-import {map} from "rxjs/operators";
+import {ChartActions} from "../../store/scoreboard-page.actions";
+import SetInputFormatAction = ChartActions.SetInputFormatAction;
 
 @Component({
   selector: 'app-data-type-selector',
@@ -14,13 +15,15 @@ import {map} from "rxjs/operators";
 })
 export class DataTypeSelectorComponent {
 
-  @Output() selectEvent = new EventEmitter<string>();
-
   chartGroups: any = chartGroups;
   inputFormats: [];
+
   $inputFormat: Observable<string>;
+  private $chartType: Observable<string>;
 
   constructor(private store: Store<State>) {
+    this.$inputFormat = store.select(inputFormatSelector);
+    this.$chartType = store.select(chartTypeSelector);
     // Fetch enabled inputFormats from chartGroups
     this.inputFormats = this.chartGroups
       .filter(group => !group.disabled)
@@ -28,17 +31,20 @@ export class DataTypeSelectorComponent {
       .map(chart => chart.inputFormat)
       .filter((value, index, self) => self.indexOf(value) === index);
 
-    this.$inputFormat = store.pipe(select(chartTypeSelector),
-      map(chartType => this.chartGroups.filter(group => !group.disabled)
+    this.$chartType.subscribe(chartType => {
+      let initialInputFormat = this.chartGroups.filter(group => !group.disabled)
         .flatMap(group => group.charts)
-        .filter(chart => chart.selector === chartType)[0].inputFormat));
+        .filter(chart => chart.selector === chartType)[0].inputFormat;
+
+      this.store.dispatch(new SetInputFormatAction(initialInputFormat));
+    });
 
     this.$inputFormat.subscribe(inputFormat => console.log('input format changed:', inputFormat));
-    this.$inputFormat.subscribe(inputFormat => this.selectEvent.emit(inputFormat));
+    this.$inputFormat.subscribe(inputFormat => this.store.dispatch(new SetInputFormatAction(inputFormat)));
   }
 
   selectDataType(selectedInputFormat: string) {
     console.log('dataTypeSelectorComponent', selectedInputFormat);
-    this.selectEvent.emit(selectedInputFormat);
+    this.store.dispatch(new SetInputFormatAction(selectedInputFormat));
   }
 }

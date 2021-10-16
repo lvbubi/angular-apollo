@@ -38,6 +38,6 @@ export class DataSourceSelectorComponent implements OnInit {
 
   selectASD(resultKey: any) {
     console.log('data-source-selector-components', resultKey);
-    //this.resultEvent.emit(this.dataMap.get(resultKey));
+    this.resultEvent.emit(this.dataMap.get(resultKey));
   }
 }

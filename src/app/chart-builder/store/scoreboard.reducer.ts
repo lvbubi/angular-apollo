@@ -19,10 +19,16 @@ export const initialState: State = {
 
 export function reducer(state: State = initialState, action: ChartActions.Actions) {
   switch (action.type) {
-    case ChartActions.ChartAction.SET_TYPE: {
+    case ChartActions.ChartAction.SET_CHART_TYPE: {
       return {
         ...state,
-        chartType: action.chartType,
+        chartType: (action as ChartActions.SetChartTypeAction).chartType,
+      };
+    }
+    case ChartActions.ChartAction.SET_INPUT_FORMAT: {
+      return {
+        ...state,
+        inputFormat: (action as ChartActions.SetInputFormatAction).inputFormat,
       };
     }
     default:

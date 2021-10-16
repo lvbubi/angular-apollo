@@ -65,7 +65,10 @@ export class ChartBuilderComponent implements OnInit {
 
     for (const group of this.chartGroups) {
       this.chart = group.charts.find(x => x.selector === chartSelector);
-      if (this.chart) break;
+      if (this.chart) {
+        console.log('found');
+        break;
+      }
     }
 
     this.linearScale = false;
@@ -86,12 +89,5 @@ export class ChartBuilderComponent implements OnInit {
   selectResults(result: any) {
     console.log('select datasource', result());
     this.results = result();
-  }
-
-  updateChartTypes(selectedInputFormat: string) {
-    this.chartGroups
-      .filter(group => !group.disabled)
-      .flatMap(group => group.charts)
-      .forEach(chart => chart.visible = selectedInputFormat === chart.inputFormat)
   }
 }
