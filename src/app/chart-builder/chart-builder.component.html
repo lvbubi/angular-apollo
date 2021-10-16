@@ -4,13 +4,11 @@
         <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
-            <app-data-source-selector (resultEvent)="selectResults($event)"></app-data-source-selector>
-            <app-data-type-selector [chartGroups]="chartGroups"
-                                    [chartType]="$chartType | async"
-                                    (selectEvent)="updateChartTypes($event)">
+            <app-data-source-selector (resultEvent)="selectResults($event)">
+            </app-data-source-selector>
+            <app-data-type-selector (selectEvent)="updateChartTypes($event)">
             </app-data-type-selector>
-            <app-chart-type-selector [chartGroups]="chartGroups" [chartType]="$chartType | async"
-                                     (selectEvent)="selectChart($event)">
+            <app-chart-type-selector (selectEvent)="selectChart($event)">
             </app-chart-type-selector>
 
             <button mat-button matStepperNext>Next</button>

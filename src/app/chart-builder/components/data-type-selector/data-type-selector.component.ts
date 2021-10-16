@@ -1,22 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import {select, Store} from "@ngrx/store";
+import {State} from "../../store/scoreboard.reducer";
+import {Observable} from "rxjs";
+import {chartTypeSelector} from "../../store/scoreboard.selectors";
+
+import chartGroups from '../../models/chartTypes';
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-data-type-selector',
   templateUrl: './data-type-selector.component.html',
   styleUrls: ['./data-type-selector.component.css']
 })
-export class DataTypeSelectorComponent implements OnInit {
+export class DataTypeSelectorComponent {
 
-  @Input() chartGroups: any;
-  @Input() chartType: string;
   @Output() selectEvent = new EventEmitter<string>();
 
+  chartGroups: any = chartGroups;
   inputFormats: [];
-  inputFormat: string;
+  $inputFormat: Observable<string>;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private store: Store<State>) {
     // Fetch enabled inputFormats from chartGroups
     this.inputFormats = this.chartGroups
       .filter(group => !group.disabled)
@@ -24,14 +28,13 @@ export class DataTypeSelectorComponent implements OnInit {
       .map(chart => chart.inputFormat)
       .filter((value, index, self) => self.indexOf(value) === index);
 
-    // Get currently selected charts inputFormat
-    this.inputFormat = this.chartGroups
-      .filter(group => !group.disabled)
-      .flatMap(group => group.charts)
-      .filter(chart => chart.selector === this.chartType)[0].inputFormat;
+    this.$inputFormat = store.pipe(select(chartTypeSelector),
+      map(chartType => this.chartGroups.filter(group => !group.disabled)
+        .flatMap(group => group.charts)
+        .filter(chart => chart.selector === chartType)[0].inputFormat));
 
-    // Must be emitted
-    this.selectEvent.emit(this.inputFormat);
+    this.$inputFormat.subscribe(inputFormat => console.log('input format changed:', inputFormat));
+    this.$inputFormat.subscribe(inputFormat => this.selectEvent.emit(inputFormat));
   }
 
   selectDataType(selectedInputFormat: string) {

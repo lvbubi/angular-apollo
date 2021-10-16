@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill">
-  <mat-select [ngModel]="chartType" (ngModelChange)="selectChart($event)">
+  <mat-select [ngModel]="$chartType | async" (ngModelChange)="selectChart($event)">
       <mat-optgroup *ngFor="let group of chartGroups"
                     [label]="group.name"
                     [disabled]="group.disabled">
