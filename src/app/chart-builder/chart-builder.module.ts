@@ -13,12 +13,13 @@ import { RouterModule } from "@angular/router";
 import { ChartOptionsComponent } from "./components/chart-options/chart-options.component";
 import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
 import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
-import {StoreModule} from "@ngrx/store";
+import { StoreModule } from "@ngrx/store";
 import * as fromScoreboard from './store/chart.reducer';
-import {TextFieldModule} from "@angular/cdk/text-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatDividerModule} from "@angular/material/divider";
-import { ExportOptionsComponent } from './components/export-options/export-options.component';
+import { TextFieldModule } from "@angular/cdk/text-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatDividerModule } from "@angular/material/divider";
+import { ExportOptionsComponent, ExportOptionsDialog } from './components/export-options/export-options.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ExportOptionsComponent } from './components/export-options/export-optio
     ChartOptionsComponent,
     ChartAdapterComponent,
     DataSourceSelectorComponent,
-    ExportOptionsComponent
+    ExportOptionsComponent,
+    ExportOptionsDialog
   ],
   imports: [
     RouterModule.forRoot([
@@ -45,6 +47,8 @@ import { ExportOptionsComponent } from './components/export-options/export-optio
     TextFieldModule,
     MatInputModule,
     MatDividerModule,
+    MatDialogModule
   ]
 })
-export class ChartBuilderModule { }
+export class ChartBuilderModule {
+}

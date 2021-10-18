@@ -3,7 +3,7 @@ import { ChartOptions } from "../../models/chart-options";
 import * as shape from "d3-shape";
 
 @Component({
-  selector: 'app-char-options',
+  selector: 'app-chart-options',
   templateUrl: './chart-options.component.html',
   styleUrls: ['./chart-options.component.css']
 })

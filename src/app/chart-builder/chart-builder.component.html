@@ -13,8 +13,8 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
-          <app-char-options [chartType]="$chartType | async" [chart]="chart" [options]="options">
-          </app-char-options>
+          <app-chart-options [chartType]="$chartType | async" [chart]="chart" [options]="options">
+          </app-chart-options>
           <ng-template matStepContent>
             <p>This content was also rendered lazily</p>
             <button mat-button matStepperPrevious>Back</button>
@@ -23,8 +23,7 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Export</ng-template>
-          <app-export-options></app-export-options>
-          <p>This content was rendered eagerly</p>
+          <app-export-options [options]="options"></app-export-options>
           <button mat-button matStepperPrevious>Back</button>
         </mat-step>
       </mat-stepper>
