@@ -1,6 +1,6 @@
 import {Component, EventEmitter, NgZone, Output, ViewChild} from '@angular/core';
 import { DataService } from "../../data-service/data-service.component";
-import { single, multi, boxData, bubble, treemap, generateData } from '../../models/data';
+import { single, multi, boxData, bubble, treemap, generateData } from '../../data';
 import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 
 @Component({

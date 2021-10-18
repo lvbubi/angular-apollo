@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule } from "@angular/forms";
 import { MatStepperModule } from "@angular/material/stepper";
@@ -11,7 +10,6 @@ import { ChartTypeSelectorComponent } from "./components/chart-type-selector/cha
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
 import { ChartOptionsComponent } from "./components/chart-options/chart-options.component";
-import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.component';
 import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
 import { StoreModule } from "@ngrx/store";
 import * as fromScoreboard from './store/chart.reducer';
@@ -20,6 +18,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
 import { ExportOptionsComponent, ExportOptionsDialog } from './components/export-options/export-options.component';
 import { MatDialogModule } from "@angular/material/dialog";
+import { ChartAdapterModule } from "chart-adapter";
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { MatDialogModule } from "@angular/material/dialog";
     DataTypeSelectorComponent,
     ChartBuilderComponent,
     ChartOptionsComponent,
-    ChartAdapterComponent,
     DataSourceSelectorComponent,
     ExportOptionsComponent,
     ExportOptionsDialog
@@ -38,7 +36,6 @@ import { MatDialogModule } from "@angular/material/dialog";
     ]),
     StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
     CommonModule,
-    NgxChartsModule,
     BrowserAnimationsModule,
     FormsModule,
     MatStepperModule,
@@ -47,7 +44,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     TextFieldModule,
     MatInputModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    ChartAdapterModule
   ]
 })
 export class ChartBuilderModule {

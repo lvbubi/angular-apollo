@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChartOptions } from "../../models/chart-options";
+import { ChartOptions } from "./models/chart-options";
 import { escapeLabel, formatLabel } from "@swimlane/ngx-charts";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });

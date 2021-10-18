@@ -1,0 +1,13 @@
+{
+  "name": "chart-adapter",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0",
+    "emoji-flags": "^1.2.0",
+    "@swimlane/ngx-charts": "^19.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

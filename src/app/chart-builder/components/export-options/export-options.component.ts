@@ -1,11 +1,11 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { ChartOptions } from "../../models/chart-options";
+import { ChartOptions } from "chart-adapter";
 import { Store } from "@ngrx/store";
 import { State } from "../../store/chart.reducer";
 import { Observable } from "rxjs";
 import { chartTypeSelector } from "../../store/chart.selectors";
 
-import chartGroups from '../../models/chartTypes';
+import chartGroups from "../../chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 
 export interface DialogData {

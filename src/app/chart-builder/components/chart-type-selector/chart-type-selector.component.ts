@@ -4,7 +4,7 @@ import { State } from "../../store/chart.reducer";
 import { Observable } from "rxjs";
 import { chartTypeSelector, inputFormatSelector } from "../../store/chart.selectors";
 
-import chartGroups from '../../models/chartTypes';
+import chartGroups from '../../chartTypes';
 import { ChartActions } from "../../store/chart.actions";
 
 

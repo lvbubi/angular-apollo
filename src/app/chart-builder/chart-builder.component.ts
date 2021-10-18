@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import chartGroups from './models/chartTypes';
+import chartGroups from './chartTypes';
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
-import { ChartOptions } from "./models/chart-options";
+import { ChartOptions } from "chart-adapter";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { chartTypeSelector } from "./store/chart.selectors";

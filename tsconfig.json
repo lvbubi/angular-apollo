@@ -3,6 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "chart-adapter": [
+        "dist/chart-adapter/chart-adapter",
+        "dist/chart-adapter"
+      ]
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "noImplicitReturns": true,
