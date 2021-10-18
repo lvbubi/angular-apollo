@@ -11,8 +11,8 @@ import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 export class DataSourceSelectorComponent {
 
   private dataMap: Map<string, any> = new Map<string, any>();
-  resultKeys: string[];
-  resultKey: string = "single";
+  dataSourceTypes: string[];
+  dataSourceType: string = "single";
   textArea: string;
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -33,11 +33,10 @@ export class DataSourceSelectorComponent {
     this.dataMap.set("calendarData", () => this.dataService.getCalendarData());
     this.dataMap.set("statusData", () => this.dataService.getStatusData());
 
-    this.resultKeys = Array.from(this.dataMap.keys());
+    this.dataSourceTypes = Array.from(this.dataMap.keys());
   }
 
   selectDataSource(resultKey: string) {
-    console.log('resultKey: ', resultKey);
     if (resultKey === 'custom') {
       return;
     }
@@ -52,14 +51,9 @@ export class DataSourceSelectorComponent {
       "code": "de"
     }
    }]
-
-
-
-
    */
 
   setDataSource() {
-    console.log(this.textArea);
     this.resultEvent.emit(() => JSON.parse(this.textArea));
   }
 }

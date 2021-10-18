@@ -1,12 +1,12 @@
 <mat-form-field appearance="fill">
   <mat-label>DATA-SOURCE-SELECTOR</mat-label>
-  <mat-select [(ngModel)]="resultKey" (ngModelChange)="selectDataSource($event)">
-        <mat-option *ngFor="let key of resultKeys" [value]="key">
-          {{ key }}
+  <mat-select [(ngModel)]="dataSourceType" (ngModelChange)="selectDataSource($event)">
+        <mat-option *ngFor="let type of dataSourceTypes" [value]="type">
+          {{ type }}
         </mat-option>
   </mat-select>
 </mat-form-field>
-<mat-form-field>
+<mat-form-field *ngIf="dataSourceType == 'custom'">
   <mat-label>Autosize textarea</mat-label>
   <textarea [(ngModel)]="textArea"
             matInput
@@ -15,4 +15,4 @@
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="5"></textarea>
 </mat-form-field>
-<button *ngIf="resultKey == 'custom'" mat-button (click)="setDataSource()">Set DataSource</button>
+<button *ngIf="dataSourceType == 'custom'" mat-button (click)="setDataSource()">Set DataSource</button>

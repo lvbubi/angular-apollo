@@ -44,7 +44,7 @@ export class ExportOptionsComponent implements OnInit {
       .map(option => {
         return {
           name: option,
-          value: this.options[option]
+          value: JSON.stringify(this.options[option])
         };
       });
 
