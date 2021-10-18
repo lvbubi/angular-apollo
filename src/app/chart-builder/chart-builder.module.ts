@@ -15,6 +15,10 @@ import { ChartAdapterComponent } from './components/chart-adapter/chart-adapter.
 import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
 import {StoreModule} from "@ngrx/store";
 import * as fromScoreboard from './store/chart.reducer';
+import {TextFieldModule} from "@angular/cdk/text-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatDividerModule} from "@angular/material/divider";
+import { ExportOptionsComponent } from './components/export-options/export-options.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,12 @@ import * as fromScoreboard from './store/chart.reducer';
     ChartBuilderComponent,
     ChartOptionsComponent,
     ChartAdapterComponent,
-    DataSourceSelectorComponent
+    DataSourceSelectorComponent,
+    ExportOptionsComponent
   ],
   imports: [
     RouterModule.forRoot([
-      { path: 'builder', component: ChartBuilderComponent }
+      {path: 'builder', component: ChartBuilderComponent}
     ]),
     StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
     CommonModule,
@@ -37,6 +42,9 @@ import * as fromScoreboard from './store/chart.reducer';
     MatStepperModule,
     MatButtonModule,
     MatSelectModule,
+    TextFieldModule,
+    MatInputModule,
+    MatDividerModule,
   ]
 })
 export class ChartBuilderModule { }
