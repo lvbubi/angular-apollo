@@ -19,6 +19,8 @@ import { MatDividerModule } from "@angular/material/divider";
 import { ExportOptionsComponent, ExportOptionsDialog } from './components/export-options/export-options.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { ChartAdapterModule } from "chart-adapter";
+import { BrowserModule } from "@angular/platform-browser";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { ChartAdapterModule } from "chart-adapter";
     MatInputModule,
     MatDividerModule,
     MatDialogModule,
-    ChartAdapterModule
+    ChartAdapterModule,
+    BrowserModule,
+    HttpClientModule
   ]
 })
 export class ChartBuilderModule {

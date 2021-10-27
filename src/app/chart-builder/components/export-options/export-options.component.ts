@@ -7,6 +7,7 @@ import { chartTypeSelector } from "../../store/chart.selectors";
 
 import chartGroups from "../../chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { ChartRegisterService } from "../../service/chart-register.service";
 
 export interface DialogData {
   name: string,
@@ -28,7 +29,7 @@ export class ExportOptionsComponent implements OnInit {
 
   exportedOptions: [][];
 
-  constructor(private store: Store<State>, public dialog: MatDialog) {
+  constructor(private store: Store<State>, private chartRegisterService: ChartRegisterService, public dialog: MatDialog) {
     this.$chartType = store.select(chartTypeSelector);
     this.$chartType.subscribe(chartType => this.chartType = chartType);
   }
@@ -47,6 +48,10 @@ export class ExportOptionsComponent implements OnInit {
           value: JSON.stringify(this.options[option])
         };
       });
+
+    this.chartRegisterService.addNewConfiguration(this.chartType, JSON.stringify(this.exportedOptions));
+
+
 
     this.dialog.open(ExportOptionsDialog, {
         data: this.exportedOptions
