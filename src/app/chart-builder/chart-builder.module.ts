@@ -21,6 +21,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ChartAdapterModule } from "chart-adapter";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
+import { DataSourceMapperComponent } from './components/data-source-selector/data-source-mapper/data-source-mapper.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from "@angular/common/http";
     ChartOptionsComponent,
     DataSourceSelectorComponent,
     ExportOptionsComponent,
-    ExportOptionsDialog
+    ExportOptionsDialog,
+    DataSourceMapperComponent
   ],
   imports: [
     RouterModule.forRoot([

@@ -1,7 +1,6 @@
-import {Component, EventEmitter, NgZone, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, NgZone, Output } from '@angular/core';
 import { DataService } from "../../data-service/data-service.component";
 import { single, multi, boxData, bubble, treemap, generateData } from '../../data';
-import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 
 @Component({
   selector: 'app-data-source-selector',
@@ -10,19 +9,14 @@ import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 })
 export class DataSourceSelectorComponent {
 
-  private dataMap: Map<string, any> = new Map<string, any>();
-  dataSourceTypes: string[];
+  dataMap: Map<string, any> = new Map<string, any>();
   dataSourceType: string = "single";
-  textArea: string;
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('autosize') autosize: CdkTextareaAutosize;
-
-
   constructor(private dataService: DataService, private _ngZone: NgZone) {
 
-    this.dataMap.set("custom", () => this.textArea);
+    this.dataMap.set("custom", null);
     this.dataMap.set("single", () => single);
     this.dataMap.set("multi", () => multi);
     this.dataMap.set("bubble", () => bubble);
@@ -32,8 +26,6 @@ export class DataSourceSelectorComponent {
     this.dataMap.set("dateDataWithRange", () => generateData(2, true));
     this.dataMap.set("calendarData", () => this.dataService.getCalendarData());
     this.dataMap.set("statusData", () => this.dataService.getStatusData());
-
-    this.dataSourceTypes = Array.from(this.dataMap.keys());
   }
 
   selectDataSource(resultKey: string) {
@@ -41,19 +33,5 @@ export class DataSourceSelectorComponent {
       return;
     }
     this.resultEvent.emit(this.dataMap.get(resultKey));
-  }
-
-  /**
-   [{
-   "name": "Germany",
-   "value": 40632,
-   "extra": {
-      "code": "de"
-    }
-   }]
-   */
-
-  setDataSource() {
-    this.resultEvent.emit(() => JSON.parse(this.textArea));
   }
 }
