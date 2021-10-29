@@ -1,7 +1,7 @@
 <mat-form-field appearance="fill">
   <mat-label>DATA-SOURCE-SELECTOR</mat-label>
   <mat-select [(ngModel)]="dataSourceType" (ngModelChange)="selectDataSource($event)">
-        <mat-option *ngFor="let type of dataMap.keys()" [value]="type">
+        <mat-option *ngFor="let type of dataSourceTypes" [value]="type">
           {{ type }}
         </mat-option>
   </mat-select>

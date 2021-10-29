@@ -8,3 +8,15 @@
             cdkAutosizeMaxRows="5"></textarea>
 </mat-form-field>
 <button mat-button (click)="setDataSource()">Set DataSource</button>
+
+<mat-form-field>
+  <mat-label>Mapper</mat-label>
+  <textarea [(ngModel)]="textArea"
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+</mat-form-field>
+
+<button mat-button (click)="setDataSource()">Map datasource</button>

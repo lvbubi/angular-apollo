@@ -14,6 +14,8 @@ export class DataSourceMapperComponent implements OnInit {
 
   textArea: string;
 
+  mapper: string
+
   constructor() { }
 
   ngOnInit(): void {

@@ -9,8 +9,9 @@ import { single, multi, boxData, bubble, treemap, generateData } from '../../dat
 })
 export class DataSourceSelectorComponent {
 
-  dataMap: Map<string, any> = new Map<string, any>();
+  private dataMap: Map<string, any> = new Map<string, any>();
   dataSourceType: string = "single";
+  dataSourceTypes: string[];
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
@@ -26,6 +27,8 @@ export class DataSourceSelectorComponent {
     this.dataMap.set("dateDataWithRange", () => generateData(2, true));
     this.dataMap.set("calendarData", () => this.dataService.getCalendarData());
     this.dataMap.set("statusData", () => this.dataService.getStatusData());
+
+    this.dataSourceTypes = Array.from(this.dataMap.keys());
   }
 
   selectDataSource(resultKey: string) {
