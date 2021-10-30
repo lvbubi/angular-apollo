@@ -1,20 +1,29 @@
-<mat-form-field>
-  <mat-label>Plain datasource</mat-label>
-  <textarea [(ngModel)]="textArea"
-            matInput
-            cdkTextareaAutosize
-            #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"></textarea>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Mapper</mat-label>
-  <textarea [(ngModel)]="mapper"
-            matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"></textarea>
-</mat-form-field>
-
-<button mat-button (click)="mapDataSource()">Map datasource</button>
-<button mat-button (click)="setDataSource()">Set DataSource</button>
+<form class="example-form" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>Plain datasource</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              [formControl]="dataSourceFormControl"></textarea>
+    <mat-error *ngIf="dataSourceFormControl.hasError('syntaxError')">
+      Please enter a valid mapper as a json
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Mapper</mat-label>
+    <textarea [formControl]="mapperFormControl"
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"></textarea>
+    <mat-error *ngIf="dataSourceFormControl.hasError('syntaxError')">
+      Please enter a valid mapper as a json
+    </mat-error>
+    <mat-error *ngIf="dataSourceFormControl.hasError('semanticError')">
+      Please enter a valid mapper as a json
+    </mat-error>
+  </mat-form-field>
+  <button mat-button type="submit" [disabled]="!dataSourceFormControl.valid || !mapperFormControl.valid">Set DataSource</button>
+</form>

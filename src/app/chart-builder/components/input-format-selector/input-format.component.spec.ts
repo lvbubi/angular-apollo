@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataTypeSelectorComponent } from './data-type-selector.component';
+import { InputFormatComponent } from './input-format.component';
 
 describe('DataTypeSelectorComponent', () => {
-  let component: DataTypeSelectorComponent;
-  let fixture: ComponentFixture<DataTypeSelectorComponent>;
+  let component: InputFormatComponent;
+  let fixture: ComponentFixture<InputFormatComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DataTypeSelectorComponent ]
+      declarations: [ InputFormatComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataTypeSelectorComponent);
+    fixture = TestBed.createComponent(InputFormatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

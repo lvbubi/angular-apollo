@@ -1,64 +1,101 @@
-import { Component, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, ViewChild } from '@angular/core';
 import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 
 import * as objectMapper from 'object-mapper'
 
 import {
-  SingleSeries,
-  MultiSeries,
-  BubbleChartMultiSeries,
-  BoxChartMultiSeries,
-  Series,
-  TreeMapData
-} from '@swimlane/ngx-charts';
+  AbstractControl,
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  ValidationErrors,
+  ValidatorFn
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+export function jsonSyntaxValidator(): ValidatorFn {
+  return (control:AbstractControl) : ValidationErrors | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    try {
+      JSON.parse(value);
+      return null;
+    } catch (e) {
+      return { syntaxError:true };
+    }
+  }
+}
 
 @Component({
   selector: 'app-data-source-mapper',
   templateUrl: './data-source-mapper.component.html',
   styleUrls: ['./data-source-mapper.component.css']
 })
-export class DataSourceMapperComponent implements OnInit {
+export class DataSourceMapperComponent {
+  dataSourceFormControl = new FormControl('', [
+    jsonSyntaxValidator()
+  ]);
+
+  mapperFormControl = new FormControl('', [
+    jsonSyntaxValidator()
+  ]);
+
+  matcher = new MyErrorStateMatcher();
 
   @Input() resultEvent: EventEmitter<any>;
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
 
-  textArea: string;
-
-  mapper: string
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   /**
-   [{
-   "name": "Germany",
-   "value": 40632,
-   "extra": {
-      "code": "de"
-    }
-   }]
-   */
-  setDataSource() {
-    try {
-      let resultObject: SingleSeries | MultiSeries | BubbleChartMultiSeries | BoxChartMultiSeries | Series | TreeMapData = JSON.parse(this.textArea);
-      this.resultEvent.emit(() => resultObject);
-    } catch (e) {
-      console.log('failed to map', e);
-    }
-  }
+   [
+    {
+     "name": "Germanya",
+     "value": 406321,
+     "extra": {
+        "code": "de"
+      }
+     },
+     {
+     "name": "Germany",
+     "value": 40632,
+     "extra": {
+        "code": "de"
+      }
+     }
+   ]
 
-  /*
-   {"[].value": "asd[]"}
-   {"value": "asd"}
+   {
+    "[].name": "[].name",
+    "[].value": "[].value",
+    "[].extra": "[].extra"
+   }
    */
-  mapDataSource() {
-    //src, dest, map
-    let result = {asd: 'lol'};
-    console.log(JSON.parse(this.textArea), result, JSON.parse(this.mapper));
-    let mappedObject = objectMapper(JSON.parse(this.textArea), JSON.parse(this.mapper));
-    console.log(mappedObject, "mapped object");
+  submit() {
+    console.log('submitted');
+    let mapper = this.mapperFormControl.value;
+
+    if (mapper) {
+      try {
+        let mappedObject = objectMapper(JSON.parse(this.dataSourceFormControl.value), JSON.parse(mapper));
+        this.resultEvent.emit(() => mappedObject);
+      } catch (e) {
+        this.mapperFormControl.setErrors({ semanticError: true });
+      }
+    }
+    else {
+      this.resultEvent.emit(() => JSON.parse(this.dataSourceFormControl.value));
+    }
   }
 }

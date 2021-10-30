@@ -7,16 +7,17 @@ import { chartTypeSelector, inputFormatSelector } from "../../store/chart.select
 import chartGroups from '../../chartTypes';
 import { ChartActions } from "../../store/chart.actions";
 import SetInputFormatAction = ChartActions.SetInputFormatAction;
+import { InputFormat } from 'chart-adapter'
 
 @Component({
   selector: 'app-data-type-selector',
-  templateUrl: './data-type-selector.component.html',
-  styleUrls: ['./data-type-selector.component.css']
+  templateUrl: './input-format.component.html',
+  styleUrls: ['./input-format.component.css']
 })
-export class DataTypeSelectorComponent {
+export class InputFormatComponent {
 
   chartGroups: any = chartGroups;
-  inputFormats: [];
+  inputFormats: string[];
 
   $inputFormat: Observable<string>;
   private $chartType: Observable<string>;
@@ -25,11 +26,15 @@ export class DataTypeSelectorComponent {
     this.$inputFormat = store.select(inputFormatSelector);
     this.$chartType = store.select(chartTypeSelector);
     // Fetch enabled inputFormats from chartGroups
-    this.inputFormats = this.chartGroups
-      .filter(group => !group.disabled)
-      .flatMap(group => group.charts)
-      .map(chart => chart.inputFormat)
-      .filter((value, index, self) => self.indexOf(value) === index);
+
+    console.log();
+
+    this.inputFormats = Object.keys(InputFormat)
+      .filter(value => isNaN(Number(value)) === false)
+      .map(key => InputFormat[key])
+
+    console.log(this.inputFormats);
+
 
     this.$chartType.subscribe(chartType => {
       let initialInputFormat = this.chartGroups.filter(group => !group.disabled)
