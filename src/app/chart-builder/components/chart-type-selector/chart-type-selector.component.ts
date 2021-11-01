@@ -32,9 +32,14 @@ export class ChartTypeSelectorComponent {
   }
 
   updateChartTypes(inputFormat: string) {
+    console.log(Object.isExtensible(this.chartGroups));
+    console.log(this.chartGroups);
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .forEach(chart => chart.visible = inputFormat === chart.inputFormat)
+      .forEach(chart => {
+        console.log(Object.isExtensible(chart), chart);
+        chart.visible = inputFormat === chart.inputFormat;
+      })
   }
 }

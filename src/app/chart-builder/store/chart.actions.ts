@@ -4,7 +4,8 @@ export namespace ChartActions {
 
   export enum ChartAction {
     SET_CHART_TYPE = 'SET_CHART_TYPE',
-    SET_INPUT_FORMAT = 'SET_INPUT_FORMAT'
+    SET_INPUT_FORMAT = 'SET_INPUT_FORMAT',
+    SET_CHART_GROUPS = 'SET_CHART_GROUPS'
   }
 
   export class SetChartTypeAction implements Action {
@@ -19,6 +20,11 @@ export namespace ChartActions {
     constructor(public inputFormat: String | undefined) {}
   }
 
+  export class SetChartGroupsAction implements Action {
+    readonly type: string = ChartAction.SET_CHART_GROUPS;
 
-  export type Actions = SetChartTypeAction | SetInputFormatAction;
+    constructor(public chartGroups: any) {}
+  }
+
+  export type Actions = SetChartTypeAction | SetInputFormatAction | SetChartGroupsAction;
 }
