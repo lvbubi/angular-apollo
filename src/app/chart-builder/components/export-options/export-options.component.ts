@@ -9,6 +9,7 @@ import chartGroups from "../../chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { ChartRegisterService } from "../../service/chart-register.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import {ConfigurationParserService} from "./service/configuration-parser.service";
 
 export interface DialogData {
   name: string,
@@ -30,34 +31,38 @@ export class ExportOptionsComponent implements OnInit {
   chartType: string;
   chartGroups: any = chartGroups;
 
-  constructor(private store: Store<State>, private chartRegisterService: ChartRegisterService, public dialog: MatDialog, private sanitizer: DomSanitizer) {
+  constructor(private store: Store<State>,
+              private chartRegisterService: ChartRegisterService,
+              public dialog: MatDialog,
+              private sanitizer: DomSanitizer,
+              private parser: ConfigurationParserService) {
     this.$chartType = store.select(chartTypeSelector);
     this.$chartType.subscribe(chartType => this.chartType = chartType);
   }
 
-  ngOnInit(): void {
-    console.log("oninitshit")
-  }
+  ngOnInit(): void {}
 
   exportOptions() {
-    let chartOptions = this.mapOptionsToChartType();
+    let chartOptions = this.mapOptionsToJson();
     let chartOptionsString = JSON.stringify(chartOptions, null, 2);
 
     this.chartRegisterService.addNewConfiguration(this.chartType, chartOptionsString);
 
-    let blob = new Blob([chartOptionsString], {type: 'application/json'});
+    const typeScriptFile = this.parser.createTypescriptFile(this.chartGroups, this.chartType, this.options);
+    //let blob = new Blob([chartOptionsString], { type: 'application/json' });
+    let blob = new Blob([typeScriptFile], { type: 'text/prs.typescript' });
     this.sanitizedBlobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
   }
 
   viewOptions() {
-    let chartOptions = this.mapOptionsToChartType();
+    let chartOptions = this.mapOptionsToJson();
     this.dialog.open(ExportOptionsDialog, {
         data: chartOptions
       }
     );
   }
 
-  private mapOptionsToChartType() {
+  private mapOptionsToJson() {
     return this.chartGroups.filter(group => !group.disabled)
       .flatMap(group => group.charts)
       .filter(chart => chart.selector === this.chartType)

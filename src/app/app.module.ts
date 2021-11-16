@@ -10,6 +10,8 @@ import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ChartExampleModule } from "./chart-example/chart-example.module";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { environment } from '../environments/environment';
         GraphQLModule,
         HttpClientModule,
         ChartBuilderModule,
+        ChartExampleModule,
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
     ],
   providers: [],

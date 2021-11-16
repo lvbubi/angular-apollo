@@ -36,7 +36,7 @@ import { DataSourceMapperComponent } from './components/data-source-selector/dat
   ],
     imports: [
         RouterModule.forRoot([
-            {path: 'builder', component: ChartBuilderComponent}
+            { path: 'builder', component: ChartBuilderComponent }
         ]),
         StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
         CommonModule,
