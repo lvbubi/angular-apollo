@@ -48,9 +48,9 @@ export class ExportOptionsComponent implements OnInit {
 
     this.chartRegisterService.addNewConfiguration(this.chartType, chartOptionsString);
 
-    const typeScriptFile = this.parser.createTypescriptFile(this.chartGroups, this.chartType, this.options);
+    const typeScriptFile = this.parser.createJsonFile(this.chartGroups, this.chartType, this.options);
     //let blob = new Blob([chartOptionsString], { type: 'application/json' });
-    let blob = new Blob([typeScriptFile], { type: 'text/prs.typescript' });
+    let blob = new Blob([JSON.stringify(typeScriptFile, null, 2)], { type: 'text/prs.typescript' });
     this.sanitizedBlobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
   }
 

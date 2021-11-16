@@ -125,4 +125,8 @@ export class ChartOptions {
     { value: 37750, name: 'Average' },
     { value: 33000, name: 'Minimum' }
   ];
+
+  static fromJSON(d: Object): ChartOptions {
+    return Object.assign(new ChartOptions(), d);
+  }
 }

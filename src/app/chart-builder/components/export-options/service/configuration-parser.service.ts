@@ -30,4 +30,22 @@ export class ConfigurationParserService {
       .flatMap(chart => chart.options)
       .map(option => `\n\t${option}: ${JSON.stringify(options[option])}`);
   }
+
+  createJsonFile(chartGroups, chartType, options) {
+    const initialValue = {};
+    return chartGroups.filter(group => !group.disabled)
+      .flatMap(group => group.charts)
+      .filter(chart => chart.selector === chartType)
+      .flatMap(chart => chart.options)
+      .reduce((obj, item) => {
+        console.log(obj, item);
+        return {
+          ...obj,
+          [item]: options[item],
+        };
+      }, initialValue);
+  }
+
+  parseOption(optionValue) {
+  }
 }

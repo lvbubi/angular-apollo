@@ -11,11 +11,11 @@ import { configuration } from "./chart-configuration";
 })
 export class SimpleChartComponent implements OnInit {
 
-  options: ChartOptions = configuration;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(ChartOptions.fromJSON(configuration));
     //console.log(JSON.parse(configuration.toString()));
     //console.log(JSON.parse(configuration.toString()));
   }
