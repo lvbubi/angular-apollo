@@ -2,13 +2,12 @@ import {
   createSelector,
   MemoizedSelector
 } from '@ngrx/store';
-import { getState, State } from "./chart.reducer";
+import { Configuration, getState, State } from "./chart.reducer";
 
 export const selectInputFormat = (state: State) => state.inputFormat;
-export const selectChartType = (state: State) => state.chartType;
-export const selectQueryOptions = (state: State) => {
-  return state.chartType;
-}
+export const selectChartType = (state: State) => state.configuration.chartType;
+export const selectDataMapper = (state: State) => state.configuration.dataMapper;
+export const selectConfiguration = (state: State) => state.configuration;
 
 export const chartTypeSelector: MemoizedSelector<State, string> = createSelector(
   getState,
@@ -20,7 +19,12 @@ export const inputFormatSelector: MemoizedSelector<State, string> = createSelect
   selectInputFormat
 );
 
-export const queryChartOptionsSelector: MemoizedSelector<State, string> = createSelector(
+export const dataMapperSelector: MemoizedSelector<State, Object> = createSelector(
   getState,
-  selectQueryOptions
+  selectDataMapper
 );
+
+export const configurationSelector: MemoizedSelector<State, Configuration> = createSelector(
+  getState,
+  selectConfiguration
+)

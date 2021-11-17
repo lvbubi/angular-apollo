@@ -12,6 +12,9 @@ import {
   ValidatorFn
 } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
+import {Store} from "@ngrx/store";
+import {State} from "../../../store/chart.reducer";
+import {ChartActions} from "../../../store/chart.actions";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -44,19 +47,15 @@ export function jsonSyntaxValidator(): ValidatorFn {
   styleUrls: ['./data-source-mapper.component.css']
 })
 export class DataSourceMapperComponent {
-  dataSourceFormControl = new FormControl('', [
-    jsonSyntaxValidator()
-  ]);
-
-  mapperFormControl = new FormControl('', [
-    jsonSyntaxValidator()
-  ]);
+  dataSourceFormControl = new FormControl('', [jsonSyntaxValidator()]);
+  mapperFormControl = new FormControl('', [jsonSyntaxValidator()]);
 
   matcher = new MyErrorStateMatcher();
 
   @Input() resultEvent: EventEmitter<any>;
-
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
+
+  constructor(private store: Store<State>) {}
 
   /**
    [
@@ -83,19 +82,19 @@ export class DataSourceMapperComponent {
    }
    */
   submit() {
-    console.log('submitted');
-    let mapper = this.mapperFormControl.value;
-
-    if (mapper) {
-      try {
-        let mappedObject = objectMapper(JSON.parse(this.dataSourceFormControl.value), JSON.parse(mapper));
-        this.resultEvent.emit(() => mappedObject);
-      } catch (e) {
-        this.mapperFormControl.setErrors({ semanticError: true });
-      }
-    }
-    else {
+    if (!this.mapperFormControl.value) {
       this.resultEvent.emit(() => JSON.parse(this.dataSourceFormControl.value));
+      return;
+    }
+
+    try {
+      const mapper = JSON.parse(this.mapperFormControl.value);
+      this.store.dispatch(new ChartActions.SetDataMapperAction(mapper));
+
+      let mappedObject = objectMapper(JSON.parse(this.dataSourceFormControl.value), mapper);
+      this.resultEvent.emit(() => mappedObject);
+    } catch (e) {
+      this.mapperFormControl.setErrors({ semanticError: true });
     }
   }
 }

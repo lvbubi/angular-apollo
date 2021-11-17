@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConfigurationModel } from "../model/configuration-model";
+import { Store } from "@ngrx/store";
+import { Configuration, State } from "../../../store/chart.reducer";
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { ConfigurationModel } from "../model/configuration-model";
 export class ConfigurationParserService {
 
   configuration: ConfigurationModel = new ConfigurationModel();
-  constructor() {
+  constructor(private store: Store<State>) {
     this.configuration.headers.push('ChartOptions');
   }
 
@@ -31,21 +33,18 @@ export class ConfigurationParserService {
       .map(option => `\n\t${option}: ${JSON.stringify(options[option])}`);
   }
 
-  createJsonFile(chartGroups, chartType, options) {
+  createJsonFile(configuration: Configuration, chartGroups) {
     const initialValue = {};
     return chartGroups.filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .filter(chart => chart.selector === chartType)
+      .filter(chart => chart.selector === configuration.chartType)
       .flatMap(chart => chart.options)
       .reduce((obj, item) => {
         console.log(obj, item);
         return {
           ...obj,
-          [item]: options[item],
+          [item]: configuration.chartOptions[item],
         };
       }, initialValue);
-  }
-
-  parseOption(optionValue) {
   }
 }

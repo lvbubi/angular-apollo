@@ -2,21 +2,32 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import { ChartActions } from "./chart.actions";
+import {ChartOptions} from "../../../../projects/chart-adapter/src/lib/models/chart-options";
 
 
 export interface State {
   chartGroups: any; //visible
   inputFormat: string;
+  configuration: Configuration
+}
+
+export interface Configuration {
   chartType: string;
+  dataMapper: Object;
+  chartOptions: ChartOptions;
 }
 
 export const scoreboardFeatureKey = 'game';
 export const getState = createFeatureSelector(scoreboardFeatureKey);
 
 export const initialState: State = {
-  chartType: 'bar-vertical',
+  configuration: {
+    dataMapper: undefined,
+    chartType: 'bar-vertical',
+    chartOptions: new ChartOptions()
+  },
   inputFormat: 'singleSeries',
-  chartGroups: undefined
+  chartGroups: undefined,
 };
 
 export function reducer(state: State = initialState, action: ChartActions.Actions) {
@@ -24,7 +35,9 @@ export function reducer(state: State = initialState, action: ChartActions.Action
     case ChartActions.ChartAction.SET_CHART_TYPE: {
       return {
         ...state,
-        chartType: (action as ChartActions.SetChartTypeAction).chartType
+        configuration: {
+          ...state.configuration, chartType: (action as ChartActions.SetChartTypeAction).chartType
+        }
       };
     }
     case ChartActions.ChartAction.SET_INPUT_FORMAT: {
@@ -37,6 +50,14 @@ export function reducer(state: State = initialState, action: ChartActions.Action
       return {
         ...state,
         chartGroups: (action as ChartActions.SetChartGroupsAction).chartGroups
+      };
+    }
+    case ChartActions.ChartAction.SET_DATA_MAPPER: {
+      return {
+        ...state,
+        configuration: {
+          ...state.configuration, dataMapper: (action as ChartActions.SetDataMapperAction).dataMapper
+        }
       };
     }
     default:

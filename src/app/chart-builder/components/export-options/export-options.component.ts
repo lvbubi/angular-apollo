@@ -1,9 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ChartOptions } from "chart-adapter";
 import { Store } from "@ngrx/store";
-import { State } from "../../store/chart.reducer";
-import { Observable } from "rxjs";
-import { chartTypeSelector } from "../../store/chart.selectors";
+import { Configuration, State } from "../../store/chart.reducer";
+import { configurationSelector } from "../../store/chart.selectors";
 
 import chartGroups from "../../chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
@@ -27,8 +26,8 @@ export class ExportOptionsComponent implements OnInit {
 
   sanitizedBlobUrl: any;
 
-  $chartType: Observable<string>;
-  chartType: string;
+  configuration: Configuration;
+
   chartGroups: any = chartGroups;
 
   constructor(private store: Store<State>,
@@ -36,25 +35,24 @@ export class ExportOptionsComponent implements OnInit {
               public dialog: MatDialog,
               private sanitizer: DomSanitizer,
               private parser: ConfigurationParserService) {
-    this.$chartType = store.select(chartTypeSelector);
-    this.$chartType.subscribe(chartType => this.chartType = chartType);
+    store.select(configurationSelector).subscribe(configuration => this.configuration = configuration);
   }
 
   ngOnInit(): void {}
 
-  exportOptions() {
+  async exportOptions() {
     let chartOptions = this.mapOptionsToJson();
     let chartOptionsString = JSON.stringify(chartOptions, null, 2);
 
-    this.chartRegisterService.addNewConfiguration(this.chartType, chartOptionsString);
+    this.chartRegisterService.addNewConfiguration(this.configuration.chartType, chartOptionsString);
 
-    const typeScriptFile = this.parser.createJsonFile(this.chartGroups, this.chartType, this.options);
+    const typeScriptFile = this.parser.createJsonFile(this.configuration, chartGroups);
     //let blob = new Blob([chartOptionsString], { type: 'application/json' });
     let blob = new Blob([JSON.stringify(typeScriptFile, null, 2)], { type: 'text/prs.typescript' });
     this.sanitizedBlobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
   }
 
-  viewOptions() {
+  async viewOptions() {
     let chartOptions = this.mapOptionsToJson();
     this.dialog.open(ExportOptionsDialog, {
         data: chartOptions
@@ -65,7 +63,7 @@ export class ExportOptionsComponent implements OnInit {
   private mapOptionsToJson() {
     return this.chartGroups.filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .filter(chart => chart.selector === this.chartType)
+      .filter(chart => chart.selector === this.configuration.chartType)
       .flatMap(chart => chart.options)
       .map(option => {
         return {

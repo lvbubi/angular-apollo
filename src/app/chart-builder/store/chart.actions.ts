@@ -5,7 +5,8 @@ export namespace ChartActions {
   export enum ChartAction {
     SET_CHART_TYPE = 'SET_CHART_TYPE',
     SET_INPUT_FORMAT = 'SET_INPUT_FORMAT',
-    SET_CHART_GROUPS = 'SET_CHART_GROUPS'
+    SET_CHART_GROUPS = 'SET_CHART_GROUPS',
+    SET_DATA_MAPPER = 'SET_DATA_MAPPER'
   }
 
   export class SetChartTypeAction implements Action {
@@ -26,5 +27,11 @@ export namespace ChartActions {
     constructor(public chartGroups: any) {}
   }
 
-  export type Actions = SetChartTypeAction | SetInputFormatAction | SetChartGroupsAction;
+  export class SetDataMapperAction implements Action {
+    readonly type: string = ChartAction.SET_DATA_MAPPER;
+
+    constructor(public dataMapper: Object) {}
+  }
+
+  export type Actions = SetChartTypeAction | SetInputFormatAction | SetChartGroupsAction | SetDataMapperAction;
 }

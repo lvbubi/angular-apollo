@@ -4,9 +4,9 @@ import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.c
 import { ChartOptions } from "chart-adapter";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { chartTypeSelector, queryChartOptionsSelector } from "./store/chart.selectors";
+import { chartTypeSelector } from "./store/chart.selectors";
 import { State } from "./store/chart.reducer";
-import {ChartActions} from "./store/chart.actions";
+import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
 
 @Component({
@@ -34,10 +34,6 @@ export class ChartBuilderComponent implements OnInit {
   constructor(private store: Store<State>) {
     this.$chartType = this.store.select(chartTypeSelector);
     this.$chartType.subscribe(chartType => this.selectChartObservable(chartType));
-    this.$queryStuff = this.store.select(queryChartOptionsSelector);
-    console.log(this.$queryStuff);
-    this.$queryStuff.subscribe(x => console.log(x, 'fuck'));
-
     this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
     this.store.dispatch(new ChartActions.SetChartGroupsAction(_.cloneDeep(this.chartGroups)));
   }
