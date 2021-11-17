@@ -18,8 +18,8 @@
     ]
   },
   "schemeType": "ordinal",
-  "showXAxis": true,
-  "showYAxis": true,
+  "showXAxis": false,
+  "showYAxis": false,
   "gradient": false,
   "barPadding": 8,
   "noBarWhenZero": true,

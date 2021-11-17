@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ChartOptions } from "./models/chart-options";
 import { escapeLabel, formatLabel } from "@swimlane/ngx-charts";
 
+import * as objectMapper from 'object-mapper'
+
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
 @Component({
@@ -14,7 +16,8 @@ export class ChartAdapterComponent implements OnInit {
   @Input() options: ChartOptions;
   @Input() chartType: string;
   @Input() view: [number, number];
-  @Input() results: any;
+  @Input() data: any;
+  @Input() mapper: Object;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
   @Output() activate: EventEmitter<any> = new EventEmitter<any>();
@@ -23,6 +26,9 @@ export class ChartAdapterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.mapper) {
+      this.data = objectMapper(this.data, this.mapper);
+    }
   }
 
 

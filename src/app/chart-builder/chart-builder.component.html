@@ -33,7 +33,7 @@
   <div id="mainContent">
     <app-chart-adapter [chartType]="$chartType | async"
                        [options]="options"
-                       [results]="results"
+                       [data]="results"
                        [view]="view"
                        (deactivate)="deactivate($event)"
                        (select)="select($event)"

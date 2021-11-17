@@ -1,5 +1,5 @@
 export const configuration = {
-  "animations": true,
+  "animations": false,
   "colorScheme": {
     "name": "cool",
     "selectable": true,
@@ -18,26 +18,32 @@ export const configuration = {
     ]
   },
   "schemeType": "ordinal",
-  "showXAxis": true,
-  "showYAxis": true,
+  "showXAxis": false,
+  "showYAxis": false,
   "gradient": false,
   "barPadding": 8,
-  "noBarWhenZero": true,
-  "showLegend": true,
-  "legendTitle": "LegendASDASDASD",
+  "noBarWhenZero": false,
+  "showLegend": false,
+  "legendTitle": "Legend",
   "legendPosition": "right",
   "showXAxisLabel": true,
   "xAxisLabel": "Country",
   "showYAxisLabel": true,
   "yAxisLabel": "GDP Per Capita",
-  "showGridLines": true,
+  "showGridLines": false,
   "roundDomains": false,
   "tooltipDisabled": false,
-  "roundEdges": true,
+  "roundEdges": false,
   "showDataLabel": false,
   "trimXAxisTicks": true,
   "trimYAxisTicks": true,
-  "rotateXAxisTicks": true,
+  "rotateXAxisTicks": false,
   "maxXAxisTickLength": 16,
   "maxYAxisTickLength": 16
+}
+
+export const mapper = {
+  "[].name": "[].name",
+  "[].value": "[].value",
+  "[].extra": "[].extra"
 }
