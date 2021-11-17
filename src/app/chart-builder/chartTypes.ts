@@ -1,4 +1,4 @@
-const chartGroups = [
+const chartGroups: any = [
   {
     name: 'Bar Charts',
     charts: [

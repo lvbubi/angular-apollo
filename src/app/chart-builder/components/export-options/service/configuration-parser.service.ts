@@ -2,49 +2,51 @@ import { Injectable } from '@angular/core';
 import { ConfigurationModel } from "../model/configuration-model";
 import { Store } from "@ngrx/store";
 import { Configuration, State } from "../../../store/chart.reducer";
+import chartGroups from "../../../chartTypes";
+import {configurationSelector} from "../../../store/chart.selectors";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigurationParserService {
 
-  configuration: ConfigurationModel = new ConfigurationModel();
+  exportConfigurationModel: ConfigurationModel = new ConfigurationModel();
+  configuration: Configuration;
+
   constructor(private store: Store<State>) {
-    this.configuration.headers.push('ChartOptions');
+    store.select(configurationSelector).subscribe(configuration => this.configuration = configuration);
+    this.exportConfigurationModel.headers.push('ChartOptions');
   }
 
-  createTypescriptFile(chartGroups, chartType, options) {
-    this.configuration.body.push({
+  createTypescriptFile() {
+    this.exportConfigurationModel.body.push({
       header: 'ChartOptions',
-      data: this.mapOptionsToTypeScript(chartGroups, chartType, options)
+      data: this.mapOptionsToTypeScript()
     });
 
-    const headerString = this.configuration.headers.map(header => `import { ${header} } from "chart-adapter";\n`).toString();
-    const bodyString = this.configuration.body.map(body => `export const configuration: ${body.header} = { ${body.data} \n}`).toString()
+    const headerString = this.exportConfigurationModel.headers.map(header => `import { ${header} } from "chart-adapter";\n`).toString();
+    const bodyString = this.exportConfigurationModel.body.map(body => `export const configuration: ${body.header} = { ${body.data} \n}`).toString()
 
     return headerString + bodyString;
   }
 
-  private mapOptionsToTypeScript(chartGroups, chartType, options) {
-    return chartGroups.filter(group => !group.disabled)
-      .flatMap(group => group.charts)
-      .filter(chart => chart.selector === chartType)
-      .flatMap(chart => chart.options)
-      .map(option => `\n\t${option}: ${JSON.stringify(options[option])}`);
+  private mapOptionsToTypeScript() {
+    return this.getAvailableChartOptions()
+      .map(option => `\n\t${option}: ${JSON.stringify(this.configuration.chartOptions[option])}`);
   }
 
-  createJsonFile(configuration: Configuration, chartGroups) {
+  mapOptionsToObject() {
     const initialValue = {};
+    return this.getAvailableChartOptions()
+      .reduce((obj, item) => {
+        return { ...obj, [item]: this.configuration.chartOptions[item] };
+      }, initialValue);
+  }
+
+  getAvailableChartOptions(): Array<any> {
     return chartGroups.filter(group => !group.disabled)
       .flatMap(group => group.charts)
-      .filter(chart => chart.selector === configuration.chartType)
+      .filter(chart => chart.selector === this.configuration.chartType)
       .flatMap(chart => chart.options)
-      .reduce((obj, item) => {
-        console.log(obj, item);
-        return {
-          ...obj,
-          [item]: configuration.chartOptions[item],
-        };
-      }, initialValue);
   }
 }
