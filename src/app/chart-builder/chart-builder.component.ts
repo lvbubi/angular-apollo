@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import chartGroups from './chartTypes';
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
-import { ChartOptions } from "chart-adapter";
+import { ChartOptions, Configuration } from "chart-adapter";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { chartTypeSelector } from "./store/chart.selectors";
+import { chartTypeSelector, configurationSelector } from "./store/chart.selectors";
 import { State } from "./store/chart.reducer";
 import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
@@ -17,21 +17,20 @@ import * as _ from 'lodash';
 export class ChartBuilderComponent implements OnInit {
   private chartGroups: any = chartGroups;
 
-  options: ChartOptions = new ChartOptions();
+  $options: Observable<ChartOptions>;
+  $chartType: Observable<string>;
+  $configuration: Observable<Configuration>;
 
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
-  $chartType: Observable<string>;
-  $queryStuff: Observable<string>;
 
-  results: any;
+  data: any;
 
   linearScale: boolean = false;
   range: boolean = false;
 
-  view: [number, number] = [700, 300];
-
   constructor(private store: Store<State>) {
+    this.$configuration = this.store.select(configurationSelector);
     this.$chartType = this.store.select(chartTypeSelector);
     this.$chartType.subscribe(chartType => this.selectChartObservable(chartType));
     this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
@@ -56,10 +55,10 @@ export class ChartBuilderComponent implements OnInit {
   }
 
   setColorScheme(name) {
-
-    this.options.colorScheme = this.options.colorSets.find(s => s.name === name);
-    this.options.selectedColorScheme = this.options.colorScheme;
-    console.log(this.options.colorScheme);
+    //TODO: EZT VISSZARAKNI
+    //this.options.colorScheme = this.options.colorSets.find(s => s.name === name);
+    //this.options.selectedColorScheme = this.options.colorScheme;
+    //console.log(this.options.colorScheme);
   }
 
   selectChart(chartSelector) {
@@ -90,6 +89,6 @@ export class ChartBuilderComponent implements OnInit {
 
   selectResults(result: any) {
     console.log('select datasource', result());
-    this.results = result();
+    this.data = result();
   }
 }

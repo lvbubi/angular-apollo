@@ -3,6 +3,7 @@ import { ChartOptions } from "./models/chart-options";
 import { escapeLabel, formatLabel } from "@swimlane/ngx-charts";
 
 import * as objectMapper from 'object-mapper'
+import { Configuration } from "./models/configuration";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
@@ -13,17 +14,23 @@ const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 })
 export class ChartAdapterComponent implements OnInit {
 
-  @Input() options: ChartOptions;
-  @Input() chartType: string;
-  @Input() view: [number, number];
+  @Input() configuration: Configuration
   @Input() data: any;
-  @Input() mapper: Object;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
   @Output() activate: EventEmitter<any> = new EventEmitter<any>();
   @Output() deactivate: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  options: ChartOptions;
+  chartType: string;
+  view: [number, number];
+  mapper: Object;
+
+  constructor() {
+    this.options = this.configuration.chartOptions;
+    this.chartType = this.configuration.chartType;
+    this.view = this.configuration.view;
+  }
 
   ngOnInit(): void {
     if (this.mapper) {

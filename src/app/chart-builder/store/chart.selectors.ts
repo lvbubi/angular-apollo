@@ -2,7 +2,9 @@ import {
   createSelector,
   MemoizedSelector
 } from '@ngrx/store';
-import { Configuration, getState, State } from "./chart.reducer";
+import { getState, State } from "./chart.reducer";
+
+import { Configuration } from "chart-adapter";
 
 export const selectInputFormat = (state: State) => state.inputFormat;
 export const selectChartType = (state: State) => state.configuration.chartType;

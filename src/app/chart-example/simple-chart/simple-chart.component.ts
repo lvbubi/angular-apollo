@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ChartOptions } from "chart-adapter";
+import { Configuration } from "chart-adapter";
 
-import { configuration, mapper } from "./chart-configuration";
+import { configuration } from "./chart-configuration";
 import { data } from "./data";
 
 @Component({
@@ -12,17 +12,11 @@ import { data } from "./data";
 })
 export class SimpleChartComponent implements OnInit {
 
-  options: ChartOptions;
-  mapper: any;
+  configuration: Configuration = configuration;
   data: any = data;
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.options = ChartOptions.fromJSON(configuration));
-    this.mapper = mapper;
-    console.log(this.mapper);
-    //console.log(JSON.parse(configuration.toString()));
-    //console.log(JSON.parse(configuration.toString()));
   }
 
 }

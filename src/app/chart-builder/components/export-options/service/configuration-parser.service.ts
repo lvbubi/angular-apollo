@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ConfigurationModel } from "../model/configuration-model";
 import { Store } from "@ngrx/store";
-import { Configuration, State } from "../../../store/chart.reducer";
+import { State } from "../../../store/chart.reducer";
 import chartGroups from "../../../chartTypes";
-import {configurationSelector} from "../../../store/chart.selectors";
+import { configurationSelector } from "../../../store/chart.selectors";
+import { Configuration } from "chart-adapter";
 
 @Injectable({
   providedIn: 'root'

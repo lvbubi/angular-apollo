@@ -2,19 +2,12 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import { ChartActions } from "./chart.actions";
-import {ChartOptions} from "../../../../projects/chart-adapter/src/lib/models/chart-options";
-
+import { ChartOptions, Configuration } from "chart-adapter";
 
 export interface State {
   chartGroups: any; //visible
   inputFormat: string;
   configuration: Configuration
-}
-
-export interface Configuration {
-  chartType: string;
-  dataMapper: Object;
-  chartOptions: ChartOptions;
 }
 
 export const scoreboardFeatureKey = 'game';
@@ -24,7 +17,8 @@ export const initialState: State = {
   configuration: {
     dataMapper: undefined,
     chartType: 'bar-vertical',
-    chartOptions: new ChartOptions()
+    chartOptions: new ChartOptions(),
+    view: [700, 300]
   },
   inputFormat: 'singleSeries',
   chartGroups: undefined,

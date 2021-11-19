@@ -11,29 +11,30 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "./chart-example/chart-example.module";
+import {ChartBuilderComponent} from "./chart-builder/chart-builder.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     PetComponent
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot([
-            { path: 'pets', component: PetComponent }
-        ]),
-        StoreModule.forRoot({}),
-        StoreDevtoolsModule.instrument({
-          maxAge: 25, // Retains last 25 states
-          logOnly: environment.production, // Restrict extension to log-only mode
-          autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-        }),
-        GraphQLModule,
-        HttpClientModule,
-        ChartBuilderModule,
-        ChartExampleModule,
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
-    ],
+  imports: [
+      BrowserModule,
+      RouterModule.forRoot([
+        { path: 'pets', component: PetComponent }
+      ]),
+      StoreModule.forRoot({}),
+      StoreDevtoolsModule.instrument({
+        maxAge: 25, // Retains last 25 states
+        logOnly: environment.production, // Restrict extension to log-only mode
+        autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+      }),
+      GraphQLModule,
+      HttpClientModule,
+      ChartBuilderModule,
+      ChartExampleModule,
+      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
