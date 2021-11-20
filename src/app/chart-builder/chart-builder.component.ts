@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import chartGroups from './chartTypes';
+import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions, Configuration } from "chart-adapter";
 import { Store } from "@ngrx/store";
@@ -8,13 +9,14 @@ import { chartTypeSelector, configurationSelector } from "./store/chart.selector
 import { State } from "./store/chart.reducer";
 import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'app-chart-builder',
   templateUrl: './chart-builder.component.html',
   styleUrls: ['./chart-builder.component.css']
 })
-export class ChartBuilderComponent implements OnInit {
+export class ChartBuilderComponent {
   private chartGroups: any = chartGroups;
 
   $options: Observable<ChartOptions>;
@@ -31,16 +33,14 @@ export class ChartBuilderComponent implements OnInit {
 
   constructor(private store: Store<State>) {
     this.$configuration = this.store.select(configurationSelector);
+    this.$options = this.$configuration.pipe(map(x => x.chartOptions));
+
     this.$chartType = this.store.select(chartTypeSelector);
     this.$chartType.subscribe(chartType => this.selectChartObservable(chartType));
     this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
     this.store.dispatch(new ChartActions.SetChartGroupsAction(_.cloneDeep(this.chartGroups)));
+    this.store.dispatch(new ChartActions.SetColorSchemeAction(this.findColorScheme(colorSets, 'cool')));
   }
-
-  ngOnInit(): void {
-    this.setColorScheme('cool');
-  }
-
 
   select(data) {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
@@ -54,11 +54,8 @@ export class ChartBuilderComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  setColorScheme(name) {
-    //TODO: EZT VISSZARAKNI
-    //this.options.colorScheme = this.options.colorSets.find(s => s.name === name);
-    //this.options.selectedColorScheme = this.options.colorScheme;
-    //console.log(this.options.colorScheme);
+  findColorScheme(colorSets, name) {
+    return colorSets.find(s => s.name === name);
   }
 
   selectChart(chartSelector) {

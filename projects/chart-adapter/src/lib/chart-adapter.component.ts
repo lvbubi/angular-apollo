@@ -8,7 +8,7 @@ import { Configuration } from "./models/configuration";
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
 @Component({
-  selector: 'app-chart-adapter',
+  selector: 'chart-adapter-component',
   templateUrl: './chart-adapter.component.html',
   styleUrls: ['./chart-adapter.component.css']
 })
@@ -26,18 +26,17 @@ export class ChartAdapterComponent implements OnInit {
   view: [number, number];
   mapper: Object;
 
-  constructor() {
+  ngOnInit(): void {
     this.options = this.configuration.chartOptions;
     this.chartType = this.configuration.chartType;
     this.view = this.configuration.view;
-  }
 
-  ngOnInit(): void {
     if (this.mapper) {
       this.data = objectMapper(this.data, this.mapper);
     }
-  }
 
+    console.log(this.options, 'chart-adapter-options');
+  }
 
   dblclick(event) {
     console.log('Double click', event);

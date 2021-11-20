@@ -11,7 +11,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "./chart-example/chart-example.module";
-import {ChartBuilderComponent} from "./chart-builder/chart-builder.component";
 
 @NgModule({
   declarations: [

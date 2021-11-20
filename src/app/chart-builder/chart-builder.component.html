@@ -13,8 +13,7 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
-          <app-chart-options [chartType]="$chartType | async" [chart]="chart" [options]="$options | async">
-          </app-chart-options>
+          <app-chart-options [chartType]="$chartType | async" [chart]="chart" [options]="$options | async"></app-chart-options>
           <ng-template matStepContent>
             <p>This content was also rendered lazily</p>
             <button mat-button matStepperPrevious>Back</button>
@@ -30,11 +29,11 @@
   </div>
   <div>Selected Chart Type {{ $chartType | async }}</div>
   <div id="mainContent">
-    <app-chart-adapter [configuration]="$configuration | async"
-                       [data]="data"
-                       (deactivate)="deactivate($event)"
-                       (select)="select($event)"
-                       (activate)="activate($event) ">
-    </app-chart-adapter>
+  <chart-adapter-component [configuration]="$configuration | async"
+                 [data]="data"
+                 (deactivate)="deactivate($event)"
+                 (select)="select($event)"
+                 (activate)="activate($event) ">
+  </chart-adapter-component>
   </div>
 </div>

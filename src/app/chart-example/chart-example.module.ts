@@ -5,7 +5,6 @@ import { SimpleChartComponent } from './simple-chart/simple-chart.component';
 import { ChartAdapterModule } from "chart-adapter";
 
 
-
 @NgModule({
   declarations: [
     SimpleChartComponent
@@ -15,7 +14,7 @@ import { ChartAdapterModule } from "chart-adapter";
     RouterModule.forRoot([
       {path: 'example', component: SimpleChartComponent}
     ]),
-    ChartAdapterModule,
+    ChartAdapterModule
   ]
 })
 export class ChartExampleModule { }

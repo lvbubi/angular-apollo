@@ -54,6 +54,18 @@ export function reducer(state: State = initialState, action: ChartActions.Action
         }
       };
     }
+    case ChartActions.ChartAction.SET_COLOR_SCHEME: {
+      return {
+        ...state,
+        configuration: {
+          ...state.configuration,
+          chartOptions: {
+            ...state.configuration.chartOptions, colorScheme: (action as ChartActions.SetColorSchemeAction).colorScheme
+          }
+
+        }
+      }
+    }
     default:
       return state;
   }
