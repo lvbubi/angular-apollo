@@ -1,7 +1,7 @@
 export class ConfigurationModel {
   headers: Array<string> = [];
   body: Array<{
-    header: string,
-    data: any
+    key: string,
+    values: any
   }> = [];
 }

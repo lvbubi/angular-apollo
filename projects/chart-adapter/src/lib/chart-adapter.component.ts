@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { escapeLabel, formatLabel } from "@swimlane/ngx-charts";
+import { colorSets, escapeLabel, formatLabel } from "@swimlane/ngx-charts";
 
 import * as objectMapper from 'object-mapper'
 import { Configuration } from "./models/configuration";
@@ -24,6 +24,15 @@ export class ChartAdapterComponent implements OnInit {
     if (this.configuration.dataMapper) {
       this.data = objectMapper(this.data, this.configuration.dataMapper);
     }
+
+    //TODO: Ez így gány, javítani kell
+    if (!this.configuration.chartOptions.colorScheme) {
+      this.configuration.chartOptions.colorScheme = this.findColorScheme('cool');
+    }
+  }
+
+  findColorScheme(name) {
+    return colorSets.find(s => s.name === name);
   }
 
   dblclick(event) {

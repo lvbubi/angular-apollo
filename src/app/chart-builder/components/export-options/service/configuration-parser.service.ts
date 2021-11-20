@@ -5,6 +5,7 @@ import { State } from "../../../store/chart.reducer";
 import chartGroups from "../../../chartTypes";
 import { configurationSelector } from "../../../store/chart.selectors";
 import { Configuration } from "chart-adapter";
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +16,31 @@ export class ConfigurationParserService {
   configuration: Configuration;
 
   constructor(private store: Store<State>) {
-    store.select(configurationSelector).subscribe(configuration => this.configuration = configuration);
-    this.exportConfigurationModel.headers.push('ChartOptions');
+    store.select(configurationSelector).subscribe(configuration => {
+      this.configuration = _.cloneDeep(configuration);
+      console.log('COOONFIIIG PARSER', this.configuration);
+      this.configuration.chartOptions = this.mapOptionsToObject();
+    });
+    this.exportConfigurationModel.headers.push('Configuration');
   }
 
   createTypescriptFile() {
-    this.exportConfigurationModel.body.push({
-      header: 'ChartOptions',
-      data: this.mapOptionsToTypeScript()
-    });
-
     const headerString = this.exportConfigurationModel.headers.map(header => `import { ${header} } from "chart-adapter";\n`).toString();
-    const bodyString = this.exportConfigurationModel.body.map(body => `export const configuration: ${body.header} = { ${body.data} \n}`).toString()
 
-    return headerString + bodyString;
-  }
 
-  private mapOptionsToTypeScript() {
-    return this.getAvailableChartOptions()
-      .map(option => `\n\t${option}: ${JSON.stringify(this.configuration.chartOptions[option])}`);
+    Object.keys(this.configuration).forEach(key => {
+      console.log('key', key);
+      console.log('value', this.configuration[key]);
+      this.exportConfigurationModel.body.push({
+        key: key,
+        values: JSON.stringify(this.configuration[key], null, 4)
+      });
+    })
+
+    const asd: string = this.exportConfigurationModel.body.map(entry => `\n  ${entry.key}: ${entry.values}`).toString();
+
+
+    return headerString + `export const configuration: Configuration = { ${asd} \n}`;
   }
 
   mapOptionsToObject() {

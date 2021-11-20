@@ -36,8 +36,7 @@ export class ExportOptionsComponent implements OnInit {
   ngOnInit(): void {}
 
   async exportOptions() {
-    let chartOptions = this.parser.mapOptionsToObject();
-    let chartOptionsString = JSON.stringify(chartOptions, null, 2);
+    let chartOptionsString = this.parser.createTypescriptFile();
 
     this.chartRegisterService.addNewConfiguration(this.configuration.chartType, chartOptionsString);
 
@@ -47,7 +46,6 @@ export class ExportOptionsComponent implements OnInit {
   }
 
   async viewOptions() {
-
     let chartOptions = this.parser.mapOptionsToObject();
     this.dialog.open(ExportOptionsDialog, {
         data: chartOptions

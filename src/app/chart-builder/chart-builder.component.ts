@@ -92,8 +92,10 @@ export class ChartBuilderComponent {
   }
 
   selectResults(result: any) {
-    console.log('select datasource', result());
-    this.data = result();
+    if (result) {
+      console.log('select datasource', result());
+      this.data = result();
+    }
   }
 
   updateStore(event: any) {
