@@ -2,7 +2,7 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import { ChartActions } from "./chart.actions";
-import { ChartOptions, Configuration } from "chart-adapter";
+import { Configuration } from "chart-adapter";
 
 export interface State {
   chartGroups: any; //visible
@@ -14,12 +14,7 @@ export const scoreboardFeatureKey = 'game';
 export const getState = createFeatureSelector(scoreboardFeatureKey);
 
 export const initialState: State = {
-  configuration: {
-    dataMapper: undefined,
-    chartType: 'bar-vertical',
-    chartOptions: new ChartOptions(),
-    view: [700, 300]
-  },
+  configuration: undefined,
   inputFormat: 'singleSeries',
   chartGroups: undefined,
 };
@@ -64,6 +59,20 @@ export function reducer(state: State = initialState, action: ChartActions.Action
           }
 
         }
+      }
+    }
+    case ChartActions.ChartAction.SET_CHART_OPTIONS: {
+      return {
+        ...state,
+        configuration: {
+          ...state.configuration, chartOptions: (action as ChartActions.SetChartOptionsAction).chartOptions
+        }
+      }
+    }
+    case ChartActions.ChartAction.SET_CONFIGURATION: {
+      return {
+        ...state,
+        configuration: (action as ChartActions.SetConfigurationAction).configuration
       }
     }
     default:

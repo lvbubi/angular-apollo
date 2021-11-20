@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChartOptions } from "./models/chart-options";
 import { escapeLabel, formatLabel } from "@swimlane/ngx-charts";
 
 import * as objectMapper from 'object-mapper'
@@ -21,21 +20,10 @@ export class ChartAdapterComponent implements OnInit {
   @Output() activate: EventEmitter<any> = new EventEmitter<any>();
   @Output() deactivate: EventEmitter<any> = new EventEmitter<any>();
 
-  options: ChartOptions;
-  chartType: string;
-  view: [number, number];
-  mapper: Object;
-
   ngOnInit(): void {
-    this.options = this.configuration.chartOptions;
-    this.chartType = this.configuration.chartType;
-    this.view = this.configuration.view;
-
-    if (this.mapper) {
-      this.data = objectMapper(this.data, this.mapper);
+    if (this.configuration.dataMapper) {
+      this.data = objectMapper(this.data, this.configuration.dataMapper);
     }
-
-    console.log(this.options, 'chart-adapter-options');
   }
 
   dblclick(event) {

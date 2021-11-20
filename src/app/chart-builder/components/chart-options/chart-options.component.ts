@@ -9,7 +9,8 @@ import * as shape from "d3-shape";
 })
 export class ChartOptionsComponent implements OnInit {
 
-  @Input() options: ChartOptions;
+  @Input()
+  options: ChartOptions;
 
   curves = {
     Basis: shape.curveBasis,

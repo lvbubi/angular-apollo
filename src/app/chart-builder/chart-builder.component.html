@@ -1,19 +1,19 @@
 <div>
   <div id="sideContent">
-      <mat-stepper orientation="vertical">
+      <mat-stepper orientation="vertical" (selectionChange)="updateStore($event)">
         <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
             <app-data-source-selector (resultEvent)="selectResults($event)">
             </app-data-source-selector>
             <app-data-type-selector></app-data-type-selector>
-            <app-chart-type-selector></app-chart-type-selector>
+            <app-chart-type-selector [configuration]="configuration"></app-chart-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
-          <app-chart-options [chartType]="$chartType | async" [chart]="chart" [options]="$options | async"></app-chart-options>
+          <app-chart-options [chartType]="chartType" [chart]="chart" [options]="options"></app-chart-options>
           <ng-template matStepContent>
             <p>This content was also rendered lazily</p>
             <button mat-button matStepperPrevious>Back</button>
@@ -22,14 +22,14 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Export</ng-template>
-          <app-export-options [options]="$options | async"></app-export-options>
+          <app-export-options [options]="options"></app-export-options>
           <button mat-button matStepperPrevious>Back</button>
         </mat-step>
       </mat-stepper>
   </div>
-  <div>Selected Chart Type {{ $chartType | async }}</div>
+  <div>Selected Chart Type {{ configuration.chartType }}</div>
   <div id="mainContent">
-  <chart-adapter-component [configuration]="$configuration | async"
+  <chart-adapter-component [configuration]="configuration"
                  [data]="data"
                  (deactivate)="deactivate($event)"
                  (select)="select($event)"

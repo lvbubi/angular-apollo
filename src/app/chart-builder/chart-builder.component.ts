@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import chartGroups from './chartTypes';
 import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
 import { ChartOptions, Configuration } from "chart-adapter";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
-import { chartTypeSelector, configurationSelector } from "./store/chart.selectors";
 import { State } from "./store/chart.reducer";
 import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
-import { map } from "rxjs/operators";
+import {chartTypeSelector} from "./store/chart.selectors";
 
 @Component({
   selector: 'app-chart-builder',
@@ -19,9 +17,15 @@ import { map } from "rxjs/operators";
 export class ChartBuilderComponent {
   private chartGroups: any = chartGroups;
 
-  $options: Observable<ChartOptions>;
-  $chartType: Observable<string>;
-  $configuration: Observable<Configuration>;
+  chartType: string = 'bar-vertical';
+  options: ChartOptions = new ChartOptions();
+
+  configuration: Configuration = {
+    chartType: this.chartType,
+    chartOptions: this.options,
+    dataMapper: undefined,
+    view: [700, 300]
+  };
 
   theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
@@ -32,14 +36,17 @@ export class ChartBuilderComponent {
   range: boolean = false;
 
   constructor(private store: Store<State>) {
-    this.$configuration = this.store.select(configurationSelector);
-    this.$options = this.$configuration.pipe(map(x => x.chartOptions));
-
-    this.$chartType = this.store.select(chartTypeSelector);
-    this.$chartType.subscribe(chartType => this.selectChartObservable(chartType));
-    this.store.dispatch(new ChartActions.SetChartTypeAction('bar-vertical'));
     this.store.dispatch(new ChartActions.SetChartGroupsAction(_.cloneDeep(this.chartGroups)));
-    this.store.dispatch(new ChartActions.SetColorSchemeAction(this.findColorScheme(colorSets, 'cool')));
+    this.store.dispatch(new ChartActions.SetConfigurationAction(_.cloneDeep(this.configuration)));
+
+    this.store.select(chartTypeSelector).subscribe(chartType => {
+      console.log('chartType changes subscribe', chartType);
+      this.selectChartObservable(chartType)
+    });
+
+    this.options.colorScheme = this.findColorScheme('cool');
+    this.selectChartObservable(this.configuration.chartType);
+
   }
 
   select(data) {
@@ -54,7 +61,7 @@ export class ChartBuilderComponent {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
-  findColorScheme(colorSets, name) {
+  findColorScheme(name) {
     return colorSets.find(s => s.name === name);
   }
 
@@ -87,5 +94,21 @@ export class ChartBuilderComponent {
   selectResults(result: any) {
     console.log('select datasource', result());
     this.data = result();
+  }
+
+  updateStore(event: any) {
+    console.log(event);
+    switch (event.previouslySelectedIndex) {
+      case 0:
+        console.log('chartType collapsed');
+        this.store.dispatch(new ChartActions.SetChartTypeAction(this.chartType));
+        break;
+      case 1:
+        console.log('options collapsed');
+        break;
+      case 2:
+        console.log('export collapsed');
+        break;
+    }
   }
 }

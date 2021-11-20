@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { State } from "../../store/chart.reducer";
 import { Observable } from "rxjs";
-import { chartTypeSelector, inputFormatSelector } from "../../store/chart.selectors";
+import { inputFormatSelector } from "../../store/chart.selectors";
 
 import chartGroups from '../../chartTypes';
-import { ChartActions } from "../../store/chart.actions";
+import { Configuration } from "chart-adapter";
 
 
 @Component({
@@ -15,30 +15,24 @@ import { ChartActions } from "../../store/chart.actions";
 })
 export class ChartTypeSelectorComponent {
 
-  $chartType: Observable<string>;
+  @Input()
+  configuration: Configuration;
+
   private $inputFormat: Observable<string>;
 
   chartGroups: any = chartGroups;
 
   constructor(private store: Store<State>) {
-    this.$chartType = store.select(chartTypeSelector);
     this.$inputFormat = store.select(inputFormatSelector);
 
     this.$inputFormat.subscribe(inputFormat => this.updateChartTypes(inputFormat));
   }
 
-  selectChart(chartSelector: string) {
-    this.store.dispatch(new ChartActions.SetChartTypeAction(chartSelector));
-  }
-
   updateChartTypes(inputFormat: string) {
-    console.log(Object.isExtensible(this.chartGroups));
-    console.log(this.chartGroups);
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
       .forEach(chart => {
-        console.log(Object.isExtensible(chart), chart);
         chart.visible = inputFormat === chart.inputFormat;
       })
   }

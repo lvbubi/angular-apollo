@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { ChartOptions, Configuration } from "chart-adapter";
 
 export namespace ChartActions {
 
@@ -7,7 +8,9 @@ export namespace ChartActions {
     SET_INPUT_FORMAT = 'SET_INPUT_FORMAT',
     SET_CHART_GROUPS = 'SET_CHART_GROUPS',
     SET_DATA_MAPPER = 'SET_DATA_MAPPER',
-    SET_COLOR_SCHEME = 'SET_COLOR_SCHEME'
+    SET_COLOR_SCHEME = 'SET_COLOR_SCHEME',
+    SET_CHART_OPTIONS = 'SET_CHART_OPTIONS',
+    SET_CONFIGURATION = 'SET_CONFIGURATION'
   }
 
   export class SetChartTypeAction implements Action {
@@ -40,5 +43,19 @@ export namespace ChartActions {
     constructor(public colorScheme: any) {}
   }
 
-  export type Actions = SetChartTypeAction | SetInputFormatAction | SetChartGroupsAction | SetDataMapperAction | SetColorSchemeAction;
+  export class SetChartOptionsAction implements Action {
+    readonly type: string = ChartAction.SET_CHART_OPTIONS;
+
+    constructor(public chartOptions: ChartOptions) {}
+  }
+
+  export class SetConfigurationAction implements Action {
+    readonly type: string = ChartAction.SET_CONFIGURATION;
+
+    constructor(public configuration: Configuration) {
+    }
+  }
+
+  export type Actions = SetChartTypeAction | SetInputFormatAction | SetChartGroupsAction | SetDataMapperAction
+    | SetColorSchemeAction | SetChartOptionsAction | SetConfigurationAction;
 }
