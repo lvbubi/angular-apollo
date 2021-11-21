@@ -1,0 +1,7 @@
+<form [formGroup]="form" (submit)="submit()">
+  <json-output-component [formControlInput]="form.get('mapper')"
+                         [label]="'Mapper'"></json-output-component>
+  <json-output-component [formControlInput]="form.get('dataSource')"
+                         [label]="'DataSource'"></json-output-component>
+  <button mat-button type="submit" [disabled]="form.get('mapper').invalid || form.get('dataSource').invalid">Set DataSource</button>
+</form>
