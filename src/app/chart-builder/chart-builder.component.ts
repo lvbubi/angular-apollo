@@ -23,7 +23,6 @@ export class ChartBuilderComponent {
   configuration: Configuration = {
     chartType: this.chartType,
     chartOptions: this.options,
-    dataMapper: undefined,
     view: [700, 300]
   };
 
@@ -40,7 +39,6 @@ export class ChartBuilderComponent {
     this.store.dispatch(new ChartActions.SetConfigurationAction(_.cloneDeep(this.configuration)));
 
     this.store.select(chartTypeSelector).subscribe(chartType => {
-      console.log('chartType changes subscribe', chartType);
       this.selectChartObservable(chartType)
     });
 

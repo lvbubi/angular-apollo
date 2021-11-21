@@ -18,7 +18,6 @@ export class ConfigurationParserService {
   constructor(private store: Store<State>) {
     store.select(configurationSelector).subscribe(configuration => {
       this.configuration = _.cloneDeep(configuration);
-      console.log('COOONFIIIG PARSER', this.configuration);
       this.configuration.chartOptions = this.mapOptionsToObject();
     });
     this.exportConfigurationModel.headers.push('Configuration');
@@ -29,8 +28,6 @@ export class ConfigurationParserService {
 
 
     Object.keys(this.configuration).forEach(key => {
-      console.log('key', key);
-      console.log('value', this.configuration[key]);
       this.exportConfigurationModel.body.push({
         key: key,
         values: JSON.stringify(this.configuration[key], null, 4)

@@ -33,9 +33,6 @@ export class InputFormatComponent {
       .filter(value => isNaN(Number(value)) === false)
       .map(key => InputFormat[key])
 
-    console.log(this.inputFormats);
-
-
     this.$chartType.subscribe(chartType => {
       let initialInputFormat = this.chartGroups.filter(group => !group.disabled)
         .flatMap(group => group.charts)
@@ -43,13 +40,10 @@ export class InputFormatComponent {
 
       this.store.dispatch(new SetInputFormatAction(initialInputFormat));
     });
-
-    this.$inputFormat.subscribe(inputFormat => console.log('input format changed:', inputFormat));
     this.$inputFormat.subscribe(inputFormat => this.store.dispatch(new SetInputFormatAction(inputFormat)));
   }
 
   selectDataType(selectedInputFormat: string) {
-    console.log('dataTypeSelectorComponent', selectedInputFormat);
     this.store.dispatch(new SetInputFormatAction(selectedInputFormat));
   }
 }

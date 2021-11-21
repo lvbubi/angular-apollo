@@ -1,6 +1,6 @@
 export interface Configuration {
   chartType: string;
-  dataMapper: Object;
+  dataMapper?: Object;
   chartOptions: any;
   view: [number, number];
 }
