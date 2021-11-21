@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PetComponent } from "./components/pet-component/pet.component";
+import { PetComponent } from "./pet-component/pet.component";
 import { RouterModule } from "@angular/router";
 import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
 import { StoreModule } from '@ngrx/store';

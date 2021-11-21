@@ -6,4 +6,4 @@
         </mat-option>
   </mat-select>
 </mat-form-field>
-<app-data-source-mapper *ngIf="dataSourceType == 'custom'" [resultEvent]="resultEvent"></app-data-source-mapper>
+<app-custom-data-source *ngIf="dataSourceType == 'custom'" (resultEvent)="resultEvent.emit($event)"></app-custom-data-source>

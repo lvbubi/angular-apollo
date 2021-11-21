@@ -21,7 +21,8 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ChartAdapterModule } from "chart-adapter";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
-import { DataSourceMapperComponent } from './components/data-source-selector/data-source-mapper/data-source-mapper.component';
+import { JsonInputComponent } from './components/data-source-selector/json-input/json-input.component';
+import { CustomDataSourceComponent } from './components/data-source-selector/custom-data-source/custom-data-source.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DataSourceMapperComponent } from './components/data-source-selector/dat
     DataSourceSelectorComponent,
     ExportOptionsComponent,
     ExportOptionsDialog,
-    DataSourceMapperComponent
+    JsonInputComponent,
+    CustomDataSourceComponent
   ],
     imports: [
         RouterModule.forRoot([

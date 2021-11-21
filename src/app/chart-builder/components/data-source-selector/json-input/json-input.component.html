@@ -1,0 +1,14 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <textarea [formControl]="formControl()" (focusout)="validateForm()"
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"></textarea>
+  <mat-error *ngIf="formControlInput.hasError('syntaxError')">
+    Please enter a valid mapper as a json
+  </mat-error>
+  <mat-error *ngIf="formControlInput.hasError('semanticError')">
+    Please enter a valid mapper as a json
+  </mat-error>
+</mat-form-field>

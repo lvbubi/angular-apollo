@@ -16,7 +16,6 @@ export class DataSourceSelectorComponent {
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dataService: DataService, private _ngZone: NgZone) {
-
     this.dataMap.set("custom", null);
     this.dataMap.set("single", () => single);
     this.dataMap.set("multi", () => multi);
