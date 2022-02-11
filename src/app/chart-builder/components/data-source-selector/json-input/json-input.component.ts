@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 
 import {
@@ -32,7 +32,7 @@ export function jsonSyntaxValidator(): ValidatorFn {
 }
 
 @Component({
-  selector: 'json-output-component',
+  selector: 'json-input-component',
   templateUrl: './json-input.component.html',
   styleUrls: ['./json-input.component.css']
 })

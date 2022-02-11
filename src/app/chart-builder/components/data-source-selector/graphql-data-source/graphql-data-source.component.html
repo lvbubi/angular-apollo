@@ -1,0 +1,15 @@
+<form [formGroup]="form" (submit)="submit()">
+  <json-input-component [formControlInput]="mapperFormControl"
+                        [label]="'Mapper'"></json-input-component>
+
+  <json-input-component [formControlInput]="graphqlQueryFormControl"
+                        [label]="'GraphqlQuery'"></json-input-component>
+
+  <!--
+  <mat-form-field>
+    <mat-label>GraphqlQuery</mat-label>
+    <input matInput [formControl]="graphqlQueryFormControl"/>
+  </mat-form-field>
+  -->
+  <button mat-button type="submit" [disabled]="mapperFormControl.invalid || graphqlQueryFormControl.invalid">Set DataSource</button>
+</form>

@@ -23,6 +23,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { JsonInputComponent } from './components/data-source-selector/json-input/json-input.component';
 import { CustomDataSourceComponent } from './components/data-source-selector/custom-data-source/custom-data-source.component';
+import { GraphqlDataSourceComponent } from './components/data-source-selector/graphql-data-source/graphql-data-source.component';
+import { AutosizeInputComponent } from './components/data-source-selector/autosize-input/autosize-input.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CustomDataSourceComponent } from './components/data-source-selector/cus
     ExportOptionsComponent,
     ExportOptionsDialog,
     JsonInputComponent,
-    CustomDataSourceComponent
+    CustomDataSourceComponent,
+    GraphqlDataSourceComponent,
+    AutosizeInputComponent
   ],
     imports: [
         RouterModule.forRoot([
