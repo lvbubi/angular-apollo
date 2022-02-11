@@ -27,13 +27,13 @@ export const configuration: Configuration = {
     "maxXAxisTickLength": 16,
     "maxYAxisTickLength": 16
   },
+  view: [
+    700,
+    300
+  ],
   dataMapper: {
     "[].name": "[].name",
     "[].value": "[].value",
     "[].extra": "[].extra"
-  },
-  view: [
-    700,
-    300
-  ]
+  }
 }
