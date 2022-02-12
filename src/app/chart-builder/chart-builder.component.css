@@ -3,9 +3,16 @@
 }
 
 #mainContent {
-  width: 69%;
+  width: 85%;
+  text-align: center;
+}
+
+#mainContent chart-adapter-component {
+  margin:10px;
+  display:inline-block;
+  background:#e0e0e0;
 }
 
 #sideContent {
-  width: 29%;
+  width: 15%;
 }

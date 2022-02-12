@@ -7,12 +7,12 @@
             <app-data-source-selector (resultEvent)="selectResults($event)">
             </app-data-source-selector>
             <app-data-type-selector></app-data-type-selector>
-            <app-chart-type-selector [configuration]="configuration"></app-chart-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
+          <app-chart-type-selector [configuration]="configuration"></app-chart-type-selector>
           <app-chart-options [chartType]="chartType" [chart]="chart" [options]="options"></app-chart-options>
           <ng-template matStepContent>
             <p>This content was also rendered lazily</p>
@@ -27,7 +27,6 @@
         </mat-step>
       </mat-stepper>
   </div>
-  <div>Selected Chart Type {{ configuration.chartType }}</div>
   <div id="mainContent">
   <chart-adapter-component [configuration]="configuration"
                  [data]="data"
