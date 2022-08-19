@@ -1,0 +1,11 @@
+<div *ngIf="loading">
+  Loading...
+</div>
+<div *ngIf="error">
+  Error :(
+</div>
+<div *ngIf="pets">
+  <div *ngFor="let pet of pets">
+    <p (click)="onPetClickEvent(pet.id)">id: {{ pet.id }}</p>
+  </div>
+</div>
