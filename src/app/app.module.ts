@@ -4,23 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { PetComponent } from "./pet-component/pet.component";
 import { RouterModule } from "@angular/router";
 import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "./chart-example/chart-example.module";
+import { PetModule } from './pet/pet.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PetComponent
+    AppComponent
   ],
   imports: [
       BrowserModule,
       RouterModule.forRoot([
-        { path: 'pets', component: PetComponent }
+        { path: 'builder', component: AppComponent }
       ]),
       StoreModule.forRoot({}),
       StoreDevtoolsModule.instrument({
@@ -32,7 +31,8 @@ import { ChartExampleModule } from "./chart-example/chart-example.module";
       HttpClientModule,
       ChartBuilderModule,
       ChartExampleModule,
-      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+      PetModule
   ],
   providers: [],
   bootstrap: [AppComponent]
