@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
@@ -27,7 +26,6 @@ import { PetModule } from './pet/pet.module';
         logOnly: environment.production, // Restrict extension to log-only mode
         autoPause: true, // Pauses recording actions and state changes when the extension window is not open
       }),
-      GraphQLModule,
       HttpClientModule,
       ChartBuilderModule,
       ChartExampleModule,

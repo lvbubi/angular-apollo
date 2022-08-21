@@ -1,0 +1,7 @@
+<h1>Pet Details: </h1>
+<div *ngIf="!pet">
+  Loading...
+</div>
+<div *ngIf="pet">
+  <p> name: {{ pet?.name }} | category: {{ pet?.category?.name }} | status: {{pet?.status}} </p>
+</div>

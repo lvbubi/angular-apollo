@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PetComponent} from "./pet.component";
-import {RouterModule} from "@angular/router";
-import { PetNamesComponent } from './pet-names/pet-names.component';
-import { PetDetailsComponent } from './pet-details/pet-details.component';
+import { RouterModule } from "@angular/router";
+import { PetNamesComponent } from './pet-component/pet-names/pet-names.component';
+import { PetDetailsComponent } from './pet-component/pet-details/pet-details.component';
+import { PetGraphqlComponent } from './pet-graphql/pet-graphql.component';
+import { PetComponent } from './pet-component/pet.component';
+import {GraphQLModule} from "./pet-graphql/graphql.module";
 
 
 
@@ -11,12 +13,14 @@ import { PetDetailsComponent } from './pet-details/pet-details.component';
   declarations: [
     PetComponent,
     PetNamesComponent,
-    PetDetailsComponent
+    PetDetailsComponent,
+    PetGraphqlComponent
   ],
   imports: [
     CommonModule,
+    GraphQLModule,
     RouterModule.forRoot([
-      { path: 'pets', component: PetComponent }
+      { path: 'pets', component: PetGraphqlComponent }
     ]),
   ]
 })

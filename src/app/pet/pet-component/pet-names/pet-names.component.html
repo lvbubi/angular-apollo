@@ -1,8 +1,5 @@
-<div *ngIf="loading">
+<div *ngIf="!pets">
   Loading...
-</div>
-<div *ngIf="error">
-  Error :(
 </div>
 <div *ngIf="pets">
   <div *ngFor="let pet of pets">
