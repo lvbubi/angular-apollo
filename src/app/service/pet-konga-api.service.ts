@@ -9,7 +9,7 @@ import {PetApi} from "./pet-api";
   providedIn: 'root',
 })
 export class PetKongaApiService implements PetApi {
-  apiURL = '/konga/pet';
+  apiURL = '/kong/pet';
   constructor(private http: HttpClient) {}
 
   getAvailablePets(): Promise<PetModel[]> {

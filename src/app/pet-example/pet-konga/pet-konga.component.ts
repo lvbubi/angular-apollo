@@ -19,9 +19,7 @@ export class PetKongaComponent implements OnInit {
   constructor(public petApi: PetKongaApiService) {}
 
   ngOnInit() {
-    this.petApi.getAvailablePets().then(pets => {
-      this.pets = pets;
-    })
+    this.petApi.getAvailablePets().then(pets => this.pets = pets)
   }
 
   loadPetDetails(petId) {

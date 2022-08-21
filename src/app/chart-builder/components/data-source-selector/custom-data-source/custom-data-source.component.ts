@@ -9,8 +9,7 @@ import {ChartActions} from "../../../store/chart.actions";
 
 @Component({
   selector: 'app-custom-data-source',
-  templateUrl: './custom-data-source.component.html',
-  styleUrls: ['./custom-data-source.component.css']
+  templateUrl: './custom-data-source.component.html'
 })
 export class CustomDataSourceComponent implements OnInit {
 

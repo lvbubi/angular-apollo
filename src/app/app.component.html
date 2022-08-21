@@ -10,6 +10,8 @@
       <a mat-button [routerLink]="'/builder'"> Builder </a>
       <a mat-button [routerLink]="'/example'"> Example </a>
       <a mat-button [routerLink]="'/pets'"> Pets </a>
+      <a mat-button href="{{config.GraphQLPortalUI}}"> GraphQL Portal </a>
+      <a mat-button href="{{config.KongUI}}"> KONG Admin </a>
     </div>
   </mat-toolbar-row>
 
@@ -28,7 +30,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="height: 88vh;">
-
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

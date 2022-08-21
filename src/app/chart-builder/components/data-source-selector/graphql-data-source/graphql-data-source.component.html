@@ -1,15 +1,14 @@
 <form [formGroup]="form" (submit)="submit()">
-  <json-input-component [formControlInput]="mapperFormControl"
-                        [label]="'Mapper'"></json-input-component>
-
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>api</mat-label>
+    <input [formControl]="graphqlApiFormControl" matInput placeholder="/pet" value="/pet">
+    <mat-error *ngIf="graphqlApiFormControl.invalid">
+      Please enter a valid API path.
+    </mat-error>
+  </mat-form-field>
   <json-input-component [formControlInput]="graphqlQueryFormControl"
                         [label]="'GraphqlQuery'"></json-input-component>
-
-  <!--
-  <mat-form-field>
-    <mat-label>GraphqlQuery</mat-label>
-    <input matInput [formControl]="graphqlQueryFormControl"/>
-  </mat-form-field>
-  -->
-  <button mat-button type="submit" [disabled]="mapperFormControl.invalid || graphqlQueryFormControl.invalid">Set DataSource</button>
+  <json-input-component [formControlInput]="mapperFormControl"
+                        [label]="'Mapper'"></json-input-component>
+  <button mat-button type="submit" [disabled]="mapperFormControl.invalid || graphqlQueryFormControl.invalid || graphqlApiFormControl.invalid">Set DataSource</button>
 </form>

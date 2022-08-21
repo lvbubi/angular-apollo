@@ -20,10 +20,7 @@ export class PetGraphqlComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.petApi.getAvailablePets().then(pets => {
-      console.log('petGraphql', pets);
-      this.pets = pets;
-    })
+    this.petApi.getAvailablePets().then(pets => this.pets = pets)
   }
 
   loadPetDetails(petId) {

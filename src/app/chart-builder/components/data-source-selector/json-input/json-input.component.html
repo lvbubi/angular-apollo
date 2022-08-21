@@ -3,8 +3,8 @@
   <textarea [formControl]="formControl()" (focusout)="validateForm()"
             matInput
             cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"></textarea>
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="10"></textarea>
   <mat-error *ngIf="formControlInput.hasError('syntaxError')">
     Please enter a valid mapper as a json
   </mat-error>

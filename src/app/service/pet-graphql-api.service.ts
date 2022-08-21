@@ -1,45 +1,38 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PetApi} from "./pet-api";
 import {PetModel} from "../pet-example/model/pet-model";
-import {Apollo, gql} from "apollo-angular";
+import {gql} from "apollo-angular";
+import {GenericGraphqlApiService} from "./generic-graphql-api.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PetGraphqlApiService implements PetApi {
-  constructor(private apollo: Apollo) {
+  constructor(private apiService: GenericGraphqlApiService) {
   }
 
   getAvailablePets(): Promise<PetModel[]> {
-    return this.apollo.use("pets2")
-      .watchQuery({
-        query: gql`
-          {
-            findPetsByStatus(status:PENDING){
-              id
-            }
-          }
-        `,
-      })
-      .result().then((result: any) => {
-        let pets: PetModel[] = result?.data?.findPetsByStatus as PetModel[];
-        return this.distinctPets(pets);
-      });
+    return this.apiService.genericGraphqlQuery('/pets', gql`
+      {
+        findPetsByStatus(status:PENDING){
+          id
+        }
+      }
+        `).then((result: any) => {
+          return this.distinctPets(result);
+    });
   }
 
-  getPetById(id: number): Promise<PetModel> {
-    return this.apollo.use("pets")
-      .watchQuery({
-        query: gql`
-          {
-            getPetById(petId:${id}) {
-             status
-             name
-             category {name}
-            }
-          }
-        `,
-      }).result().then((result: any) => result?.data?.getPetById as PetModel);
+  getPetById(id: number): Promise<any> {
+    return this.apiService.genericGraphqlQuery('/pets', gql`
+      {
+        getPetById(petId:${id}) {
+          status
+          name
+          category {name}
+        }
+      }
+        `);
   }
 
   distinctPets(pets: PetModel[]): PetModel[] {

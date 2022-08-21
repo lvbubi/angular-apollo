@@ -23,7 +23,7 @@ export function jsonSyntaxValidator(): ValidatorFn {
     }
 
     try {
-      JSON.parse(value);
+      // JSON.parse(value);
       return null;
     } catch (e) {
       return { syntaxError:true };
@@ -33,8 +33,7 @@ export function jsonSyntaxValidator(): ValidatorFn {
 
 @Component({
   selector: 'json-input-component',
-  templateUrl: './json-input.component.html',
-  styleUrls: ['./json-input.component.css']
+  templateUrl: './json-input.component.html'
 })
 export class JsonInputComponent {
   @Input() formControlInput: AbstractControl;
@@ -52,7 +51,8 @@ export class JsonInputComponent {
 
   validateForm() {
     try {
-      JSON.parse(this.formControlInput.value);
+      // JSON.parse(this.formControlInput.value);
+      // JSON.parse(this.formControlInput.value);
     } catch (e) {
       this.formControlInput.setErrors({ semanticError: true });
     }
