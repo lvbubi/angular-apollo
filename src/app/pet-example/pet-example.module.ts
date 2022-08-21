@@ -5,7 +5,7 @@ import { PetNamesComponent } from './pet-component/pet-names/pet-names.component
 import { PetDetailsComponent } from './pet-component/pet-details/pet-details.component';
 import { PetGraphqlComponent } from './pet-graphql/pet-graphql.component';
 import { PetComponent } from './pet-component/pet.component';
-import { PetGraphqlModule } from "./pet-graphql/pet-graphql.module";
+import { PetGraphqlModule } from "../service/pet-graphql.module";
 import { PetKongaModule } from './pet-konga/pet-konga.module';
 import { PetKongaComponent } from "./pet-konga/pet-konga.component";
 import { PetExampleComponent } from "./pet-example-component";

@@ -2,24 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {retry, catchError, map} from 'rxjs/operators';
-import {PetModel} from "../model/pet-model";
+import {PetModel} from "../pet-example/model/pet-model";
+import {PetApi} from "./pet-api";
+
 @Injectable({
   providedIn: 'root',
 })
-export class PetApiService {
+export class PetKongaApiService implements PetApi {
   apiURL = '/konga/pet';
   constructor(private http: HttpClient) {}
 
-  getAvailablePets(): Observable<PetModel[]> {
+  getAvailablePets(): Promise<PetModel[]> {
     return this.http
       .get<PetModel[]>(this.apiURL + '/findByStatus?status=available')
-      .pipe(map(this.distinctPets), map(pets => pets.slice(0, 10)), retry(1), catchError(this.handleError));
+      .pipe(map(this.distinctPets), map(pets => pets.slice(0, 10)), retry(1), catchError(this.handleError)).toPromise();
   }
 
-  getPetById(id: number): Observable<PetModel> {
+  getPetById(id: number): Promise<PetModel> {
     return this.http
       .get<PetModel>(this.apiURL + `/${id}`)
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.handleError)).toPromise();
   }
 
   // Error handling

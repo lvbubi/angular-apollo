@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PetModel} from "../model/pet-model";
-import {Apollo, gql} from "apollo-angular";
+import {gql} from "apollo-angular";
+import {PetGraphqlApiService} from "../../service/pet-graphql-api.service";
 
 @Component({
   selector: 'app-pet-graphql',
@@ -16,46 +17,17 @@ export class PetGraphqlComponent implements OnInit {
   pets: PetModel[];
   selectedPet: PetModel;
 
-  constructor(private apollo: Apollo) {
+  constructor(public petApi: PetGraphqlApiService) {
   }
 
   ngOnInit() {
-    this.apollo.use("pets2")
-      .watchQuery({
-        query: gql`
-          {
-            findPetsByStatus(status:PENDING){
-              id
-            }
-          }
-        `,
-      })
-      .result().then((result: any) => {
-      this.pets = result?.data?.findPetsByStatus;
-      this.pets = this.distinctPets(this.pets).slice(0, 10);
-    });
+    this.petApi.getAvailablePets().then(pets => {
+      console.log('petGraphql', pets);
+      this.pets = pets;
+    })
   }
 
   loadPetDetails(petId) {
-    this.apollo.use("pets")
-      .watchQuery({
-        query: gql`
-          {
-            getPetById(petId:${petId}) {
-             status
-             name
-             category {name}
-            }
-          }
-        `,
-      }).result().then((result: any) => this.selectedPet = result?.data?.getPetById);
-  }
-
-  distinctPets(pets: PetModel[]): PetModel[] {
-    return [...new Set(pets.map(item => item.id))].map(id => {
-      return {
-        id: id
-      };
-    })
+    this.petApi.getPetById(petId).then(pet => this.selectedPet = pet);
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PetModel} from "../model/pet-model";
-import {PetApiService} from "./pet-api.service";
+import {PetKongaApiService} from "../../service/pet-konga-api.service";
 
 @Component({
   selector: 'app-pet-konga',
@@ -16,16 +16,15 @@ export class PetKongaComponent implements OnInit {
   pets: PetModel[];
   selectedPet: PetModel;
 
-  constructor(public petApi: PetApiService) {}
+  constructor(public petApi: PetKongaApiService) {}
 
   ngOnInit() {
-    this.petApi.getAvailablePets().toPromise().then(pets => {
-      console.log('asd', pets);
+    this.petApi.getAvailablePets().then(pets => {
       this.pets = pets;
     })
   }
 
   loadPetDetails(petId) {
-    this.petApi.getPetById(petId).toPromise().then(pet => this.selectedPet = pet);
+    this.petApi.getPetById(petId).then(pet => this.selectedPet = pet);
   }
 }
