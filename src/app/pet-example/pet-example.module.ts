@@ -6,7 +6,6 @@ import { PetDetailsComponent } from './pet-component/pet-details/pet-details.com
 import { PetGraphqlComponent } from './pet-graphql/pet-graphql.component';
 import { PetComponent } from './pet-component/pet.component';
 import { PetGraphqlModule } from "../service/pet-graphql.module";
-import { PetKongaModule } from './pet-konga/pet-konga.module';
 import { PetKongaComponent } from "./pet-konga/pet-konga.component";
 import { PetExampleComponent } from "./pet-example-component";
 
@@ -26,8 +25,7 @@ import { PetExampleComponent } from "./pet-example-component";
     PetGraphqlModule,
     RouterModule.forRoot([
       { path: 'pets', component: PetExampleComponent }
-    ]),
-    PetKongaModule,
+    ])
   ]
 })
 export class PetExampleModule { }

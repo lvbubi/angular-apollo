@@ -10,27 +10,39 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "./chart-example/chart-example.module";
 import { PetExampleModule } from './pet-example/pet-example.module';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatListModule} from "@angular/material/list";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-      BrowserModule,
-      RouterModule.forRoot([
-        { path: 'builder', component: AppComponent }
-      ]),
-      StoreModule.forRoot({}),
-      StoreDevtoolsModule.instrument({
-        maxAge: 25, // Retains last 25 states
-        logOnly: environment.production, // Restrict extension to log-only mode
-        autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-      }),
-      HttpClientModule,
-      ChartBuilderModule,
-      ChartExampleModule,
-      StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-      PetExampleModule
+    BrowserModule,
+    RouterModule.forRoot([
+      {path: 'builder', component: AppComponent}
+    ]),
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
+    HttpClientModule,
+    ChartBuilderModule,
+    ChartExampleModule,
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+    PetExampleModule,
+    MatSidenavModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {PetModel} from "../model/pet-model";
-import {gql} from "apollo-angular";
 import {PetGraphqlApiService} from "../../service/pet-graphql-api.service";
 
 @Component({
