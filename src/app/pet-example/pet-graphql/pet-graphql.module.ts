@@ -30,4 +30,4 @@ export function createNamedApollo(httpLink: HttpLink): Record<string, ApolloClie
     },
   ],
 })
-export class GraphQLModule {}
+export class PetGraphqlModule {}

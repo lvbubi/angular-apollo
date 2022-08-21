@@ -9,7 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "./chart-example/chart-example.module";
-import { PetModule } from './pet/pet.module';
+import { PetExampleModule } from './pet-example/pet-example.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { PetModule } from './pet/pet.module';
       ChartBuilderModule,
       ChartExampleModule,
       StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-      PetModule
+      PetExampleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

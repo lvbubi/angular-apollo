@@ -17,11 +17,9 @@ export class PetGraphqlComponent implements OnInit {
   selectedPet: PetModel;
 
   constructor(private apollo: Apollo) {
-    console.log('asdasdasd')
   }
 
   ngOnInit() {
-    console.log('asd')
     this.apollo.use("pets2")
       .watchQuery({
         query: gql`
@@ -34,7 +32,7 @@ export class PetGraphqlComponent implements OnInit {
       })
       .result().then((result: any) => {
       this.pets = result?.data?.findPetsByStatus;
-      this.pets = this.pets.slice(0, 10);
+      this.pets = this.distinctPets(this.pets).slice(0, 10);
     });
   }
 
@@ -51,5 +49,13 @@ export class PetGraphqlComponent implements OnInit {
           }
         `,
       }).result().then((result: any) => this.selectedPet = result?.data?.getPetById);
+  }
+
+  distinctPets(pets: PetModel[]): PetModel[] {
+    return [...new Set(pets.map(item => item.id))].map(id => {
+      return {
+        id: id
+      };
+    })
   }
 }
