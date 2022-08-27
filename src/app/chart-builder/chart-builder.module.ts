@@ -21,10 +21,13 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { ChartAdapterModule } from "chart-adapter";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
-import { JsonInputComponent } from './components/data-source-selector/json-input/json-input.component';
+import { JsonInputComponent } from './components/data-source-selector/input/json-input/json-input.component';
 import { CustomDataSourceComponent } from './components/data-source-selector/custom-data-source/custom-data-source.component';
 import { GraphqlDataSourceComponent } from './components/data-source-selector/graphql-data-source/graphql-data-source.component';
-import { AutosizeInputComponent } from './components/data-source-selector/autosize-input/autosize-input.component';
+import { AutosizeInputComponent } from './components/data-source-selector/input/autosize-input/autosize-input.component';
+import { KongDataSourceComponent } from './components/data-source-selector/kong-data-source/kong-data-source.component';
+import { GraphqlInputComponent } from './components/data-source-selector/input/graphql-input/graphql-input.component';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { AutosizeInputComponent } from './components/data-source-selector/autosi
     JsonInputComponent,
     CustomDataSourceComponent,
     GraphqlDataSourceComponent,
-    AutosizeInputComponent
+    AutosizeInputComponent,
+    KongDataSourceComponent,
+    GraphqlInputComponent
   ],
     imports: [
         RouterModule.forRoot([
@@ -58,7 +63,8 @@ import { AutosizeInputComponent } from './components/data-source-selector/autosi
         ChartAdapterModule,
         BrowserModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSnackBarModule
     ]
 })
 export class ChartBuilderModule {

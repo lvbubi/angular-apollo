@@ -1,5 +1,6 @@
 #mainContent, #sideContent {
-  float:left; display:inline;
+  float: left;
+  display: inline;
 }
 
 #mainContent {
@@ -8,11 +9,33 @@
 }
 
 #mainContent chart-adapter-component {
-  margin:10px;
-  display:inline-block;
-  background:#e0e0e0;
+  margin: 10px;
+  display: inline-block;
+  background: #e0e0e0;
 }
 
 #sideContent {
   width: 15%;
+}
+
+.green-snackbar {
+  background: rgb(65, 252, 134);
+  color: white;
+}
+
+.green-snackbar button {
+  background-color: rgb(65, 252, 134);
+  color: white;
+  border: none;
+}
+
+.red-snackbar {
+  background: #F44336;
+  color: white;
+}
+
+.red-snackbar button {
+  background-color: #F44336;
+  color: white !important;
+  border: none;
 }

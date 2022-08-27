@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {jsonSyntaxValidator} from "../json-input/json-input.component";
+import {jsonSyntaxValidator} from "../input/json-input/json-input.component";
 import {Store} from "@ngrx/store";
 import {State} from "../../../store/chart.reducer";
 import * as objectMapper from 'object-mapper'
@@ -34,10 +34,11 @@ export class CustomDataSourceComponent implements OnInit {
 
       let mappedObject = objectMapper(dataSource, dataMapper);
 
+      // TODO: Megvizsgálni hogy miért van store használva és resultEvent is.
       this.store.dispatch(new ChartActions.SetDataMapperAction(dataMapper));
       this.resultEvent.emit(() => mappedObject);
     } catch (e) {
-      this.dataSourceFormControl.setErrors({ semanticError: true });
+      this.mapperFormControl.setErrors({ semanticError: true });
     }
   }
 }

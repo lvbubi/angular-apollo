@@ -6,9 +6,13 @@
       Please enter a valid API path.
     </mat-error>
   </mat-form-field>
-  <json-input-component [formControlInput]="graphqlQueryFormControl"
-                        [label]="'GraphqlQuery'"></json-input-component>
+  <graphql-input-component [formControlInput]="graphqlQueryFormControl"
+                        [label]="'GraphqlQuery'"></graphql-input-component>
   <json-input-component [formControlInput]="mapperFormControl"
                         [label]="'Mapper'"></json-input-component>
+  <mat-error *ngIf="form.hasError('semanticError')">
+    Query result can not be mapped
+  </mat-error>
   <button mat-button type="submit" [disabled]="mapperFormControl.invalid || graphqlQueryFormControl.invalid || graphqlApiFormControl.invalid">Set DataSource</button>
+
 </form>
