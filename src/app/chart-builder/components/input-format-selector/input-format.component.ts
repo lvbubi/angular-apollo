@@ -10,7 +10,7 @@ import SetInputFormatAction = ChartActions.SetInputFormatAction;
 import { InputFormat } from 'chart-adapter'
 
 @Component({
-  selector: 'app-data-type-selector',
+  selector: 'input-format-selector',
   templateUrl: './input-format.component.html',
   styleUrls: ['./input-format.component.css']
 })

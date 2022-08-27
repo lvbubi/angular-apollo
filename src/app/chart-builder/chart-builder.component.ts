@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import chartGroups from './chartTypes';
 import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
@@ -8,14 +8,17 @@ import { State } from "./store/chart.reducer";
 import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
 import {chartTypeSelector} from "./store/chart.selectors";
+import {DataSourceSelectorComponent} from "./components/data-source-selector/data-source-selector.component";
 
 @Component({
   selector: 'app-chart-builder',
   templateUrl: './chart-builder.component.html',
   styleUrls: ['./chart-builder.component.css']
 })
-export class ChartBuilderComponent {
+export class ChartBuilderComponent implements OnInit {
   private chartGroups: any = chartGroups;
+
+  @ViewChild(DataSourceSelectorComponent) dataS: DataSourceSelectorComponent;
 
   chartType: string = 'bar-vertical';
   options: ChartOptions = new ChartOptions();
@@ -45,6 +48,10 @@ export class ChartBuilderComponent {
     this.options.colorScheme = this.findColorScheme('cool');
     this.selectChartObservable(this.configuration.chartType);
 
+  }
+
+  ngOnInit(): void {
+     console.log('childdataS', this.dataS);
   }
 
   select(data) {

@@ -10,7 +10,7 @@ import { single, multi, boxData, bubble, treemap, generateData } from '../../dat
 export class DataSourceSelectorComponent {
 
   private dataMap: Map<string, any> = new Map<string, any>();
-  dataSourceType: string = "single";
+  dataSourceType: string;
   dataSourceTypes: string[];
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();

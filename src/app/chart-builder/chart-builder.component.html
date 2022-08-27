@@ -1,10 +1,10 @@
 <div>
   <div id="sideContent">
       <mat-stepper orientation="vertical" (selectionChange)="updateStore($event)">
-        <mat-step>
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>Data Source</ng-template>
           <ng-template matStepContent>
-            <app-data-source-selector (resultEvent)="selectResults($event)">
+            <app-data-source-selector (resultEvent)="selectResults($event)" #dataSourceSelector>
             </app-data-source-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
@@ -12,8 +12,8 @@
         <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
-            <app-data-type-selector></app-data-type-selector>
-            <app-chart-type-selector [configuration]="configuration"></app-chart-type-selector>
+            <input-format-selector></input-format-selector>
+            <chart-type-selector [configuration]="configuration"></chart-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>

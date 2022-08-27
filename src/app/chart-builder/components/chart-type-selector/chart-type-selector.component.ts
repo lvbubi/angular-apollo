@@ -9,7 +9,7 @@ import { Configuration } from "chart-adapter";
 
 
 @Component({
-  selector: 'app-chart-type-selector',
+  selector: 'chart-type-selector',
   templateUrl: './chart-type-selector.component.html',
   styleUrls: ['./chart-type-selector.component.css']
 })
