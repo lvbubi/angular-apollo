@@ -15,7 +15,7 @@ export const getState = createFeatureSelector(scoreboardFeatureKey);
 
 export const initialState: State = {
   configuration: undefined,
-  inputFormat: 'singleSeries',
+  inputFormat: undefined,
   chartGroups: undefined,
 };
 

@@ -1,8 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Store } from "@ngrx/store";
-import { State } from "../../store/chart.reducer";
-import { Observable } from "rxjs";
-import { inputFormatSelector } from "../../store/chart.selectors";
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import chartGroups from '../../chartTypes';
 import { Configuration } from "chart-adapter";
@@ -13,19 +9,22 @@ import { Configuration } from "chart-adapter";
   templateUrl: './chart-type-selector.component.html',
   styleUrls: ['./chart-type-selector.component.css']
 })
-export class ChartTypeSelectorComponent {
+export class ChartTypeSelectorComponent implements OnChanges{
 
   @Input()
   configuration: Configuration;
 
-  private $inputFormat: Observable<string>;
+  @Input()
+  inputFormat: string;
 
   chartGroups: any = chartGroups;
 
-  constructor(private store: Store<State>) {
-    this.$inputFormat = store.select(inputFormatSelector);
+  constructor() {
+    this.updateChartTypes(this.inputFormat);
+  }
 
-    this.$inputFormat.subscribe(inputFormat => this.updateChartTypes(inputFormat));
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateChartTypes(changes.inputFormat.currentValue);
   }
 
   updateChartTypes(inputFormat: string) {

@@ -9,6 +9,7 @@ import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
 import {chartTypeSelector} from "./store/chart.selectors";
 import {DataSourceSelectorComponent} from "./components/data-source-selector/data-source-selector.component";
+import SetInputFormatAction = ChartActions.SetInputFormatAction;
 
 @Component({
   selector: 'app-chart-builder',
@@ -21,6 +22,7 @@ export class ChartBuilderComponent implements OnInit {
   @ViewChild(DataSourceSelectorComponent) dataS: DataSourceSelectorComponent;
 
   chartType: string = 'bar-vertical';
+  inputFormat: string;
   options: ChartOptions = new ChartOptions();
 
   configuration: Configuration = {
@@ -101,6 +103,11 @@ export class ChartBuilderComponent implements OnInit {
       console.log('select datasource', result());
       this.data = result();
     }
+  }
+
+  selectInputFormat(inputFormat: string) {
+    console.log('Dispatchinputformat', inputFormat);
+    this.inputFormat = inputFormat;
   }
 
   updateStore(event: any) {
