@@ -1,0 +1,11 @@
+<mat-form-field>
+  <mat-label>{{label}}</mat-label>
+  <textarea [formControl]="formControl()" (focusout)="validateForm()"
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="10"></textarea>
+  <mat-error *ngIf="formControlInput.hasError('syntaxError')">
+    Please enter a valid graphQL query
+  </mat-error>
+</mat-form-field>
