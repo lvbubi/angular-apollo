@@ -7,4 +7,7 @@
   </mat-select>
 </mat-form-field>
 <app-custom-data-source *ngIf="dataSourceType == 'custom'" (resultEvent)="resultEvent.emit($event)"></app-custom-data-source>
-<app-graphql-data-source *ngIf="dataSourceType == 'graphql'" (resultEvent)="resultEvent.emit($event)"></app-graphql-data-source>
+<app-graphql-data-source *ngIf="dataSourceType == 'graphql'"
+                         (resultEvent)="resultEvent.emit($event)"></app-graphql-data-source>
+<app-kong-data-source *ngIf="dataSourceType == 'kong'"
+                      (resultEvent)="resultEvent.emit($event)"></app-kong-data-source>

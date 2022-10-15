@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Configuration } from "chart-adapter";
 
@@ -7,16 +7,13 @@ import { data } from "./data";
 
 @Component({
   selector: 'app-simple-chart',
-  templateUrl: './simple-chart.component.html',
-  styleUrls: ['./simple-chart.component.css']
+  template: `<chart-adapter-component [data]="data"
+    [configuration]="configuration">
+  </chart-adapter-component>`
 })
-export class SimpleChartComponent implements OnInit {
+export class SimpleChartComponent {
 
   configuration: Configuration = configuration;
   data: any = data;
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

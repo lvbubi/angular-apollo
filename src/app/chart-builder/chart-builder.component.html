@@ -1,12 +1,12 @@
 <div>
   <div id="sideContent">
-      <mat-stepper orientation="vertical" (selectionChange)="updateStore($event)">
-        <mat-step [stepControl]="">
+      <mat-stepper orientation="vertical" (selectionChange)="updateStore($event)" #matStepper>
+        <mat-step [completed]="data != null">
           <ng-template matStepLabel>Data Source</ng-template>
           <ng-template matStepContent>
-            <app-data-source-selector (resultEvent)="selectResults($event)" #dataSourceSelector>
-            </app-data-source-selector>
-            <button mat-button matStepperNext>Next</button>
+              <app-data-source-selector (resultEvent)="selectResults($event)">
+              </app-data-source-selector>
+              <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>

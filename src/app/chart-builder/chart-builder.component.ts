@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import {chartTypeSelector} from "./store/chart.selectors";
 import {DataSourceSelectorComponent} from "./components/data-source-selector/data-source-selector.component";
 import SetInputFormatAction = ChartActions.SetInputFormatAction;
+import {MatStepper} from "@angular/material/stepper";
 
 @Component({
   selector: 'app-chart-builder',
@@ -19,7 +20,7 @@ import SetInputFormatAction = ChartActions.SetInputFormatAction;
 export class ChartBuilderComponent implements OnInit {
   private chartGroups: any = chartGroups;
 
-  @ViewChild(DataSourceSelectorComponent) dataS: DataSourceSelectorComponent;
+  @ViewChild('matStepper', { static: false }) matStepper: MatStepper;
 
   chartType: string = 'bar-vertical';
   inputFormat: string;
@@ -53,7 +54,7 @@ export class ChartBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     console.log('childdataS', this.dataS);
+
   }
 
   select(data) {
@@ -111,11 +112,11 @@ export class ChartBuilderComponent implements OnInit {
   }
 
   updateStore(event: any) {
-    console.log(event);
+    console.log('update,Store', event, this.configuration, this.data, this.matStepper);
     switch (event.previouslySelectedIndex) {
       case 0:
         console.log('chartType collapsed');
-        this.store.dispatch(new ChartActions.SetChartTypeAction(this.chartType));
+        // this.store.dispatch(new ChartActions.SetChartTypeAction(this.chartType));
         break;
       case 1:
         console.log('options collapsed');

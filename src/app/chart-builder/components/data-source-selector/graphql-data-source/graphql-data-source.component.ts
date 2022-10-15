@@ -20,6 +20,7 @@ export class GraphqlDataSourceComponent implements OnInit {
   mapperFormControl = new FormControl('', [Validators.required, jsonSyntaxValidator()]);
 
   form: FormGroup = this.formBuilder.group({
+    api: this.graphqlApiFormControl,
     mapper: this.mapperFormControl,
     graphqlQuery: this.graphqlQueryFormControl
   });

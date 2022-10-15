@@ -17,6 +17,7 @@ export class DataSourceSelectorComponent {
 
   constructor(private dataService: DataService, private _ngZone: NgZone) {
     this.dataMap.set("graphql", null);
+    this.dataMap.set("kong", null);
     this.dataMap.set("custom", null);
     this.dataMap.set("single", () => single);
     this.dataMap.set("multi", () => multi);
