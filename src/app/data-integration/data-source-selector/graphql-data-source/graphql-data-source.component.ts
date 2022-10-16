@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {GenericGraphqlApiService} from "../../../../service/generic-graphql-api.service";
+import {GenericGraphqlApiService} from "../../generic-graphql-api.service";
 import {graphqlSyntaxValidator} from "../input/graphql-input/graphql-input.component";
 import {jsonSyntaxValidator} from "../input/json-input/json-input.component";
 import {parse} from "graphql";

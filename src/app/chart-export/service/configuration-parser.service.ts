@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ConfigurationModel } from "../model/configuration-model";
 import { Store } from "@ngrx/store";
-import { State } from "../../../store/chart.reducer";
-import chartGroups from "../../../chartTypes";
-import { configurationSelector } from "../../../store/chart.selectors";
+import { State } from "../../chart-builder/store/chart.reducer";
+import chartGroups from "../../chart-builder/chartTypes";
+import { configurationSelector } from "../../chart-builder/store/chart.selectors";
 import { Configuration } from "chart-adapter";
 import * as _ from 'lodash';
 

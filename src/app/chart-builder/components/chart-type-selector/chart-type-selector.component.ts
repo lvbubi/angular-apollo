@@ -9,7 +9,7 @@ import { Configuration } from "chart-adapter";
   templateUrl: './chart-type-selector.component.html',
   styleUrls: ['./chart-type-selector.component.css']
 })
-export class ChartTypeSelectorComponent implements OnChanges{
+export class ChartTypeSelectorComponent implements OnChanges {
 
   @Input()
   configuration: Configuration;

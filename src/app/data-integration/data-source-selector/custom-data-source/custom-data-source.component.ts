@@ -2,9 +2,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {jsonSyntaxValidator} from "../input/json-input/json-input.component";
 import {Store} from "@ngrx/store";
-import {State} from "../../../store/chart.reducer";
+import {State} from "../../../chart-builder/store/chart.reducer";
 import * as objectMapper from 'object-mapper'
-import {ChartActions} from "../../../store/chart.actions";
+import {ChartActions} from "../../../chart-builder/store/chart.actions";
 
 
 @Component({

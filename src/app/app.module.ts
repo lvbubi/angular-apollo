@@ -16,6 +16,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import { DataIntegrationModule } from './data-integration/data-integration.module';
+import { ChartExportModule } from './chart-export/chart-export.module';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonModule,
     MatListModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    DataIntegrationModule,
+    ChartExportModule
   ],
   providers: [],
   bootstrap: [AppComponent]

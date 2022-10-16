@@ -10,24 +10,18 @@ import { ChartTypeSelectorComponent } from "./components/chart-type-selector/cha
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
 import { ChartOptionsComponent } from "./components/chart-options/chart-options.component";
-import { DataSourceSelectorComponent } from "./components/data-source-selector/data-source-selector.component";
 import { StoreModule } from "@ngrx/store";
 import * as fromScoreboard from './store/chart.reducer';
 import { TextFieldModule } from "@angular/cdk/text-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
-import { ExportOptionsComponent, ExportOptionsDialog } from './components/export-options/export-options.component';
+import { ExportOptionsComponent, ExportOptionsDialog } from '../chart-export/components/export-options/export-options.component';
 import { MatDialogModule } from "@angular/material/dialog";
 import { ChartAdapterModule } from "chart-adapter";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
-import { JsonInputComponent } from './components/data-source-selector/input/json-input/json-input.component';
-import { CustomDataSourceComponent } from './components/data-source-selector/custom-data-source/custom-data-source.component';
-import { GraphqlDataSourceComponent } from './components/data-source-selector/graphql-data-source/graphql-data-source.component';
-import { AutosizeInputComponent } from './components/data-source-selector/input/autosize-input/autosize-input.component';
-import { KongDataSourceComponent } from './components/data-source-selector/kong-data-source/kong-data-source.component';
-import { GraphqlInputComponent } from './components/data-source-selector/input/graphql-input/graphql-input.component';
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {DataIntegrationModule} from "../data-integration/data-integration.module";
 
 @NgModule({
   declarations: [
@@ -35,37 +29,33 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     InputFormatComponent,
     ChartBuilderComponent,
     ChartOptionsComponent,
-    DataSourceSelectorComponent,
     ExportOptionsComponent,
-    ExportOptionsDialog,
-    JsonInputComponent,
-    CustomDataSourceComponent,
-    GraphqlDataSourceComponent,
-    AutosizeInputComponent,
-    KongDataSourceComponent,
-    GraphqlInputComponent
+    ExportOptionsDialog
   ],
-    imports: [
-        RouterModule.forRoot([
-            { path: 'builder', component: ChartBuilderComponent }
-        ]),
-        StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
-        CommonModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatStepperModule,
-        MatButtonModule,
-        MatSelectModule,
-        TextFieldModule,
-        MatInputModule,
-        MatDividerModule,
-        MatDialogModule,
-        ChartAdapterModule,
-        BrowserModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatSnackBarModule
-    ]
+  exports: [
+  ],
+  imports: [
+    RouterModule.forRoot([
+      {path: 'builder', component: ChartBuilderComponent}
+    ]),
+    StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
+    CommonModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatSelectModule,
+    TextFieldModule,
+    MatInputModule,
+    MatDividerModule,
+    MatDialogModule,
+    ChartAdapterModule,
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    DataIntegrationModule
+  ]
 })
 export class ChartBuilderModule {
 }

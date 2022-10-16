@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {jsonSyntaxValidator} from "../input/json-input/json-input.component";
-import {GenericRestApiService} from "../../../../service/generic-rest-api.service";
+import {GenericRestApiService} from "../../generic-rest-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import * as objectMapper from 'object-mapper'
 

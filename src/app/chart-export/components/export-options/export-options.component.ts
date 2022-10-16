@@ -1,14 +1,14 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ChartOptions, Configuration } from "chart-adapter";
 import { Store } from "@ngrx/store";
-import { State } from "../../store/chart.reducer";
-import { configurationSelector } from "../../store/chart.selectors";
+import { State } from "../../../chart-builder/store/chart.reducer";
+import { configurationSelector } from "../../../chart-builder/store/chart.selectors";
 
-import chartGroups from "../../chartTypes";
+import chartGroups from "../../../chart-builder/chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import { ChartRegisterService } from "../../service/chart-register.service";
+import { ChartRegisterService } from "../../../chart-builder/service/chart-register.service";
 import { DomSanitizer } from "@angular/platform-browser";
-import { ConfigurationParserService } from "./service/configuration-parser.service";
+import { ConfigurationParserService } from "../../service/configuration-parser.service";
 
 @Component({
   selector: 'app-export-options',

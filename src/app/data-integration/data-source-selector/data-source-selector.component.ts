@@ -1,6 +1,6 @@
 import { Component, EventEmitter, NgZone, Output } from '@angular/core';
-import { DataService } from "../../data-service/data-service.component";
-import { single, multi, boxData, bubble, treemap, generateData } from '../../data';
+import { DataService } from "../../chart-builder/data-service/data-service.component";
+import { single, multi, boxData, bubble, treemap, generateData } from '../../chart-builder/data';
 
 @Component({
   selector: 'app-data-source-selector',
