@@ -8,7 +8,7 @@ import { State } from "./store/chart.reducer";
 import { ChartActions } from "./store/chart.actions";
 import * as _ from 'lodash';
 import {chartTypeSelector} from "./store/chart.selectors";
-import {DataSourceSelectorComponent} from "../data-integration/data-source-selector/data-source-selector.component";
+import {DataSourceSelectorComponent} from "../data-integration/components/data-source-selector/data-source-selector.component";
 import SetInputFormatAction = ChartActions.SetInputFormatAction;
 import {MatStepper} from "@angular/material/stepper";
 

@@ -1,15 +1,15 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {jsonSyntaxValidator} from "../input/json-input/json-input.component";
-import {GenericRestApiService} from "../../generic-rest-api.service";
+import {jsonSyntaxValidator} from "../../input/json-input/json-input.component";
+import {GenericRestApiService} from "../../../service/generic-rest-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import * as objectMapper from 'object-mapper'
+import {DataTransformService} from "../../../service/data-transform.service";
 
 @Component({
   selector: 'app-kong-data-source',
   templateUrl: './kong-data-source.component.html'
 })
-export class KongDataSourceComponent implements OnInit {
+export class KongDataSourceComponent {
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
@@ -27,34 +27,20 @@ export class KongDataSourceComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private apiService: GenericRestApiService,
+              private dataTransformService: DataTransformService,
               private _snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
-  }
 
   submit() {
     this.apiService.genericRestApiCall(this.restApiFormControl.value, this.methodTypeFormControl.value)
       .then(result => {
         try {
-          const dataMapper = JSON.parse(this.mapperFormControl.value);
-          let mappedObject = objectMapper(result, dataMapper);
-          console.log('MAPPED OBJECT', mappedObject);
-          if (mappedObject == undefined) {
-            this._snackBar.open("Mapped result is empty", "Try a new mapper!", {
-              duration: 5000,
-              panelClass: ['red-snackbar','login-snackbar'],
-            });
-            return;
-          }
-          this.resultEvent.emit(() => mappedObject);
+          this.dataTransformService.processDataSource(result, this.mapperFormControl.value, this.resultEvent);
         } catch (e) {
-          console.log('semanticError', e);
-          this._snackBar.open("Query result can not be mapped", "Try a new mapper!", {
+          this._snackBar.open(e, "Try a new mapper!", {
             duration: 5000,
             panelClass: ['red-snackbar','login-snackbar'],
           });
         }
       });
   }
-
 }
