@@ -1,4 +1,4 @@
-import { PetModel } from "../pet-example/model/pet-model";
+import { PetModel } from "../../examples/pet-example/model/pet-model";
 
 export interface PetApi {
   getAvailablePets(): Promise<PetModel[]>;

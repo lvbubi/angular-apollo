@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PetModel} from "../model/pet-model";
-import {PetKongaApiService} from "../../service/pet-konga-api.service";
+import {PetGraphqlApiService} from "../../../app/service/pet-graphql-api.service";
 
 @Component({
-  selector: 'app-pet-konga',
+  selector: 'app-pet-graphql',
   template: `
     <app-pet-component [pets]="pets"
                        [selectedPet]="selectedPet"
@@ -11,12 +11,13 @@ import {PetKongaApiService} from "../../service/pet-konga-api.service";
     </app-pet-component>
   `
 })
-export class PetKongaComponent implements OnInit {
+export class PetGraphqlComponent implements OnInit {
 
   pets: PetModel[];
   selectedPet: PetModel;
 
-  constructor(public petApi: PetKongaApiService) {}
+  constructor(public petApi: PetGraphqlApiService) {
+  }
 
   ngOnInit() {
     this.petApi.getAvailablePets().then(pets => this.pets = pets)

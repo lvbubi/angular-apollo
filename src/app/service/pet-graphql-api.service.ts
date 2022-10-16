@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PetApi} from "./pet-api";
-import {PetModel} from "../pet-example/model/pet-model";
+import {PetModel} from "../../examples/pet-example/model/pet-model";
 import {gql} from "apollo-angular";
 import {GenericGraphqlApiService} from "../data-integration/service/generic-graphql-api.service";
 

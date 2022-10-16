@@ -3,20 +3,20 @@
     <button mat-icon-button>
       <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </button>
-    <h1>SimpleCRM</h1>
+    <h1>DGE</h1>
     <span class="menu-spacer"></span>
 
     <div>
       <a mat-button [routerLink]="'/builder'"> Builder </a>
       <a mat-button [routerLink]="'/example'"> Example </a>
-      <a mat-button [routerLink]="'/pets'"> Pets </a>
+      <a mat-button [routerLink]="'/pets'"> Api tester </a>
       <a mat-button href="{{config.GraphQLPortalUI}}"> GraphQL Portal </a>
       <a mat-button href="{{config.KongUI}}"> KONG Admin </a>
     </div>
   </mat-toolbar-row>
 
   <mat-toolbar-row>
-    <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+    <span style="font-size: 12px;">The diagram generator environment helps you to visualize data from difference kind of services</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -25,7 +25,7 @@
     <mat-nav-list>
       <a mat-list-item [routerLink]="'/builder'"> Builder </a>
       <a mat-list-item [routerLink]="'/example'"> Example </a>
-      <a mat-list-item [routerLink]="'/pets'"> Pets </a>
+      <a mat-list-item [routerLink]="'/pets'"> Api tester </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

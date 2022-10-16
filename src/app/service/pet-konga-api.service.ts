@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { throwError } from 'rxjs';
 import {retry, catchError, map} from 'rxjs/operators';
-import {PetModel} from "../pet-example/model/pet-model";
+import {PetModel} from "../../examples/pet-example/model/pet-model";
 import {PetApi} from "./pet-api";
 
 @Injectable({
