@@ -1,7 +1,0 @@
-<mat-form-field appearance="fill">
-  <mat-select [ngModel]="selectedInputFormat" (ngModelChange)="selectDataType($event)">
-      <mat-option *ngFor="let dataType of inputFormats" [value]="dataType">
-        {{ dataType }}
-      </mat-option>
-  </mat-select>
-</mat-form-field>

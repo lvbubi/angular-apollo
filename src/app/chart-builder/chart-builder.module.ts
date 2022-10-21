@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
-import { InputFormatComponent } from "./components/input-format-selector/input-format.component";
 import { ChartTypeSelectorComponent } from "./components/chart-type-selector/chart-type-selector.component";
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
@@ -23,7 +22,6 @@ import {ChartExportModule} from "../chart-export/chart-export.module";
 @NgModule({
   declarations: [
     ChartTypeSelectorComponent,
-    InputFormatComponent,
     ChartBuilderComponent,
   ],
   imports: [

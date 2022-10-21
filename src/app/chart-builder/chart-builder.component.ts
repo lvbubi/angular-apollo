@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import chartGroups from './chartTypes';
 import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
-import { ChartOptions, Configuration} from "chart-adapter";
+import { ChartOptions, Configuration } from "chart-adapter";
 
 import {MatStepper} from "@angular/material/stepper";
 

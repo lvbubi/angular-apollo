@@ -1,24 +1,31 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import * as objectMapper from 'object-mapper'
+import {ChartAdapterService} from "../../../../projects/chart-adapter/src/lib/chart-adapter.service";
+import {MultiSeries, SingleSeries} from "@swimlane/ngx-charts";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataTransformService {
 
-  constructor() { }
+  constructor(private chartAdapterService: ChartAdapterService) { }
 
   transform(data:any, mapper, outputEvent: EventEmitter<any>) {
-    console.log('Data:', data);
-    const dataMapper = JSON.parse(mapper);
-    let mappedObject = objectMapper(data, dataMapper);
-    if (mappedObject == undefined) {
-      throw "Mapped result is empty";
+    let mappedObject: SingleSeries | MultiSeries;
+
+    if (!mapper) {
+      mappedObject = data;
+    } else {
+      const dataMapper = JSON.parse(mapper);
+      mappedObject = objectMapper(data, dataMapper);
+      if (mappedObject === undefined) {
+        throw "Mapped result is empty";
+      }
     }
-    try {
+    if (this.chartAdapterService.isSingleSeries(mappedObject) || this.chartAdapterService.isMultiSeries(mappedObject)) {
       outputEvent.emit(() => mappedObject);
-    } catch (e) {
-      throw "Query result can not be mapped";
+    } else {
+      throw "Invalid dataSource format";
     }
   }
 }
