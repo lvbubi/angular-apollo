@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 
 import chartGroups from '../../chartTypes';
 import { InputFormat } from "chart-adapter";
+import {ChartAdapterService} from "../../../../../projects/chart-adapter/src/lib/chart-adapter.service";
 
 
 @Component({
@@ -15,22 +16,20 @@ export class ChartTypeSelectorComponent implements OnChanges {
   chartType: string;
 
   @Input()
-  inputFormat: InputFormat;
+  data: any;
 
   @Output()
   selectChartTypeEvent = new EventEmitter<string>();
 
   chartGroups: any = chartGroups;
 
-  constructor() {
-    this.updateChartTypes(this.inputFormat);
+  constructor(private chartAdapterService: ChartAdapterService) {
+    this.updateChartTypes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges', changes);
-    if (changes?.inputFormat?.currentValue) {
-      this.updateChartTypes(changes.inputFormat.currentValue);
-    }
+    this.updateChartTypes();
   }
 
   chartTypeChange(changes: string): void {
@@ -38,7 +37,17 @@ export class ChartTypeSelectorComponent implements OnChanges {
     this.selectChartTypeEvent.emit(changes);
   }
 
-  updateChartTypes(inputFormat: InputFormat) {
+  updateChartTypes() {
+    let inputFormat: InputFormat;
+    console.log("updateChartTypes", this.data);
+    if (this.chartAdapterService.isSingleSeries(this.data)) {
+      inputFormat = InputFormat.singleSeries;
+    } else if (this.chartAdapterService.isMultiSeries(this.data)) {
+      inputFormat = InputFormat.multiSeries;
+    } else {
+      throw "Invalid dataSource format";
+    }
+    console.log("updateChartTypes", "inputFormat", inputFormat);
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)

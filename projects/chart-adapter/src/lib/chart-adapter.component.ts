@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {colorSets, escapeLabel, formatLabel} from "@swimlane/ngx-charts";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {colorSets, escapeLabel, formatLabel, MultiSeries, SingleSeries} from "@swimlane/ngx-charts";
 
 import * as objectMapper from 'object-mapper'
 import {Configuration} from "./models/configuration";
-import {InputFormat} from "./models/input-format";
-import {JsonArray} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
+import {ChartAdapterService} from "./chart-adapter.service";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
@@ -13,30 +12,45 @@ const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
   templateUrl: './chart-adapter.component.html',
   styleUrls: ['./chart-adapter.component.css']
 })
-export class ChartAdapterComponent implements OnInit {
+export class ChartAdapterComponent implements OnInit, OnChanges {
 
   @Input() configuration: Configuration;
-  @Input() data: JsonArray;
+  @Input() dataSource: any;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
   @Output() activate: EventEmitter<any> = new EventEmitter<any>();
   @Output() deactivate: EventEmitter<any> = new EventEmitter<any>();
 
+  data: SingleSeries | MultiSeries;
+
+  constructor(private chartAdapterService: ChartAdapterService) {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateData();
+  }
+
+
   ngOnInit(): void {
-    if (this.configuration.dataMapper) {
-      this.data = objectMapper(this.data, this.configuration.dataMapper);
-    }
-
-
-    if (this.configuration.inputFormat === InputFormat.singleSeries) {
-
-    } else if (this.configuration.inputFormat == InputFormat.multiSeries) {
-
-    }
-
     //TODO: Ez így gány, javítani kell
     if (!this.configuration.chartOptions.colorScheme) {
       this.configuration.chartOptions.colorScheme = this.findColorScheme('cool');
+    }
+  }
+
+  updateData() {
+    let newData;
+    if (this.configuration.dataMapper) {
+      newData = objectMapper(this.dataSource, this.configuration.dataMapper);
+    } else {
+      newData = this.dataSource;
+    }
+
+    if (this.chartAdapterService.isMultiSeries(newData) || this.chartAdapterService.isSingleSeries(newData)) {
+      this.data = newData;
+    } else {
+      throw "Invalid dataSource format";
     }
   }
 
@@ -60,14 +74,6 @@ export class ChartAdapterComponent implements OnInit {
 
   valueFormatting(value: number): string {
     return `${Math.round(value).toLocaleString()} €`;
-  }
-
-  currencyFormatting(value: number) {
-    return `\$${Math.round(value).toLocaleString()}`;
-  }
-
-  gdpLabelFormatting(c) {
-    return `${escapeLabel(c.label)}<br/><small class="number-card-label">GDP Per Capita</small>`;
   }
 
   calendarAxisTickFormatting(mondayString: string) {

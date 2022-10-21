@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import chartGroups from './chartTypes';
 import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
-import { ChartOptions, Configuration, InputFormat } from "chart-adapter";
+import { ChartOptions, Configuration} from "chart-adapter";
 
 import {MatStepper} from "@angular/material/stepper";
 
@@ -21,8 +21,7 @@ export class ChartBuilderComponent {
   configuration: Configuration = {
     chartType: 'bar-vertical',
     chartOptions: this.options,
-    view: [700, 300],
-    inputFormat: InputFormat.singleSeries
+    view: [700, 300]
   };
 
   theme = 'dark';
@@ -68,14 +67,9 @@ export class ChartBuilderComponent {
 
   selectResults(result: any) {
     if (result) {
-      console.log('select datasource', result());
       this.data = result();
+      console.log('select datasource', this.data);
     }
-  }
-
-  selectInputFormat(inputFormat: InputFormat) {
-    console.log('selectInputFormat', inputFormat);
-    this.configuration.inputFormat = inputFormat;
   }
 
   selectChartType(chartType: string) {

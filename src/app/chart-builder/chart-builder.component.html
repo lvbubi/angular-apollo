@@ -12,9 +12,7 @@
         <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
-            <input-format-selector [chartType]="configuration.chartType" (selectInputFormatEvent)="selectInputFormat($event)">
-            </input-format-selector>
-            <chart-type-selector [inputFormat]="configuration.inputFormat" [chartType]="configuration.chartType" (selectChartTypeEvent)="selectChartType($event)"></chart-type-selector>
+            <chart-type-selector [data]="data" [chartType]="configuration.chartType" (selectChartTypeEvent)="selectChartType($event)"></chart-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
@@ -36,7 +34,7 @@
   </div>
   <div id="mainContent">
   <chart-adapter-component [configuration]="configuration"
-                 [data]="data"
+                 [dataSource]="data"
                  (deactivate)="deactivate($event)"
                  (select)="select($event)"
                  (activate)="activate($event) ">

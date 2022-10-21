@@ -7,7 +7,7 @@ import { data } from "./data";
 
 @Component({
   selector: 'app-simple-chart',
-  template: `<chart-adapter-component [data]="data"
+  template: `<chart-adapter-component [dataSource]="data"
     [configuration]="configuration">
   </chart-adapter-component>`
 })
