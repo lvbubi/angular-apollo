@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {jsonSyntaxValidator} from "../../input/json-input/json-input.component";
 import {Store} from "@ngrx/store";
 import {State} from "../../../../chart-builder/store/chart.reducer";
@@ -13,7 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class CustomDataSourceComponent {
 
-  dataSourceFormControl = new FormControl('', [jsonSyntaxValidator()]);
+  dataSourceFormControl = new FormControl('', [Validators.required, jsonSyntaxValidator(true)]);
   mapperFormControl = new FormControl('', [jsonSyntaxValidator()]);
 
   form: FormGroup = this.formBuilder.group({
@@ -31,12 +31,16 @@ export class CustomDataSourceComponent {
   submit() {
     try {
       const dataSource = JSON.parse(this.dataSourceFormControl.value);
-      this.dataTransformService.processDataSource(dataSource, this.mapperFormControl.value, this.resultEvent);
+      this.dataTransformService.transform(dataSource, this.mapperFormControl.value, this.resultEvent);
     } catch (e) {
       this._snackBar.open(e, "Try a new mapper!", {
         duration: 5000,
         panelClass: ['red-snackbar', 'login-snackbar'],
       });
     }
+  }
+
+  isDisabled(): boolean {
+    return this.mapperFormControl.invalid || this.dataSourceFormControl.invalid;
   }
 }

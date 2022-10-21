@@ -12,7 +12,7 @@ export class GenericRestApiService {
   }
 
   genericRestApiCall(api: string, method: string): Promise<any> {
-    console.log('url:', api);
+    console.log('genericRestApiCall:', api, method);
 
     if (method == 'GET') {
       return this.http

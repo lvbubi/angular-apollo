@@ -11,10 +11,10 @@ import {DataTransformService} from "../../../service/data-transform.service";
 })
 export class KongDataSourceComponent {
 
-  @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() dataSource: EventEmitter<any> = new EventEmitter<any>();
 
   restApiFormControl = new FormControl('', [Validators.required, Validators.pattern("/[A-z]*")]);
-  mapperFormControl = new FormControl('', [Validators.required, jsonSyntaxValidator()]);
+  mapperFormControl = new FormControl('', [jsonSyntaxValidator()]);
   methodTypeFormControl = new FormControl('GET', [Validators.required]);
 
   methods = ['GET', 'POST'];
@@ -31,10 +31,15 @@ export class KongDataSourceComponent {
               private _snackBar: MatSnackBar) { }
 
   submit() {
-    this.apiService.genericRestApiCall(this.restApiFormControl.value, this.methodTypeFormControl.value)
+    let api = this.restApiFormControl.value;
+    let requestMethod = this.methodTypeFormControl.value;
+    let mapper = this.mapperFormControl.value;
+    let event = this.dataSource;
+
+    this.apiService.genericRestApiCall(api, requestMethod)
       .then(result => {
         try {
-          this.dataTransformService.processDataSource(result, this.mapperFormControl.value, this.resultEvent);
+          this.dataTransformService.transform(result, mapper, event);
         } catch (e) {
           this._snackBar.open(e, "Try a new mapper!", {
             duration: 5000,

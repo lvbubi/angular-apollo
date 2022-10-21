@@ -13,7 +13,7 @@ export class DataSourceSelectorComponent {
   dataSourceType: string;
   dataSourceTypes: string[];
 
-  @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() dataSource: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private dataService: DataService, private _ngZone: NgZone) {
     this.dataMap.set("graphql", null);
@@ -36,6 +36,6 @@ export class DataSourceSelectorComponent {
     if (resultKey === 'custom' || resultKey === 'graphql') {
       return;
     }
-    this.resultEvent.emit(this.dataMap.get(resultKey));
+    this.dataSource.emit(this.dataMap.get(resultKey));
   }
 }

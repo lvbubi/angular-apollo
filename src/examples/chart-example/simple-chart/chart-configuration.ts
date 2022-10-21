@@ -1,9 +1,11 @@
-import { Configuration } from "chart-adapter";
+import {Configuration} from "chart-adapter";
+import {LegendPosition, ScaleType} from "@swimlane/ngx-charts";
+
 export const configuration: Configuration = {
   chartType: "bar-vertical",
   chartOptions: {
     "animations": true,
-    "schemeType": "ordinal",
+    "schemeType": ScaleType.Ordinal,
     "showXAxis": true,
     "showYAxis": true,
     "gradient": false,
@@ -11,7 +13,7 @@ export const configuration: Configuration = {
     "noBarWhenZero": true,
     "showLegend": true,
     "legendTitle": "Legend",
-    "legendPosition": "right",
+    "legendPosition": LegendPosition.Right,
     "showXAxisLabel": true,
     "xAxisLabel": "Country",
     "showYAxisLabel": true,

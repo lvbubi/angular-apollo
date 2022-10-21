@@ -8,7 +8,8 @@ export class DataTransformService {
 
   constructor() { }
 
-  processDataSource(data:any, mapper, outputEvent: EventEmitter<any>) {
+  transform(data:any, mapper, outputEvent: EventEmitter<any>) {
+    console.log('Data:', data);
     const dataMapper = JSON.parse(mapper);
     let mappedObject = objectMapper(data, dataMapper);
     if (mappedObject == undefined) {

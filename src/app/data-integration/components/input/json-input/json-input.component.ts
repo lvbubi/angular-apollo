@@ -5,9 +5,14 @@ import {
   AbstractControl, FormControl, ValidationErrors, ValidatorFn
 } from "@angular/forms";
 
-export function jsonSyntaxValidator(): ValidatorFn {
+export function jsonSyntaxValidator(required?: boolean): ValidatorFn {
   return (control:AbstractControl) : ValidationErrors | null => {
     const value = control.value;
+
+    // if empty no validation is needed
+    if (required && !value) {
+      return { syntaxError:true };
+    }
 
     if (!value) {
       return null;
@@ -36,13 +41,5 @@ export class JsonInputComponent {
 
   formControl(): FormControl {
     return this.formControlInput as FormControl;
-  }
-
-  validateForm() {
-    try {
-      JSON.parse(this.formControlInput.value);
-    } catch (e) {
-      this.formControlInput.setErrors({ syntaxError: true });
-    }
   }
 }

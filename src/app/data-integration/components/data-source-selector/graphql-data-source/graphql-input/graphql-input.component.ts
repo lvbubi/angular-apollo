@@ -8,7 +8,7 @@ export function graphqlSyntaxValidator(): ValidatorFn {
     const value = control.value;
 
     if (!value) {
-      return null;
+      return { syntaxError:true };
     }
 
     try {
@@ -35,15 +35,5 @@ export class GraphqlInputComponent {
 
   formControl(): FormControl {
     return this.formControlInput as FormControl;
-  }
-
-  validateForm() {
-    try {
-      console.log('before parse:', this.formControlInput.value);
-      parse(this.formControlInput.value);
-    } catch (e) {
-      console.log('PARSE FAILED: ', e);
-      this.formControlInput.setErrors({ syntaxError: true });
-    }
   }
 }

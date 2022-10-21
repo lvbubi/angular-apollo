@@ -13,11 +13,11 @@ import {DataTransformService} from "../../../service/data-transform.service";
 })
 export class GraphqlDataSourceComponent {
 
-  @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
+  @Output() dataSource: EventEmitter<any> = new EventEmitter<any>();
 
   graphqlApiFormControl = new FormControl('', [Validators.required, Validators.pattern("/[A-z]*")]);
   graphqlQueryFormControl = new FormControl('', [Validators.required, graphqlSyntaxValidator()]);
-  mapperFormControl = new FormControl('', [Validators.required, jsonSyntaxValidator()]);
+  mapperFormControl = new FormControl('', [jsonSyntaxValidator()]);
 
   form: FormGroup = this.formBuilder.group({
     api: this.graphqlApiFormControl,
@@ -31,10 +31,14 @@ export class GraphqlDataSourceComponent {
               private _snackBar: MatSnackBar) { }
 
   submit() {
-    this.apiService.genericGraphqlQuery(this.graphqlApiFormControl.value, parse(this.graphqlQueryFormControl.value))
+    let api = this.graphqlApiFormControl.value;
+    let query = this.graphqlQueryFormControl.value;
+    let mapper = this.mapperFormControl.value;
+    let event = this.dataSource;
+    this.apiService.genericGraphqlQuery(api, parse(query))
       .then(result => {
         try {
-          this.dataTransformService.processDataSource(result, this.mapperFormControl.value, this.resultEvent);
+          this.dataTransformService.transform(result, mapper, event);
         } catch (e) {
           this._snackBar.open(e, "Try a new mapper!", {
             duration: 5000,

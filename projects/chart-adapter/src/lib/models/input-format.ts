@@ -1,8 +1,8 @@
 export enum InputFormat {
   singleSeries,
   multiSeries,
-  bubble,
-  boxMultiSeries,
-  graph,
-  single
+  // bubble,
+  // boxMultiSeries,
+  // graph,
+  // single
 }

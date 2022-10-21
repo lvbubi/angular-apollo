@@ -4,7 +4,7 @@
         <mat-step [completed]="data != null">
           <ng-template matStepLabel>Data Source</ng-template>
           <ng-template matStepContent>
-              <app-data-source-selector (resultEvent)="selectResults($event)">
+              <app-data-source-selector (dataSource)="selectResults($event)">
               </app-data-source-selector>
               <button mat-button matStepperNext>Next</button>
           </ng-template>

@@ -7,9 +7,8 @@
     </mat-error>
   </mat-form-field>
 
-  <h4>Basic mat-select</h4>
   <mat-form-field appearance="fill">
-    <mat-label>Favorite food</mat-label>
+    <mat-label>Request Method</mat-label>
     <mat-select [formControl]="methodTypeFormControl">
       <mat-option *ngFor="let method of methods" [value]="method">
         {{method}}
@@ -17,11 +16,11 @@
     </mat-select>
   </mat-form-field>
 
-
   <json-input-component [formControlInput]="mapperFormControl"
                         [label]="'Mapper'"></json-input-component>
   <mat-error *ngIf="form.hasError('semanticError')">
     Query result can not be mapped
   </mat-error>
+
   <button mat-button type="submit" [disabled]="mapperFormControl.invalid || restApiFormControl.invalid">Set DataSource</button>
 </form>

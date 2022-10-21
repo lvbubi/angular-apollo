@@ -13,7 +13,7 @@ const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 })
 export class ChartAdapterComponent implements OnInit {
 
-  @Input() configuration: Configuration
+  @Input() configuration: Configuration;
   @Input() data: any;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();

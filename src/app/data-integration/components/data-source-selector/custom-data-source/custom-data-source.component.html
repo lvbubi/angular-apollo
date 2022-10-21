@@ -1,7 +1,11 @@
 <form [formGroup]="form" (submit)="submit()">
   <json-input-component [formControlInput]="dataSourceFormControl"
-                        [label]="'DataSource'"></json-input-component>
+                        [label]="'DataSource'">
+  </json-input-component>
   <json-input-component [formControlInput]="mapperFormControl"
-                        [label]="'Mapper'"></json-input-component>
-  <button mat-button type="submit" [disabled]="mapperFormControl.invalid || dataSourceFormControl.invalid">Set DataSource</button>
+                        [label]="'Mapper'">
+  </json-input-component>
+  <button mat-button type="submit" [disabled]="isDisabled()">
+    Set DataSource
+  </button>
 </form>
