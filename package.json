@@ -21,8 +21,6 @@
     "@angular/platform-browser-dynamic": "^12.2.0",
     "@angular/router": "^12.2.0",
     "@apollo/client": "^3.0.0",
-    "@ngrx/store": "^12.2.0",
-    "@ngrx/store-devtools": "^12.2.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "apollo-angular": "^2.6.0",
     "emoji-flags": "^1.2.0",

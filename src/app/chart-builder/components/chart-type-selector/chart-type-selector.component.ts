@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 import chartGroups from '../../chartTypes';
-import { Configuration } from "chart-adapter";
+import { InputFormat } from "chart-adapter";
 
 
 @Component({
@@ -12,10 +12,13 @@ import { Configuration } from "chart-adapter";
 export class ChartTypeSelectorComponent implements OnChanges {
 
   @Input()
-  configuration: Configuration;
+  chartType: string;
 
   @Input()
-  inputFormat: string;
+  inputFormat: InputFormat;
+
+  @Output()
+  selectChartTypeEvent = new EventEmitter<string>();
 
   chartGroups: any = chartGroups;
 
@@ -24,15 +27,23 @@ export class ChartTypeSelectorComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateChartTypes(changes.inputFormat.currentValue);
+    console.log('ngOnChanges', changes);
+    if (changes?.inputFormat?.currentValue) {
+      this.updateChartTypes(changes.inputFormat.currentValue);
+    }
   }
 
-  updateChartTypes(inputFormat: string) {
+  chartTypeChange(changes: string): void {
+    console.log('chartTypeChange', changes);
+    this.selectChartTypeEvent.emit(changes);
+  }
+
+  updateChartTypes(inputFormat: InputFormat) {
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
       .forEach(chart => {
-        chart.visible = inputFormat === chart.inputFormat;
+        chart.visible = inputFormat == chart.inputFormat;
       })
   }
 }

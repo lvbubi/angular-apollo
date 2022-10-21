@@ -2,12 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import chartGroups from './chartTypes';
 import { colorSets } from "@swimlane/ngx-charts";
 import { BaseChartComponent } from "@swimlane/ngx-charts/lib/common/base-chart.component";
-import { ChartOptions, Configuration } from "chart-adapter";
-import { Store } from "@ngrx/store";
-import { State } from "./store/chart.reducer";
-import { ChartActions } from "./store/chart.actions";
-import * as _ from 'lodash';
-import {chartTypeSelector} from "./store/chart.selectors";
+import { ChartOptions, Configuration, InputFormat } from "chart-adapter";
 
 import {MatStepper} from "@angular/material/stepper";
 
@@ -16,19 +11,18 @@ import {MatStepper} from "@angular/material/stepper";
   templateUrl: './chart-builder.component.html',
   styleUrls: ['./chart-builder.component.css']
 })
-export class ChartBuilderComponent implements OnInit {
+export class ChartBuilderComponent {
   private chartGroups: any = chartGroups;
 
   @ViewChild('matStepper', { static: false }) matStepper: MatStepper;
 
-  chartType: string = 'bar-vertical';
-  inputFormat: string;
   options: ChartOptions = new ChartOptions();
 
   configuration: Configuration = {
-    chartType: this.chartType,
+    chartType: 'bar-vertical',
     chartOptions: this.options,
-    view: [700, 300]
+    view: [700, 300],
+    inputFormat: InputFormat.singleSeries
   };
 
   theme = 'dark';
@@ -39,21 +33,9 @@ export class ChartBuilderComponent implements OnInit {
   linearScale: boolean = false;
   range: boolean = false;
 
-  constructor(private store: Store<State>) {
-    this.store.dispatch(new ChartActions.SetChartGroupsAction(_.cloneDeep(this.chartGroups)));
-    this.store.dispatch(new ChartActions.SetConfigurationAction(_.cloneDeep(this.configuration)));
-
-    this.store.select(chartTypeSelector).subscribe(chartType => {
-      this.selectChartObservable(chartType)
-    });
-
+  constructor() {
     this.options.colorScheme = this.findColorScheme('cool');
     this.selectChartObservable(this.configuration.chartType);
-
-  }
-
-  ngOnInit(): void {
-
   }
 
   select(data) {
@@ -70,20 +52,6 @@ export class ChartBuilderComponent implements OnInit {
 
   findColorScheme(name) {
     return colorSets.find(s => s.name === name);
-  }
-
-  selectChart(chartSelector) {
-    console.log('select chart', chartSelector);
-
-    for (const group of this.chartGroups) {
-      this.chart = group.charts.find(x => x.selector === chartSelector);
-      if (this.chart) {
-        console.log('found');
-        break;
-      }
-    }
-
-    this.linearScale = false;
   }
 
   selectChartObservable(chartType: string) {
@@ -105,24 +73,13 @@ export class ChartBuilderComponent implements OnInit {
     }
   }
 
-  selectInputFormat(inputFormat: string) {
-    console.log('Dispatchinputformat', inputFormat);
-    this.inputFormat = inputFormat;
+  selectInputFormat(inputFormat: InputFormat) {
+    console.log('selectInputFormat', inputFormat);
+    this.configuration.inputFormat = inputFormat;
   }
 
-  updateStore(event: any) {
-    console.log('update,Store', event, this.configuration, this.data, this.matStepper);
-    switch (event.previouslySelectedIndex) {
-      case 0:
-        console.log('chartType collapsed');
-        // this.store.dispatch(new ChartActions.SetChartTypeAction(this.chartType));
-        break;
-      case 1:
-        console.log('options collapsed');
-        break;
-      case 2:
-        console.log('export collapsed');
-        break;
-    }
+  selectChartType(chartType: string) {
+    console.log('selectChartType', chartType);
+    this.configuration.chartType = chartType;
   }
 }

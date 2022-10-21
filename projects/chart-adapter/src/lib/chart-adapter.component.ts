@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { colorSets, escapeLabel, formatLabel } from "@swimlane/ngx-charts";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {colorSets, escapeLabel, formatLabel} from "@swimlane/ngx-charts";
 
 import * as objectMapper from 'object-mapper'
-import { Configuration } from "./models/configuration";
+import {Configuration} from "./models/configuration";
+import {InputFormat} from "./models/input-format";
+import {JsonArray} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
@@ -14,7 +16,7 @@ const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 export class ChartAdapterComponent implements OnInit {
 
   @Input() configuration: Configuration;
-  @Input() data: any;
+  @Input() data: JsonArray;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
   @Output() activate: EventEmitter<any> = new EventEmitter<any>();
@@ -23,6 +25,13 @@ export class ChartAdapterComponent implements OnInit {
   ngOnInit(): void {
     if (this.configuration.dataMapper) {
       this.data = objectMapper(this.data, this.configuration.dataMapper);
+    }
+
+
+    if (this.configuration.inputFormat === InputFormat.singleSeries) {
+
+    } else if (this.configuration.inputFormat == InputFormat.multiSeries) {
+
     }
 
     //TODO: Ez így gány, javítani kell

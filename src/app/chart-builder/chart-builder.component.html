@@ -1,6 +1,6 @@
 <div>
   <div id="sideContent">
-      <mat-stepper orientation="vertical" (selectionChange)="updateStore($event)" #matStepper>
+      <mat-stepper orientation="vertical" #matStepper>
         <mat-step [completed]="data != null">
           <ng-template matStepLabel>Data Source</ng-template>
           <ng-template matStepContent>
@@ -14,13 +14,13 @@
           <ng-template matStepContent>
             <input-format-selector [chartType]="configuration.chartType" (selectInputFormatEvent)="selectInputFormat($event)">
             </input-format-selector>
-            <chart-type-selector [inputFormat]="inputFormat" [configuration]="configuration"></chart-type-selector>
+            <chart-type-selector [inputFormat]="configuration.inputFormat" [chartType]="configuration.chartType" (selectChartTypeEvent)="selectChartType($event)"></chart-type-selector>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
-          <app-chart-options [chartType]="chartType" [chart]="chart" [options]="options"></app-chart-options>
+          <app-chart-options [chartType]="configuration.chartType" [chart]="chart" [options]="options"></app-chart-options>
           <ng-template matStepContent>
             <p>This content was also rendered lazily</p>
             <button mat-button matStepperPrevious>Back</button>
@@ -29,7 +29,7 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Export</ng-template>
-          <app-export-options [options]="options"></app-export-options>
+          <app-export-options [configuration]="configuration"></app-export-options>
           <button mat-button matStepperPrevious>Back</button>
         </mat-step>
       </mat-stepper>

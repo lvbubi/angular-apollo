@@ -6,3 +6,4 @@ export enum InputFormat {
   // graph,
   // single
 }
+

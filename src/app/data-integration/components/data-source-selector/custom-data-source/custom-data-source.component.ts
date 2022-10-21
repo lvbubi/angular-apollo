@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {jsonSyntaxValidator} from "../../input/json-input/json-input.component";
-import {Store} from "@ngrx/store";
-import {State} from "../../../../chart-builder/store/chart.reducer";
 import {DataTransformService} from "../../../service/data-transform.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -23,8 +21,7 @@ export class CustomDataSourceComponent {
 
   @Output() resultEvent: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private store: Store<State>,
-              private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private dataTransformService: DataTransformService,
               private _snackBar: MatSnackBar) {}
 

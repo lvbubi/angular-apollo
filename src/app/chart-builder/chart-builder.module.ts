@@ -9,8 +9,6 @@ import { InputFormatComponent } from "./components/input-format-selector/input-f
 import { ChartTypeSelectorComponent } from "./components/chart-type-selector/chart-type-selector.component";
 import { ChartBuilderComponent } from "./chart-builder.component";
 import { RouterModule } from "@angular/router";
-import { StoreModule } from "@ngrx/store";
-import * as fromScoreboard from './store/chart.reducer';
 import { TextFieldModule } from "@angular/cdk/text-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatDividerModule } from "@angular/material/divider";
@@ -32,7 +30,6 @@ import {ChartExportModule} from "../chart-export/chart-export.module";
     RouterModule.forRoot([
       {path: 'builder', component: ChartBuilderComponent}
     ]),
-    StoreModule.forFeature(fromScoreboard.scoreboardFeatureKey, fromScoreboard.reducer),
     CommonModule,
     BrowserAnimationsModule,
     FormsModule,

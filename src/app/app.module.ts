@@ -5,8 +5,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ChartExampleModule } from "../examples/chart-example/chart-example.module";
 import { PetExampleModule } from '../examples/pet-example/pet-example.module';
@@ -28,16 +26,9 @@ import { ChartExportModule } from './chart-export/chart-export.module';
     RouterModule.forRoot([
       {path: 'builder', component: AppComponent}
     ]),
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
-    }),
     HttpClientModule,
     ChartBuilderModule,
     ChartExampleModule,
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     PetExampleModule,
     MatSidenavModule,
     BrowserAnimationsModule,

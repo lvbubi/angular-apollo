@@ -1,6 +1,6 @@
 import { Configuration } from "chart-adapter";
 
-export const configuration: Configuration = {
+export const configuration: Partial<Configuration> = {
   view: [700, 500],
   chartType: "bar-vertical",
   dataMapper: {

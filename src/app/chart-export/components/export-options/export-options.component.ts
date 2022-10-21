@@ -1,10 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { ChartOptions, Configuration } from "chart-adapter";
-import { Store } from "@ngrx/store";
-import { State } from "../../../chart-builder/store/chart.reducer";
-import { configurationSelector } from "../../../chart-builder/store/chart.selectors";
+import { Configuration } from "chart-adapter";
 
-import chartGroups from "../../../chart-builder/chartTypes";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { ChartRegisterService } from "../../../chart-builder/service/chart-register.service";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -17,26 +13,20 @@ import { ConfigurationParserService } from "../../service/configuration-parser.s
 })
 export class ExportOptionsComponent implements OnInit {
 
-  @Input() options: ChartOptions;
+  @Input() configuration: Configuration;
 
   sanitizedBlobUrl: any;
 
-  configuration: Configuration;
-
-  chartGroups: any = chartGroups;
-
-  constructor(private store: Store<State>,
-              private chartRegisterService: ChartRegisterService,
+  constructor(private chartRegisterService: ChartRegisterService,
               public dialog: MatDialog,
               private sanitizer: DomSanitizer,
               private parser: ConfigurationParserService) {
-    store.select(configurationSelector).subscribe(configuration => this.configuration = configuration);
   }
 
   ngOnInit(): void {}
 
   async exportOptions() {
-    let chartOptionsString = this.parser.createTypescriptFile();
+    let chartOptionsString = this.parser.createTypescriptFile(this.configuration);
 
     this.chartRegisterService.addNewConfiguration(this.configuration.chartType, chartOptionsString);
 
@@ -46,7 +36,7 @@ export class ExportOptionsComponent implements OnInit {
   }
 
   async viewOptions() {
-    let chartOptions = this.parser.mapOptionsToObject();
+    let chartOptions = this.parser.mapOptionsToObject(this.configuration);
     this.dialog.open(ExportOptionsDialog, {
         data: chartOptions
       }

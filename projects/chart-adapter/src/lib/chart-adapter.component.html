@@ -606,20 +606,6 @@
   (deactivate)="deactivate.emit($event)"
 >
 </ngx-charts-heat-map>
-<ngx-charts-tree-map
-  *ngIf="configuration.chartType === 'tree-map'"
-  class="chart-container"
-  [view]="configuration.view"
-  [scheme]="configuration.chartOptions.colorScheme"
-  [results]="data"
-  [animations]="configuration.chartOptions.animations"
-  [tooltipDisabled]="configuration.chartOptions.tooltipDisabled"
-  [labelFormatting]="gdpLabelFormatting"
-  [valueFormatting]="currencyFormatting"
-  [gradient]="configuration.chartOptions.gradient"
-  (select)="select.emit($event)"
->
-</ngx-charts-tree-map>
 <ngx-charts-number-card
   *ngIf="configuration.chartType === 'number-card'"
   class="chart-container"
@@ -632,33 +618,3 @@
   (select)="select.emit($event)"
 >
 </ngx-charts-number-card>
-<ngx-charts-box-chart
-  *ngIf="configuration.chartType === 'box-plot'"
-  class="chart-container"
-  [view]="configuration.view"
-  [results]="data"
-  [scheme]="configuration.chartOptions.colorScheme"
-  [schemeType]="configuration.chartOptions.schemeType"
-  [customColors]="configuration.chartOptions.customColors"
-  [strokeColor]="configuration.chartOptions.strokeColor"
-  [strokeWidth]="configuration.chartOptions.strokeWidth"
-  [xAxis]="configuration.chartOptions.showXAxis"
-  [yAxis]="configuration.chartOptions.showYAxis"
-  [legend]="configuration.chartOptions.showLegend"
-  [legendTitle]="configuration.chartOptions.legendTitle"
-  [legendPosition]="configuration.chartOptions.legendPosition"
-  [showXAxisLabel]="configuration.chartOptions.showXAxisLabel"
-  [showYAxisLabel]="configuration.chartOptions.showYAxisLabel"
-  [tooltipDisabled]="configuration.chartOptions.tooltipDisabled"
-  [xAxisLabel]="configuration.chartOptions.xAxisLabel"
-  [yAxisLabel]="configuration.chartOptions.yAxisLabel"
-  [showGridLines]="configuration.chartOptions.showGridLines"
-  [roundDomains]="configuration.chartOptions.roundDomains"
-  [roundEdges]="configuration.chartOptions.roundEdges"
-  [gradient]="configuration.chartOptions.gradient"
-  [animations]="configuration.chartOptions.animations"
-  (select)="select.emit($event)"
-  (activate)="activate.emit($event)"
-  (deactivate)="deactivate.emit($event)"
->
-</ngx-charts-box-chart>

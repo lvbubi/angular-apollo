@@ -8,12 +8,12 @@ import { InputFormat } from 'chart-adapter'
   styleUrls: ['./input-format.component.css']
 })
 export class InputFormatComponent {
-  inputFormats: string[];
+  inputFormats: InputFormat[];
 
-  selectedInputFormat: string;
+  selectedInputFormat: InputFormat;
 
   @Output()
-  selectInputFormatEvent = new EventEmitter<string>();
+  selectInputFormatEvent = new EventEmitter<InputFormat>();
 
   @Input()
   chartType: string;
@@ -24,7 +24,7 @@ export class InputFormatComponent {
       .map(key => InputFormat[key])
   }
 
-  selectDataType(selectedInputFormat: string) {
+  selectDataType(selectedInputFormat: InputFormat) {
     this.selectedInputFormat = selectedInputFormat;
     this.selectInputFormatEvent.emit(selectedInputFormat);
   }

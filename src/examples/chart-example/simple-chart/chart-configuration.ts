@@ -1,4 +1,4 @@
-import {Configuration} from "chart-adapter";
+import {Configuration, InputFormat} from "chart-adapter";
 import {LegendPosition, ScaleType} from "@swimlane/ngx-charts";
 
 export const configuration: Configuration = {
@@ -37,5 +37,6 @@ export const configuration: Configuration = {
     "[].name": "[].name",
     "[].value": "[].value",
     "[].extra": "[].extra"
-  }
+  },
+  inputFormat: InputFormat.singleSeries
 }

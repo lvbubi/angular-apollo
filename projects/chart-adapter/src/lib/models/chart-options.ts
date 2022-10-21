@@ -9,7 +9,7 @@ export class ChartOptions {
   gradient = false;
   showLegend = true;
   legendTitle = 'Legend';
-  legendPosition = LegendPosition.Right;
+  legendPosition: any = LegendPosition.Right;
   showXAxisLabel = true;
   tooltipDisabled = false;
   showText = true;
@@ -68,7 +68,7 @@ export class ChartOptions {
 
   colorSets: Color[] = colorSets;
   colorScheme: any;
-  schemeType = ScaleType.Ordinal;
+  schemeType: any = ScaleType.Ordinal;
   selectedColorScheme: string;
   rangeFillOpacity: number = 0.15;
   interpolationTypes = [

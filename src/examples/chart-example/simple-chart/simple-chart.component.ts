@@ -12,7 +12,6 @@ import { data } from "./data";
   </chart-adapter-component>`
 })
 export class SimpleChartComponent {
-
   configuration: Configuration = configuration;
   data: any = data;
   constructor() { }
