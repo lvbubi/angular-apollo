@@ -22,6 +22,7 @@ export class DataTransformService {
         throw "Mapped result is empty";
       }
     }
+
     if (this.chartAdapterService.isSingleSeries(mappedObject) || this.chartAdapterService.isMultiSeries(mappedObject)) {
       outputEvent.emit(() => mappedObject);
     } else {

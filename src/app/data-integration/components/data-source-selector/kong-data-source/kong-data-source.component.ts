@@ -4,6 +4,7 @@ import {jsonSyntaxValidator} from "../../input/json-input/json-input.component";
 import {GenericRestApiService} from "../../../service/generic-rest-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DataTransformService} from "../../../service/data-transform.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-kong-data-source',
@@ -41,11 +42,16 @@ export class KongDataSourceComponent {
         try {
           this.dataTransformService.transform(result, mapper, event);
         } catch (e) {
-          this._snackBar.open(e, "Try a new mapper!", {
-            duration: 5000,
-            panelClass: ['red-snackbar','login-snackbar'],
-          });
+          this.exceptionHandler(e, "Try a new mapper!");
         }
-      });
+      }, (error: HttpErrorResponse) => this.exceptionHandler(error.url, "Invalid API call"));
+  }
+
+  exceptionHandler(exception, message) {
+    console.log(exception);
+    this._snackBar.open(exception, message, {
+      duration: 5000,
+      panelClass: ['red-snackbar','login-snackbar'],
+    });
   }
 }

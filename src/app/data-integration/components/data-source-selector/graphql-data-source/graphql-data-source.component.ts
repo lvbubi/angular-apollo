@@ -6,6 +6,7 @@ import {jsonSyntaxValidator} from "../../input/json-input/json-input.component";
 import {parse} from "graphql";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DataTransformService} from "../../../service/data-transform.service";
+import {ApolloError} from "@apollo/client/core";
 
 @Component({
   selector: 'app-graphql-data-source',
@@ -40,11 +41,18 @@ export class GraphqlDataSourceComponent {
         try {
           this.dataTransformService.transform(result, mapper, event);
         } catch (e) {
-          this._snackBar.open(e, "Try a new mapper!", {
-            duration: 5000,
-            panelClass: ['red-snackbar','login-snackbar'],
-          });
+          this.exceptionHandler(e, "Try a new mapper!");
         }
-      });
+      }).catch((error: ApolloError) => {
+        this.exceptionHandler(error.message, "Invalid API call");
+    });
+  }
+
+  exceptionHandler(exception, message) {
+    console.log(exception);
+    this._snackBar.open(exception, message, {
+      duration: 5000,
+      panelClass: ['red-snackbar','login-snackbar'],
+    });
   }
 }

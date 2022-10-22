@@ -39,7 +39,6 @@ export class ChartTypeSelectorComponent implements OnChanges {
 
   updateChartTypes() {
     let inputFormat: InputFormat;
-    console.log("updateChartTypes", this.data);
     if (this.chartAdapterService.isSingleSeries(this.data)) {
       inputFormat = InputFormat.singleSeries;
     } else if (this.chartAdapterService.isMultiSeries(this.data)) {
@@ -47,7 +46,8 @@ export class ChartTypeSelectorComponent implements OnChanges {
     } else {
       throw "Invalid dataSource format";
     }
-    console.log("updateChartTypes", "inputFormat", inputFormat);
+
+    console.log("updateChartTypes", "inputFormat", inputFormat, "data", this.data);
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
