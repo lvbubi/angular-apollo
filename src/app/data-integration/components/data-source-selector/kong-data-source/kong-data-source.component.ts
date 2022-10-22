@@ -44,11 +44,11 @@ export class KongDataSourceComponent {
         } catch (e) {
           this.exceptionHandler(e, "Try a new mapper!");
         }
-      }, (error: HttpErrorResponse) => this.exceptionHandler(error.url, "Invalid API call"));
+      }, (error: HttpErrorResponse) =>
+        this.exceptionHandler(error.url, "Invalid API call"));
   }
 
   exceptionHandler(exception, message) {
-    console.log(exception);
     this._snackBar.open(exception, message, {
       duration: 5000,
       panelClass: ['red-snackbar','login-snackbar'],

@@ -3,15 +3,39 @@ import {DataItem, Series} from "@swimlane/ngx-charts/lib/models/chart-data.model
 import {MultiSeries, SingleSeries} from "@swimlane/ngx-charts";
 import {isIterable} from "rxjs/internal-compatibility";
 
+import * as objectMapper from 'object-mapper'
+
 @Injectable({
   providedIn: 'root'
 })
-export class ChartAdapterService {
+export class DataSourceMapper {
 
   constructor() { }
 
+  map(dataSource: any, mapper: any): SingleSeries | MultiSeries {
+    let newData;
+    if (mapper) {
+      newData = objectMapper(dataSource, JSON.parse(mapper));
+    } else {
+      newData = dataSource;
+    }
+
+    if (this.isValidDataSource(newData)) {
+      return newData;
+    }
+
+    throw "Invalid dataSource format";
+  }
+
+
+
+  isValidDataSource(dataSource: any) {
+    return this.isSingleSeries(dataSource) || this.isMultiSeries(dataSource);
+  }
+
   isSingleSeries(dataSource: SingleSeries | MultiSeries): dataSource is SingleSeries {
     if (!isIterable(dataSource)) {
+      console.log('not iterable', dataSource);
       throw "dataSource is not iterable";
     }
 
@@ -25,15 +49,6 @@ export class ChartAdapterService {
 
     return this.isMultiSeriesElement(dataSource[0]);
   }
-
-  private isIterable(obj) {
-    // checks for null and undefined
-    if (obj == null) {
-      return false;
-    }
-    return typeof obj[Symbol.iterator] === 'function';
-  }
-
 
   private isSingleSeriesElement(element: DataItem | Series): element is DataItem {
     return (element as DataItem).value !== undefined;

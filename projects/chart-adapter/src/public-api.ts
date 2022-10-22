@@ -3,7 +3,7 @@
  */
 
 
-export * from './lib/chart-adapter.service';
+export * from './lib/data-source-mapper.service';
 export * from './lib/chart-adapter.component';
 export * from './lib/chart-adapter.module';
 

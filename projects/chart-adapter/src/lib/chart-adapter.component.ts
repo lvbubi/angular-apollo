@@ -1,9 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {colorSets, escapeLabel, formatLabel, MultiSeries, SingleSeries} from "@swimlane/ngx-charts";
 
-import * as objectMapper from 'object-mapper'
 import {Configuration} from "./models/configuration";
-import {ChartAdapterService} from "./chart-adapter.service";
+import {DataSourceMapper} from "./data-source-mapper.service";
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 
@@ -23,12 +22,12 @@ export class ChartAdapterComponent implements OnInit, OnChanges {
 
   data: SingleSeries | MultiSeries;
 
-  constructor(private chartAdapterService: ChartAdapterService) {
+  constructor(private chartAdapterService: DataSourceMapper) {
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateData();
+    this.data = this.chartAdapterService.map(this.dataSource, this.configuration.dataMapper);
   }
 
 
@@ -36,21 +35,6 @@ export class ChartAdapterComponent implements OnInit, OnChanges {
     //TODO: Ez így gány, javítani kell
     if (!this.configuration.chartOptions.colorScheme) {
       this.configuration.chartOptions.colorScheme = this.findColorScheme('cool');
-    }
-  }
-
-  updateData() {
-    let newData;
-    if (this.configuration.dataMapper) {
-      newData = objectMapper(this.dataSource, this.configuration.dataMapper);
-    } else {
-      newData = this.dataSource;
-    }
-
-    if (this.chartAdapterService.isMultiSeries(newData) || this.chartAdapterService.isSingleSeries(newData)) {
-      this.data = newData;
-    } else {
-      throw "Invalid dataSource format";
     }
   }
 

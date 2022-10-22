@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 import chartGroups from '../../chartTypes';
-import { InputFormat } from "chart-adapter";
-import {ChartAdapterService} from "../../../../../projects/chart-adapter/src/lib/chart-adapter.service";
+import { InputFormat, DataSourceMapper } from "chart-adapter";
 
 
 @Component({
@@ -23,9 +22,7 @@ export class ChartTypeSelectorComponent implements OnChanges {
 
   chartGroups: any = chartGroups;
 
-  constructor(private chartAdapterService: ChartAdapterService) {
-    this.updateChartTypes();
-  }
+  constructor(private chartAdapterService: DataSourceMapper) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges', changes);
@@ -39,6 +36,7 @@ export class ChartTypeSelectorComponent implements OnChanges {
 
   updateChartTypes() {
     let inputFormat: InputFormat;
+    console.log('ChartTypeSelectorComponent', 'data', this.data);
     if (this.chartAdapterService.isSingleSeries(this.data)) {
       inputFormat = InputFormat.singleSeries;
     } else if (this.chartAdapterService.isMultiSeries(this.data)) {
@@ -47,7 +45,6 @@ export class ChartTypeSelectorComponent implements OnChanges {
       throw "Invalid dataSource format";
     }
 
-    console.log("updateChartTypes", "inputFormat", inputFormat, "data", this.data);
     this.chartGroups
       .filter(group => !group.disabled)
       .flatMap(group => group.charts)
