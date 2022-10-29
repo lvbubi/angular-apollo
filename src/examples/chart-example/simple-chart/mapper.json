@@ -3,10 +3,3 @@
   "[].value": "[].value",
   "[].extra": "[].extra"
 }
-
-
-
-{
-  "[].name": "[].name",
-  "[].statistic.maxSepalWidth": "[].value"
-}

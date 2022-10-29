@@ -28,7 +28,7 @@ export class ConfigurationParserService {
     const asd: string = this.exportConfigurationModel.body.map(entry => `\n  ${entry.key}: ${entry.values}`).toString();
 
 
-    return headerString + `export const configuration: Partial<Configuration> = { ${asd} \n}`;
+    return headerString + `export const configuration: Configuration = { ${asd} \n}`;
   }
 
   mapOptionsToObject(configuration: Configuration) {

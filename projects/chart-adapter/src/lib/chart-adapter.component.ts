@@ -13,7 +13,7 @@ const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 })
 export class ChartAdapterComponent implements OnInit, OnChanges {
 
-  @Input() configuration: Configuration;
+  @Input() configuration: Configuration;name: 'Germany'
   @Input() dataSource: any;
 
   @Output() select: EventEmitter<any> = new EventEmitter<any>();
@@ -22,12 +22,12 @@ export class ChartAdapterComponent implements OnInit, OnChanges {
 
   data: SingleSeries | MultiSeries;
 
-  constructor(private chartAdapterService: DataSourceMapper) {
+  constructor(private dataSourceMapper: DataSourceMapper) {
 
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.data = this.chartAdapterService.map(this.dataSource, this.configuration.dataMapper);
+    this.data = this.dataSourceMapper.map(this.dataSource, this.configuration.dataMapper);
   }
 
 

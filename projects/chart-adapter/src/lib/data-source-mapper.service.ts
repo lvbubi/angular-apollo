@@ -14,8 +14,10 @@ export class DataSourceMapper {
 
   map(dataSource: any, mapper: any): SingleSeries | MultiSeries {
     let newData;
+    console.log('dataSource', dataSource, 'mapper', mapper);
     if (mapper) {
-      newData = objectMapper(dataSource, JSON.parse(mapper));
+      let parsedMapper = mapper;
+      newData = objectMapper(dataSource, parsedMapper);
     } else {
       newData = dataSource;
     }
@@ -26,8 +28,6 @@ export class DataSourceMapper {
 
     throw "Invalid dataSource format";
   }
-
-
 
   isValidDataSource(dataSource: any) {
     return this.isSingleSeries(dataSource) || this.isMultiSeries(dataSource);
