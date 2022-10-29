@@ -1,5 +1,5 @@
 import { Component, EventEmitter, NgZone, Output } from '@angular/core';
-import { DataService } from "../../../chart-builder/data-service/data-service.component";
+import { DataService } from "../../service/data-service.component";
 import { single, multi, boxData, bubble, treemap, generateData } from '../../../chart-builder/data';
 
 @Component({
@@ -26,7 +26,7 @@ export class DataSourceSelectorComponent {
     this.dataMap.set("treemap", () => treemap);
     this.dataMap.set("dateData", () => generateData(5, false));
     this.dataMap.set("dateDataWithRange", () => generateData(2, true));
-    this.dataMap.set("calendarData", () => this.dataService.getCalendarData());
+    // this.dataMap.set("calendarData", () => this.dataService.getCalendarData());
     this.dataMap.set("statusData", () => this.dataService.getStatusData());
 
     this.dataSourceTypes = Array.from(this.dataMap.keys());

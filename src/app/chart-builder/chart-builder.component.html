@@ -18,17 +18,18 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
-          <app-chart-options [chartType]="configuration.chartType" [chart]="chart" [options]="options"></app-chart-options>
           <ng-template matStepContent>
-            <p>This content was also rendered lazily</p>
+            <app-chart-options [chartType]="configuration.chartType" [chart]="chart" [options]="configuration.chartOptions"></app-chart-options>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Export</ng-template>
-          <app-export-options [configuration]="configuration"></app-export-options>
-          <button mat-button matStepperPrevious>Back</button>
+          <ng-template matStepContent>
+            <app-export-options [configuration]="configuration"></app-export-options>
+            <button mat-button matStepperPrevious>Back</button>
+          </ng-template>
         </mat-step>
       </mat-stepper>
   </div>

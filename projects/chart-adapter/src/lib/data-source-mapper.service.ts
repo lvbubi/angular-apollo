@@ -35,26 +35,25 @@ export class DataSourceMapper {
 
   isSingleSeries(dataSource: SingleSeries | MultiSeries): dataSource is SingleSeries {
     if (!isIterable(dataSource)) {
-      console.log('not iterable', dataSource);
       throw "dataSource is not iterable";
     }
 
     return this.isSingleSeriesElement(dataSource[0]);
   }
 
-  isMultiSeries(dataSource: SingleSeries | MultiSeries): dataSource is MultiSeries {
-    if (!isIterable(dataSource)) {
+  isMultiSeries(data: SingleSeries | MultiSeries): data is MultiSeries {
+    if (!isIterable(data)) {
       throw "dataSource is not iterable";
     }
 
-    return this.isMultiSeriesElement(dataSource[0]);
-  }
-
-  private isSingleSeriesElement(element: DataItem | Series): element is DataItem {
-    return (element as DataItem).value !== undefined;
+    return this.isMultiSeriesElement(data[0]);
   }
 
   private isMultiSeriesElement(element: DataItem | Series): element is Series {
     return (element as Series).series !== undefined;
+  }
+
+  private isSingleSeriesElement(element: DataItem | Series): element is DataItem {
+    return (element as DataItem).value !== undefined;
   }
 }

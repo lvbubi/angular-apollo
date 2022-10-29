@@ -12,28 +12,27 @@ import {MatStepper} from "@angular/material/stepper";
   styleUrls: ['./chart-builder.component.css']
 })
 export class ChartBuilderComponent {
-  private chartGroups: any = chartGroups;
 
   @ViewChild('matStepper', { static: false }) matStepper: MatStepper;
 
-  options: ChartOptions = new ChartOptions();
+  private chartGroups: any = chartGroups;
+  data: any;
 
   configuration: Configuration = {
     chartType: 'bar-vertical',
-    chartOptions: this.options,
+    chartOptions: new ChartOptions(),
     view: [700, 300]
   };
 
-  theme = 'dark';
   chart: BaseChartComponent & ChartOptions;
 
-  data: any;
 
   linearScale: boolean = false;
   range: boolean = false;
+  theme = 'dark';
 
   constructor() {
-    this.options.colorScheme = this.findColorScheme('cool');
+    this.configuration.chartOptions.colorScheme = this.findColorScheme('cool');
     this.selectChartObservable(this.configuration.chartType);
   }
 

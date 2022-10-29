@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Configuration } from "chart-adapter";
 
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
-import { ChartRegisterService } from "../../../chart-builder/service/chart-register.service";
+import { ChartRegisterService } from "../../service/chart-register.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ConfigurationParserService } from "../../service/configuration-parser.service";
 
