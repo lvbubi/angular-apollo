@@ -12,19 +12,14 @@ import {MatStepper} from "@angular/material/stepper";
   styleUrls: ['./chart-builder.component.css']
 })
 export class ChartBuilderComponent {
-
   @ViewChild('matStepper', { static: false }) matStepper: MatStepper;
-
   data: any;
-
   configuration: Configuration = {
     chartType: 'bar-vertical',
     chartOptions: new ChartOptions(),
     view: [700, 300]
   };
-
   chart: BaseChartComponent & ChartOptions;
-
 
   linearScale: boolean = false;
   range: boolean = false;
