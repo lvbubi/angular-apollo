@@ -15,7 +15,6 @@ export class ChartBuilderComponent {
 
   @ViewChild('matStepper', { static: false }) matStepper: MatStepper;
 
-  private chartGroups: any = chartGroups;
   data: any;
 
   configuration: Configuration = {
@@ -56,7 +55,7 @@ export class ChartBuilderComponent {
     console.log('select observable chart', chartType);
     chartType = chartType.replace('/', '');
 
-    for (const group of this.chartGroups) {
+    for (const group of chartGroups) {
       this.chart = group.charts.find(x => x.selector === chartType);
       if (this.chart) break;
     }
