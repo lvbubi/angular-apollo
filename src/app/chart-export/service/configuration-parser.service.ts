@@ -13,6 +13,8 @@ export class ConfigurationParserService {
     this.exportConfigurationModel.headers.push('Configuration');
   }
 
+  // TODO: Enum értékeket át kell tudni parsolni stringről
+
   createTypescriptFile(configuration: Configuration) {
     const headerString = this.exportConfigurationModel.headers
       .map(header => `import { ${header} } from "chart-adapter";\n`)
