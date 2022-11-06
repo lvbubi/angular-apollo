@@ -6,29 +6,24 @@
           <ng-template matStepContent>
               <app-data-source-selector (dataSource)="selectResults($event)">
               </app-data-source-selector>
-              <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Chart Type</ng-template>
           <ng-template matStepContent>
-            <chart-type-selector [data]="data" [chartType]="configuration.chartType" (selectChartTypeEvent)="selectChartType($event)"></chart-type-selector>
-            <button mat-button matStepperNext>Next</button>
+            <chart-type-selector [data]="data" (selectChartTypeEvent)="selectChartType($event)"></chart-type-selector>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Options</ng-template>
           <ng-template matStepContent>
             <app-chart-options [chartType]="configuration.chartType" [chart]="chart" [options]="configuration.chartOptions"></app-chart-options>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
           </ng-template>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Export</ng-template>
           <ng-template matStepContent>
             <app-export-options [configuration]="configuration"></app-export-options>
-            <button mat-button matStepperPrevious>Back</button>
           </ng-template>
         </mat-step>
       </mat-stepper>

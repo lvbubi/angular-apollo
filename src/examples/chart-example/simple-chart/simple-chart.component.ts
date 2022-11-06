@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Configuration } from "chart-adapter";
 
 import { configuration } from "./chart-configuration";
-import { data } from "./data";
+import { single } from '../../../app/chart-builder/data';
 
 @Component({
   selector: 'app-simple-chart',
@@ -13,6 +13,6 @@ import { data } from "./data";
 })
 export class SimpleChartComponent {
   configuration: Configuration = configuration;
-  data: any = data;
+  data: any = single;
   constructor() { }
 }

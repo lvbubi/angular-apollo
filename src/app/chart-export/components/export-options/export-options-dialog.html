@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Options</h2>
+<h2 mat-dialog-title>Exported Diagram Options</h2>
 <mat-dialog-content class="mat-typography">
-  <div *ngFor="let property of data | keyvalue">
-    <p>{{ property.key }}: {{ property.value }}</p>
-  </div>
+  <code style="display:block; white-space:pre-wrap">
+    {{data}}
+  </code>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>

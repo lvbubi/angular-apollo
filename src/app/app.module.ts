@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from "@angular/router";
 import { ChartBuilderModule } from "./chart-builder/chart-builder.module";
-import { environment } from '../environments/environment';
 import { ChartExampleModule } from "../examples/chart-example/chart-example.module";
 import { PetExampleModule } from '../examples/pet-example/pet-example.module';
 import {MatSidenavModule} from "@angular/material/sidenav";

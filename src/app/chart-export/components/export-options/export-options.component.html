@@ -1,2 +1,11 @@
-<button mat-button (click)="viewOptions()" >View</button>
-<a mat-button [href]="sanitizedBlobUrl" (click)="exportOptions()" download="configuration.ts">Export</a>
+<button mat-button (click)="viewOptions()">
+  View
+</button>
+<a mat-button [href]="sanitizedBlobUrl"
+   (click)="exportToTypeScript()"
+   download="configuration.ts">
+  Export to TypeScript
+</a>
+<button mat-button (click)="exportToDatabase()">
+  Save to Database
+</button>

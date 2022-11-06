@@ -25,22 +25,29 @@ export class ExportOptionsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async exportOptions() {
+  async exportToTypeScript() {
     let chartOptionsString = this.parser.createTypescriptFile(this.configuration);
 
-    this.chartRegisterService.addNewConfiguration(this.configuration.chartType, chartOptionsString);
+    this.chartRegisterService.addNewConfiguration(
+      this.configuration.chartType, chartOptionsString);
 
-    //let blob = new Blob([chartOptionsString], { type: 'application/json' });
-    let blob = new Blob([chartOptionsString], { type: 'text/prs.typescript' });
-    this.sanitizedBlobUrl = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
+    let blob = new Blob([chartOptionsString],
+      { type: 'text/prs.typescript' });
+    this.sanitizedBlobUrl = this.sanitizer
+      .bypassSecurityTrustUrl(window.URL.createObjectURL(blob));
   }
 
-  async viewOptions() {
-    let chartOptions = this.parser.mapOptionsToObject(this.configuration);
+  viewOptions() {
+    let chartOptions = this.parser.createTypescriptFile(this.configuration);
     this.dialog.open(ExportOptionsDialog, {
         data: chartOptions
       }
     );
+  }
+
+  exportToDatabase() {
+    let chartOptionsString = this.parser.createTypescriptFile(this.configuration);
+    this.chartRegisterService.addNewConfiguration(this.configuration.chartType, chartOptionsString);
   }
 }
 

@@ -10,36 +10,22 @@ import { InputFormat, DataSourceMapper } from "chart-adapter";
   styleUrls: ['./chart-type-selector.component.css']
 })
 export class ChartTypeSelectorComponent implements OnChanges {
-
-  @Input()
-  chartType: string;
-
   @Input()
   data: any;
 
   @Output()
   selectChartTypeEvent = new EventEmitter<string>();
 
+  chartType: string;
   chartGroups: any = chartGroups;
 
-  constructor(private chartAdapterService: DataSourceMapper) {}
+  constructor(private dataSourceMapper: DataSourceMapper) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
-    this.updateChartTypes();
-  }
-
-  chartTypeChange(changes: string): void {
-    console.log('chartTypeChange', changes);
-    this.selectChartTypeEvent.emit(changes);
-  }
-
-  updateChartTypes() {
     let inputFormat: InputFormat;
-    console.log('ChartTypeSelectorComponent', 'data', this.data);
-    if (this.chartAdapterService.isSingleSeries(this.data)) {
+    if (this.dataSourceMapper.isSingleSeries(this.data)) {
       inputFormat = InputFormat.singleSeries;
-    } else if (this.chartAdapterService.isMultiSeries(this.data)) {
+    } else if (this.dataSourceMapper.isMultiSeries(this.data)) {
       inputFormat = InputFormat.multiSeries;
     } else {
       throw "Invalid dataSource format";
@@ -50,6 +36,11 @@ export class ChartTypeSelectorComponent implements OnChanges {
       .flatMap(group => group.charts)
       .forEach(chart => {
         chart.visible = inputFormat == chart.inputFormat;
-      })
+      });
+  }
+
+  chartTypeChange(changes: string): void {
+    console.log('chartTypeChange', changes);
+    this.selectChartTypeEvent.emit(changes);
   }
 }
