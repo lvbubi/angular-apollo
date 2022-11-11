@@ -1,0 +1,19 @@
+<form [formGroup]="form" (submit)="submit()">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>api</mat-label>
+    <input [formControl]="restApiFormControl" matInput placeholder="/pet" value="/pet">
+    <mat-error *ngIf="restApiFormControl.invalid">
+      Please enter a valid API path.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Request Method</mat-label>
+    <mat-select [formControl]="methodTypeFormControl">
+      <mat-option *ngFor="let method of methods" [value]="method">
+        {{method}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button type="submit" [disabled]="mapperFormControl.invalid || restApiFormControl.invalid">Set DataSource</button>
+</form>

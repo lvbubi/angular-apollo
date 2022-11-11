@@ -14,3 +14,6 @@
 <app-kong-data-source *ngIf="dataSourceType == 'kong'"
                       (dataSource)="dataSource.emit($event)">
 </app-kong-data-source>
+<app-node-red-data-source *ngIf="dataSourceType == 'node-red'"
+                      (dataSource)="dataSource.emit($event)">
+</app-node-red-data-source>

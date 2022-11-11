@@ -15,6 +15,14 @@
       "^/kong": ""
     }
   },
+  "/node-red": {
+    "target": "http://localhost:1880/",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/node-red": ""
+    }
+  },
   "/backend": {
     "target": "http://localhost:8081/chart",
     "secure": false,

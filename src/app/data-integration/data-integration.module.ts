@@ -14,6 +14,9 @@ import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatDialogModule} from "@angular/material/dialog";
+import {
+  NodeRedDataSourceComponent
+} from "./components/data-source-selector/node-red-data-source/node-red-data-source.component";
 
 
 
@@ -23,6 +26,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     CustomDataSourceComponent,
     GraphqlDataSourceComponent,
     KongDataSourceComponent,
+    NodeRedDataSourceComponent,
     AutosizeInputComponent,
     GraphqlInputComponent,
     JsonInputComponent

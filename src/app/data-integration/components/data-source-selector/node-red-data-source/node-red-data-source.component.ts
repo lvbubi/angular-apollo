@@ -6,13 +6,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {DataTransformService} from "../../../service/data-transform.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
-const ROOT_URL = '/kong';
+const ROOT_URL = '/node-red';
+
 
 @Component({
-  selector: 'app-kong-data-source',
-  templateUrl: './kong-data-source.component.html'
+  selector: 'app-node-red-data-source',
+  templateUrl: './node-red-data-source.component.html'
 })
-export class KongDataSourceComponent {
+export class NodeRedDataSourceComponent {
 
   @Output() dataSource: EventEmitter<any> = new EventEmitter<any>();
 
